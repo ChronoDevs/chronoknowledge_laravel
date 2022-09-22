@@ -1,0 +1,93 @@
+#the compose file version
+version: "3.8"
+
+services:
+
+  webserver:
+    image: nginx:stable-alpine
+    container_name: module_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - module
+
+  mysql:
+    image: mysql:8.0.21
+    container_name: module_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33061:3306"
+    environment: 
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes: 
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/mysql-custom.cnf
+    networks:
+      - module
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    container_name: module_PMA
+    depends_on:
+      - mysql
+    ports:
+      - "8082:80"
+    environment:
+      - PMA_HOST=${DB_HOST}
+    networks:
+      - module
+
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/php.dockerfile
+    container_name: module_php
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - module
+
+  #setup npm with node
+  npm:
+    image: node:14.9
+    container_name: module_npm
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+
+  #setup artisan with php
+  artisan:
+    build:
+      context: .
+      dockerfile: ./docker/php/php.dockerfile
+    container_name: module_artisan
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+    entrypoint: ['php','/var/www/html/artisan']
+    networks:
+      - module
+
+networks:
+  module:
