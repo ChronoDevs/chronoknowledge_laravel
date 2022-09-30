@@ -1,1 +1,15 @@
-//
+// @import '~bootstrap/dist/css/bootstrap.css';
+
+@import 'variables';
+
+body {
+  background: darkslategrey;
+  font-size: $base-font-size
+}
+
+.loaderCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
