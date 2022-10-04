@@ -2,9 +2,18 @@
 
 @import 'variables';
 
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 body {
-  background: darkslategrey;
-  font-size: $base-font-size
+  background: $brand-theme-color-primary;
+  font-size: $base-font-size;
 }
 
 .loaderCenter {

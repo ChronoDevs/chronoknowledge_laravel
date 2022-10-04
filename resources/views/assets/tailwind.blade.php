@@ -6,7 +6,18 @@
       theme: {
         extend: {
           colors: {
-            clifford: '#da373d',
+            't-primary': '#78dcca',
+            't-secondary': '#3E4153',
+            't-btn': '#51536C',
+            'c-fb': '#5352ed',
+            'c-google': '#ff6348',
+            't-create': '#71C5DC',
+            't-success': 'rgba(76,175,80,.12)',
+            't-edit': 'white',
+            't-danger': 'rgba(244,67,54,.12)',
+            't-info': 'rgba(33,150,243,.12)',
+            't-info': 'rgba(255,152,0,.12)',
+            't-warning': 'rgba(255,152,0,.12)'
           }
         }
       }

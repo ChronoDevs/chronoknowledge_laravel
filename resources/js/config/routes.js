@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import LandingPage from '../pages/landing/LandingPage.vue'
+import authRoutes from '../pages/auth'
+
 
 const routes = [
   {
@@ -11,6 +13,7 @@ const routes = [
     name: 'landing-page',
     component: LandingPage
   },
+  ...authRoutes
 ];
 
 const router = new Router({

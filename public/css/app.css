@@ -1,5 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 body {
-  background: darkslategrey;
+  background: #2B2C36;
   font-size: 100%;
 }
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import appConfig from './app.env'
 import axios from 'axios'
-// import { getters, mutations, actions } from '../store/'
+import { getters, mutations, actions } from '../store'
 
 const instance = axios.create({
     baseURL: appConfig.SERVER_URL
