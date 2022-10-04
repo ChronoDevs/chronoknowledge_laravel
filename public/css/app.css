@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+body {
+  background: #2B2C36;
+  font-size: 100%;
+}
+
+.loaderCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
