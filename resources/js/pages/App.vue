@@ -8,6 +8,16 @@
     <router-link :to="{ name: 'login' }">Login</router-link>
     <router-link :to="{ name: 'register' }">Register</router-link>
     <router-view></router-view>
+
+    <ui-alert
+        :showAlert="alert.showAlert"
+        :type="alert.type"
+        :removeIcon="alert.removeIcon"
+        :disableAnimation="alert.disableAnimation"
+        :dismissible="alert.dismissible"
+        :timer="alert.timer">
+        {{ alert.message }}
+    </ui-alert>
   </div>
 </template>
 
@@ -17,37 +27,27 @@ import { getters, mutations, actions } from "../store";
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
+Vue.component("ErrorInput", require("../components/ErrorInput.vue").default);
 Vue.component("ClipLoader", require("vue-spinner/src/ClipLoader.vue").default);
 
 export default {
   data() {
     return {
+      //
     };
   },
-  mounted () {
+  beforeMount() {
     this.initApp()
   },
   computed: {
-    // ...getters
+    ...getters
   },
   methods: {
     ...mutations,
     ...actions,
-    closeAlert() {
-      this.uiAlert.showAlert = false;
-    },
     initApp() {
       mutations.setLoading(true)
-
-      this.$http
-      .get('api/login')
-      .then(function(response){
-        localStorage.setItem("module.jwt", response.data.token);
-      })
-      .finally(function (){
-        mutations.setLoading(false)
-      })
     }
-  },
+  }
 };
 </script>
