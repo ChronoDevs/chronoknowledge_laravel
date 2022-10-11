@@ -17,7 +17,8 @@
             't-danger': 'rgba(244,67,54,.12)',
             't-info': 'rgba(33,150,243,.12)',
             't-info': 'rgba(255,152,0,.12)',
-            't-warning': 'rgba(255,152,0,.12)'
+            't-warning': 'rgba(255,152,0,.12)',
+            'form-overlay': 'rgba(0,0,0,0.5)'
           }
         }
       }

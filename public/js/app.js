@@ -1800,35 +1800,65 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'error-input',
+  props: {
+    name: {
+      type: Boolean,
+      "default": false
+    },
+    email: {
+      type: Boolean,
+      "default": false
+    },
+    username: {
+      type: Boolean,
+      "default": false
+    },
+    password: {
+      type: Boolean,
+      "default": false
+    },
+    password_confirmation: {
+      type: Boolean,
+      "default": false
+    },
+    address: {
+      type: Boolean,
+      "default": false
+    },
+    zip_code: {
+      type: Boolean,
+      "default": false
+    },
+    tel: {
+      type: Boolean,
+      "default": false
+    },
+    nick_name: {
+      type: Boolean,
+      "default": false
+    },
+    birth_date: {
+      type: Boolean,
+      "default": false
+    },
+    gender: {
+      type: Boolean,
+      "default": false
+    }
+  },
   data: function data() {
     return {};
   },
-  created: function created() {
-    console.log(this.$parent.$v, this.$parent.$v.register);
-  } //    beforeMount() {
-  //     //
-  //    },
-  //    computed: {
-  //      ...getters,
-  //    },
-  //    methods: {
-  //        ...mutations, ...actions,
-  //    },
-  //    watch: {
-  //        showAlert: {
-  //            handler(value) {
-  //                if(value == true) {
-  //                    this.initTimer()
-  //                }
-  //            },
-  //            immediate: true,
-  //            deep: true
-  //        }
-  //    }
-
+  computed: _objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters)
 });
 
 /***/ }),
@@ -1968,7 +1998,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     size: {
       type: String,
-      "default": 'normal' // 'small', 'normal', 'large'
+      "default": 'adjust' // 'adjust', 'full'
 
     },
     withIcon: {
@@ -1980,7 +2010,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 'left' // 'left', 'right'
 
     },
-    loading: {
+    withLoading: {
       type: Boolean,
       "default": false
     },
@@ -2005,9 +2035,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
     classes: function classes() {
       return ["ui-btn--type-".concat(this.type), "ui-btn--size-".concat(this.size), {
-        'is-loading': this.loading
+        'is-loading': this.withLoading
       }, {
-        'is-disabled': this.disabled || this.loading
+        'is-disabled': this.disabled || this.withLoading
       }];
     },
     iconPos: function iconPos() {
@@ -2131,9 +2161,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         tel: '',
         nick_name: '',
         birth_date: '',
-        gender: ''
+        gender: 0
       },
-      errors: null
+      errors: {}
     };
   },
   validations: {
@@ -2160,8 +2190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         maxLength: 60
       },
       password_confirmation: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        sameAsPassword: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.sameAs)('register.password')
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
       },
       address: {
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4),
@@ -2182,7 +2211,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       birth_date: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
         isDate: function isDate() {
-          console.log(this.birth_date);
           return moment(this.birth_date).isValid();
         }
       },
@@ -2191,15 +2219,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  // created() {
-  //   // Custom Validations
-  //   const isDate = helpers.withParams({minDate: currentDate.format('DD.MM.YYYY')}, value => moment(value, 'DD.MM.YYYY', true).isSameOrAfter(currentDate))
-  // },
-  mounted: function mounted() {
-    //
-    console.log(this.$v);
+  mounted: function mounted() {//
   },
-  computed: _objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters),
+  computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
+    inputName: function inputName() {
+      return this.$v.register.name.$error;
+    },
+    inputEmail: function inputEmail() {
+      return this.$v.register.email.$error;
+    },
+    inputUsername: function inputUsername() {
+      return this.$v.register.username.$error;
+    },
+    inputPassword: function inputPassword() {
+      return this.$v.register.password.$error;
+    },
+    inputPasswordC: function inputPasswordC() {
+      return this.$v.register.password_confirmation.$error;
+    },
+    inputAddress: function inputAddress() {
+      return this.$v.register.address.$error;
+    },
+    inputZipCode: function inputZipCode() {
+      return this.$v.register.zip_code.$error;
+    },
+    inputTel: function inputTel() {
+      return this.$v.register.tel.$error;
+    },
+    inputNickname: function inputNickname() {
+      return this.$v.register.nick_name.$error;
+    },
+    inputBirthdate: function inputBirthdate() {
+      return this.$v.register.birth_date.$error;
+    },
+    inputGender: function inputGender() {
+      return this.$v.register.gender.$error;
+    }
+  }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
     submit: function submit() {
       var _this = this;
@@ -2218,11 +2274,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           };
           _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setAlert(alertData);
         }
-      })["finally"](function () {
-        _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(false);
+      })["finally"](function () {//
       });
     }
-  })
+  }),
+  watch: {
+    inputName: {
+      handler: function handler(value) {
+        this.errors.name = null;
+      }
+    },
+    inputEmail: {
+      handler: function handler(value) {
+        this.errors.email = null;
+      }
+    },
+    inputUsername: {
+      handler: function handler(value) {
+        this.errors.username = null;
+      }
+    },
+    inputPassword: {
+      handler: function handler(value) {
+        this.errors.password = null;
+      }
+    },
+    inputPasswordC: {
+      handler: function handler(value) {
+        this.errors.password_confirmation = null;
+      }
+    },
+    inputAddress: {
+      handler: function handler(value) {
+        this.errors.address = null;
+      }
+    },
+    inputZipCode: {
+      handler: function handler(value) {
+        this.errors.zip_code = null;
+      }
+    },
+    inputTel: {
+      handler: function handler(value) {
+        this.errors.tel = null;
+      }
+    },
+    inputBirthdate: {
+      handler: function handler(value) {
+        this.errors.birth_date = null;
+      }
+    },
+    inputGender: {
+      handler: function handler(value) {
+        this.errors.gender = null;
+      }
+    },
+    immediate: true,
+    deep: true
+  }
 });
 
 /***/ }),
@@ -2267,223 +2376,366 @@ var render = function render() {
     attrs: {
       id: "errorInputComponent"
     }
-  }, [_c("span", {
+  }, [_vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.name,
+        expression: "name"
+      }],
+      key: key,
+      "class": ["error-text", {
+        block: _vm.$parent.errors.name.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.name.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.name.required && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
+      expression: "!$parent.$v.register.name.required && $parent.$v.register.name.$anyDirty && name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.name.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.name.minLength && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
+      expression: "!$parent.$v.register.name.minLength && $parent.$v.register.name.$anyDirty && name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.name.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.name.maxLength && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
+      expression: "!$parent.$v.register.name.maxLength && $parent.$v.register.name.$anyDirty && name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The name may not be greater than 60.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "email") ? _c("div", _vm._l(_vm.$parent.errors.email, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.email,
+        expression: "email"
+      }],
+      key: key,
+      "class": ["error-text", {
+        block: _vm.$parent.errors.email.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.email.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.email.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.email.required && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.required && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.email.email && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.email.email && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.email.email && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.email && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email must be a valid email address.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.email.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.email.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.email.minLength && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.minLength && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.email.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.email.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.email.maxLength && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.maxLength && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The email may not be greater than 50.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The email may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "username") ? _c("div", _vm._l(_vm.$parent.errors.username, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.username,
+        expression: "username"
+      }],
+      key: key,
+      "class": ["error-text", {
+        block: _vm.$parent.errors.username.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.username.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.username.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.username.required && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.required && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
   }, [_vm._v("The username field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.username.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.username.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.username.minLength && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.minLength && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
   }, [_vm._v("The username must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.username.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.username.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.username.maxLength && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.maxLength && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The user may not be greater than 50.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The user may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password") ? _c("div", _vm._l(_vm.$parent.errors.password, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.password,
+        expression: "password"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.password.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.password.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.password.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.password.required && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.required && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.password.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.password.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.password.minLength && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.minLength && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.password.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.password.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.password.maxLength && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.maxLength && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password may not be greater than 60.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The password may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password_confirmation") ? _c("div", _vm._l(_vm.$parent.errors.password_confirmation, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.password_confirmation,
+        expression: "password_confirmation"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.password_confirmation.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.password_confirmation.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.password_confirmation.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.password_confirmation.required && _vm.$parent.$v.register.password_confirmation.$anyDirty && _vm.password_confirmation,
+      expression: "!$parent.$v.register.password_confirmation.required && $parent.$v.register.password_confirmation.$anyDirty && password_confirmation"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password_confirmation field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.password_confirmation.sameAs && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.password_confirmation.sameAs && $parent.$v.$anyDirty"
+      value: _vm.$parent.$v.register.password_confirmation.$model !== _vm.$parent.$v.register.password.$model && _vm.$parent.$v.register.password_confirmation.$anyDirty && _vm.password_confirmation,
+      expression: "$parent.$v.register.password_confirmation.$model !== $parent.$v.register.password.$model && $parent.$v.register.password_confirmation.$anyDirty && password_confirmation"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password_confirmation does not match.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The password_confirmation does not match.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "address") ? _c("div", _vm._l(_vm.$parent.errors.address, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.address,
+        expression: "address"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.address.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.address.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.address.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.address.minLength && _vm.$parent.$v.register.address.$anyDirty && _vm.address,
+      expression: "!$parent.$v.register.address.minLength && $parent.$v.register.address.$anyDirty && address"
     }],
     staticClass: "error-text"
   }, [_vm._v("The address must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.address.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.address.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.address.maxLength && _vm.$parent.$v.register.address.$anyDirty && _vm.address,
+      expression: "!$parent.$v.register.address.maxLength && $parent.$v.register.address.$anyDirty && address"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The address may not be greater than 100.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The address may not be greater than 100.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "zip_code") ? _c("div", _vm._l(_vm.$parent.errors.zip_code, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.zip_code,
+        expression: "zip_code"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.zip_code.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.zip_code.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.zip_code.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.zip_code.required && _vm.$parent.$v.register.zip_code.$anyDirty && _vm.zip_code,
+      expression: "!$parent.$v.register.zip_code.required && $parent.$v.register.zip_code.$anyDirty && zip_code"
     }],
     staticClass: "error-text"
   }, [_vm._v("The zip_code field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.zip_code.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.zip_code.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.zip_code.maxLength && _vm.$parent.$v.register.zip_code.$anyDirty && _vm.zip_code,
+      expression: "!$parent.$v.register.zip_code.maxLength && $parent.$v.register.zip_code.$anyDirty && zip_code"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The zip_code may not be greater than 8.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The zip_code may not be greater than 8.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "tel") ? _c("div", _vm._l(_vm.$parent.errors.tel, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.tel,
+        expression: "tel"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.tel.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.tel.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.tel.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.tel.minLength && _vm.$parent.$v.register.tel.$anyDirty && _vm.tel,
+      expression: "!$parent.$v.register.tel.minLength && $parent.$v.register.tel.$anyDirty && tel"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The telephone must be at least 4.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The telephone is not valid.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.tel.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.tel.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.tel.maxLength && _vm.$parent.$v.register.tel.$anyDirty && _vm.tel,
+      expression: "!$parent.$v.register.tel.maxLength && $parent.$v.register.tel.$anyDirty && tel"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The telephone may not be greater than 11.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The telephone may not be greater than 11.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "nick_name") ? _c("div", _vm._l(_vm.$parent.errors.nick_name, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.nick_name,
+        expression: "nick_name"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.nick_name.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.nick_name.minLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.nick_name.minLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.nick_name.minLength && _vm.$parent.$v.register.nick_name.$anyDirty && _vm.nick_name,
+      expression: "!$parent.$v.register.nick_name.minLength && $parent.$v.register.nick_name.$anyDirty && nick_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The nickname must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.nick_name.maxLength && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.nick_name.maxLength && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.nick_name.maxLength && _vm.$parent.$v.register.nick_name.$anyDirty && _vm.nick_name,
+      expression: "!$parent.$v.register.nick_name.maxLength && $parent.$v.register.nick_name.$anyDirty && nick_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The nickname may not be greater than 20.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The nickname may not be greater than 20.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "birth_date") ? _c("div", _vm._l(_vm.$parent.errors.birth_date, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.birth_date,
+        expression: "birth_date"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.birth_date.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.birth_date.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.birth_date.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.birth_date.required && _vm.$parent.$v.register.birth_date.$anyDirty && _vm.birth_date,
+      expression: "!$parent.$v.register.birth_date.required && $parent.$v.register.birth_date.$anyDirty && birth_date"
     }],
     staticClass: "error-text"
   }, [_vm._v("The birth date field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.birth_date.isDate && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.birth_date.isDate && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.birth_date.isDate && _vm.$parent.$v.register.birth_date.$anyDirty && _vm.birth_date,
+      expression: "!$parent.$v.register.birth_date.isDate && $parent.$v.register.birth_date.$anyDirty && birth_date"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The birth date is not a valid date.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The birth date is not a valid date.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "gender") ? _c("div", _vm._l(_vm.$parent.errors.gender, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.gender,
+        expression: "gender"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: _vm.$parent.errors.gender.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.gender.required && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.gender.required && $parent.$v.$anyDirty"
+      value: !_vm.$parent.$v.register.gender.required && _vm.$parent.$v.register.gender.$anyDirty && _vm.gender,
+      expression: "!$parent.$v.register.gender.required && $parent.$v.register.gender.$anyDirty && gender"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password field is required.")]), _vm._v(" "), _c("span", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.$parent.$v.register.gender.isDate && _vm.$parent.$v.$anyDirty,
-      expression: "!$parent.$v.register.gender.isDate && $parent.$v.$anyDirty"
-    }],
-    staticClass: "error-text"
-  }, [_vm._v("The birth date is not a valid date.")])]);
+  }, [_vm._v("The password field is required.")])])]);
 };
 
 var staticRenderFns = [];
@@ -2634,9 +2886,9 @@ var render = function render() {
       click: _vm.onClick
     }
   }, [_c("clip-loader", {
-    staticClass: "loaderCenter",
+    staticClass: "loaderCenter grid content-center",
     attrs: {
-      loading: _vm.loading,
+      loading: _vm.withLoading,
       color: _vm.loader.color,
       size: _vm.loader.size
     }
@@ -2782,8 +3034,16 @@ var render = function render() {
       id: "$v.registerComponent"
     }
   }, [_c("form", {
-    staticClass: "h-auto w-[600px] m-auto bg-white shadow-gray-900 shadow-xl"
+    staticClass: "h-auto w-[600px] m-auto bg-white shadow-gray-900 shadow-xl relative"
   }, [_c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }],
+    staticClass: "absolute w-full h-full bg-form-overlay"
+  }), _vm._v(" "), _c("div", {
     staticClass: "r-link grid grid-cols-2 m-10 font-bold border-t-btn"
   }, [_c("button", {
     staticClass: "h-12 text-black",
@@ -2829,7 +3089,11 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "errors"
-  }, [_c("error-input")], 1)]), _vm._v(" "), _c("div", {
+  }, [_c("error-input", {
+    attrs: {
+      name: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
   }, [_c("div", [_c("input", {
     directives: [{
@@ -2853,7 +3117,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.email, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", [_c("input", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      email: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2875,7 +3143,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.username, "$model", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      username: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
   }, [_c("div", [_c("input", {
     directives: [{
@@ -2899,7 +3171,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.password, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", [_c("input", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      password: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2921,7 +3197,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.password_confirmation, "$model", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("div", [_c("input", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      password_confirmation: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2943,7 +3223,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.address, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      address: true
+    }
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
   }, [_c("div", [_c("input", {
     directives: [{
@@ -2968,7 +3252,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.zip_code, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", [_c("input", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      zip_code: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2990,7 +3278,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.tel, "$model", $event.target.value);
       }
     }
-  })])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      tel: true
+    }
+  })], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "r-field-opt grid gap-y-5"
   }, [_c("div", [_c("input", {
     directives: [{
@@ -3014,7 +3306,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.nick_name, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      nick_name: true
+    }
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
   }, [_c("div", [_c("input", {
     directives: [{
@@ -3037,7 +3333,11 @@ var render = function render() {
         _vm.$set(_vm.$v.register.birth_date, "$model", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", [_c("select", {
+  }), _vm._v(" "), _c("error-input", {
+    attrs: {
+      birth_date: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3045,9 +3345,6 @@ var render = function render() {
       expression: "$v.register.gender.$model"
     }],
     staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      placeholder: "Gender"
-    },
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -3062,17 +3359,27 @@ var render = function render() {
     }
   }, [_c("option", {
     attrs: {
-      value: "0",
-      selected: ""
+      value: "0"
+    },
+    domProps: {
+      selected: _vm.$v.register.gender.$model == "0"
     }
   }, [_vm._v(_vm._s(_vm.lang.get("words.Male")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "1"
+    },
+    domProps: {
+      selected: _vm.$v.register.gender.$model == "1"
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Female")))])]), _vm._v(" "), _c("error-input")], 1)])]), _vm._v(" "), _c("button", {
-    staticClass: "h-12 rounded-lg bg-t-create font-bold",
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Female")))])]), _vm._v(" "), _c("error-input", {
     attrs: {
-      type: "submit"
+      gender: true
+    }
+  })], 1)])]), _vm._v(" "), _c("ui-button", {
+    attrs: {
+      type: "create",
+      size: "full",
+      withLoading: _vm.loading
     },
     on: {
       click: function click($event) {
@@ -3080,7 +3387,7 @@ var render = function render() {
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("words.SignUp")))])])])]);
+  }, [_vm._v(_vm._s(_vm.lang.get("words.SignUp")))])], 1)])]);
 };
 
 var staticRenderFns = [function () {
@@ -3417,7 +3724,6 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 instance.interceptors.response.use(function (response) {
-  console.log('after');
   _store__WEBPACK_IMPORTED_MODULE_2__.mutations.setLoading(false);
   return response;
 });
@@ -3549,11 +3855,18 @@ var state = vue__WEBPACK_IMPORTED_MODULE_1__["default"].observable({
     dismissible: true,
     timer: 10,
     message: ''
+  },
+  loader: {
+    color: 'black',
+    size: '24px'
   }
 });
 var getters = {
   loading: function loading() {
     return state.loading;
+  },
+  loaderColor: function loaderColor() {
+    return state.loaderColor;
   },
   alert: function alert() {
     return state.alert;
@@ -3573,7 +3886,10 @@ var getters = {
     return _;
   }(function () {
     return _;
-  })
+  }),
+  loader: function loader() {
+    return state.loader;
+  }
 };
 var mutations = {
   setLoading: function setLoading(val) {
@@ -3583,7 +3899,6 @@ var mutations = {
     return state.lang = lang;
   },
   setAlert: function setAlert(data) {
-    console.log(data);
     if (_.get(data, 'showAlert')) state.alert.showAlert = data.showAlert;
     if (_.get(data, 'type')) state.alert.type = data.type;
     if (_.get(data, 'removeIcon')) state.alert.removeIcon = data.removeIcon;
@@ -3591,10 +3906,8 @@ var mutations = {
     if (_.get(data, 'dismissible')) state.alert.dismissible = data.dismissible;
     if (_.get(data, 'timer')) state.alert.timer = data.timer;
     if (_.get(data, 'message')) state.alert.message = data.message;
-    console.log(state.alert);
   },
   closeAlert: function closeAlert() {
-    console.log('calosealert');
     mutations.resetAlert();
   },
   resetAlert: function resetAlert() {
@@ -7996,7 +8309,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ui-alert[data-v-feb5b366] {\n  min-height: 70px;\n  width: 95%;\n  margin: auto;\n  display: flex;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 0.9375rem;\n  line-height: 1.4;\n  margin-bottom: 1rem;\n  overflow: hidden;\n  position: absolute;\n  right: 15px;\n  left: 15px;\n  bottom: 0;\n  transition: margin-bottom 0.3s;\n  opacity: 0.7;\n}\n.ui-alert.has-no-transition[data-v-feb5b366],\n.ui-alert.has-no-transition .ui-alert__body[data-v-feb5b366] {\n  transition: none;\n}\n.ui-alert[data-v-feb5b366]:hover {\n  opacity: 1;\n}\n.ui-alert a[data-v-feb5b366] {\n  text-decoration: none;\n}\n.ui-alert a[data-v-feb5b366]:hover, .ui-alert a[data-v-feb5b366]:focus {\n  text-decoration: underline;\n}\n.ui-alert__icon[data-v-feb5b366] {\n  flex-shrink: 0;\n  margin-right: 0.75rem;\n}\n.ui-alert__icon img[data-v-feb5b366] {\n  width: 20px;\n  height: auto;\n}\n.ui-alert__body[data-v-feb5b366] {\n  align-items: center;\n  color: rgba(0, 0, 0, 0.75);\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 0;\n  margin-top: 0;\n  min-height: 3rem;\n  padding: 0.75rem 2rem 0.75rem 1rem;\n  border-radius: 5px;\n  transition: opacity 0.3s, margin-top 0.4s;\n  width: 100%;\n}\n.ui-alert__content[data-v-feb5b366] {\n  flex-grow: 1;\n  word-break: break-all;\n}\n.ui-alert__dismiss-button[data-v-feb5b366] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  align-self: flex-start;\n  flex-shrink: 0;\n  margin-bottom: -0.25rem;\n  margin-left: 0.5rem;\n  margin-right: -0.5rem;\n  margin-top: -0.25rem;\n}\n.ui-alert--type-info[data-v-feb5b366] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-info .ui-alert__body[data-v-feb5b366] {\n  background-color: #2196f3;\n}\n.ui-alert--type-info .ui-alert__icon[data-v-feb5b366] {\n  color: rgb(33, 150, 243);\n}\n.ui-alert--type-info a[data-v-feb5b366] {\n  color: rgb(33, 150, 243);\n}\n.ui-alert--type-success[data-v-feb5b366] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-success .ui-alert__body[data-v-feb5b366] {\n  background-color: #4caf50;\n}\n.ui-alert--type-success .ui-alert__icon[data-v-feb5b366] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-success a[data-v-feb5b366] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-warning[data-v-feb5b366] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-warning .ui-alert__body[data-v-feb5b366] {\n  background-color: #ff9800;\n}\n.ui-alert--type-warning .ui-alert__icon[data-v-feb5b366] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-warning a[data-v-feb5b366] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-error[data-v-feb5b366] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-error .ui-alert__body[data-v-feb5b366] {\n  background-color: #f44336;\n}\n.ui-alert--type-error .ui-alert__icon[data-v-feb5b366] {\n  color: rgb(244, 67, 54);\n}\n.ui-alert--type-error a[data-v-feb5b366] {\n  color: rgb(244, 67, 54);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".error-text[data-v-feb5b366] {\n  color: red;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8044,7 +8357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ui-button[data-v-3c5e1551] {\n  width: 150px;\n  height: 50px;\n  border-radius: 0.125rem;\n  position: relative;\n}\n.ui-btn--type-create[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: #71C5DC;\n}\n.ui-btn--type-edit[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: white;\n}\n.ui-btn--type-remove[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: rgb(244, 67, 54);\n}\n.ui-content[data-v-3c5e1551] {\n  display: flex;\n  justify-content: center;\n  grid-gap: 10px;\n}\n.ui-btn--icon-left[data-v-3c5e1551] {\n  flex-direction: row;\n}\n.ui-btn--icon-right[data-v-3c5e1551] {\n  flex-direction: row-reverse;\n}\n.is-loading[data-v-3c5e1551], .is-disabled[data-v-3c5e1551] {\n  opacity: 0.5;\n}\n.ui-btn--size-small[data-v-3c5e1551] {\n  height: 40px;\n  width: auto;\n  padding: 10px;\n  font-size: 12px;\n}\n.ui-btn--size-normal[data-v-3c5e1551] {\n  height: 50px;\n  width: 150px;\n  padding: 10px;\n}\n.ui-btn--size-large[data-v-3c5e1551] {\n  height: 70px;\n  width: 200px;\n  padding: 10px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ui-button[data-v-3c5e1551] {\n  width: 150px;\n  height: 50px;\n  border-radius: 0.125rem;\n  position: relative;\n}\n.ui-btn--type-create[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: #71C5DC;\n}\n.ui-btn--type-edit[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: white;\n}\n.ui-btn--type-remove[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: rgb(244, 67, 54);\n}\n.ui-content[data-v-3c5e1551] {\n  display: flex;\n  justify-content: center;\n  grid-gap: 10px;\n}\n.ui-btn--icon-left[data-v-3c5e1551] {\n  flex-direction: row;\n}\n.ui-btn--icon-right[data-v-3c5e1551] {\n  flex-direction: row-reverse;\n}\n.is-loading[data-v-3c5e1551], .is-disabled[data-v-3c5e1551] {\n  opacity: 0.5;\n}\n.ui-btn--size-adjust[data-v-3c5e1551] {\n  width: auto;\n  padding: 10px;\n  font-size: 12px;\n}\n.ui-btn--size-full[data-v-3c5e1551] {\n  width: 100%;\n  padding: 10px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

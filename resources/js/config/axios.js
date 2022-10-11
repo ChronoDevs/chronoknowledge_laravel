@@ -17,8 +17,6 @@ instance.interceptors.request.use(config => {
 
 
 instance.interceptors.response.use(response => {
-
-  console.log('after');
   mutations.setLoading(false)
   return response
 })
