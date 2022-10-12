@@ -6,14 +6,22 @@
   box-sizing: border-box;
 }
 
-#app {
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
 body {
   background: $brand-theme-color-primary;
   font-size: $base-font-size;
+  color: ghostwhite;
+
+  h3 {
+    font-size: 28px;
+  }
+  p {
+    font-size: 14px
+  }
+}
+
+#app {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .loaderCenter {
@@ -24,5 +32,18 @@ body {
 }
 
 .errors {
-  color : $brand-color-danger
+  color : $brand-danger
+}
+
+.horizontal-line {
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid $brand-mute;
+  line-height: 0em;
+  margin: 10px 0 20px;
+}
+
+.horizontal-line-text {
+  background: $brand-theme-color-secondary;
+  padding:0 100px;
 }

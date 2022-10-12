@@ -3031,10 +3031,10 @@ var render = function render() {
   return _c("div", {
     staticClass: "h-screen flex content-center justify-center",
     attrs: {
-      id: "$v.registerComponent"
+      id: "registerComponent"
     }
   }, [_c("form", {
-    staticClass: "h-auto w-[600px] m-auto bg-white shadow-gray-900 shadow-xl relative"
+    staticClass: "h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
   }, [_c("div", {
     directives: [{
       name: "show",
@@ -3044,22 +3044,53 @@ var render = function render() {
     }],
     staticClass: "absolute w-full h-full bg-form-overlay"
   }), _vm._v(" "), _c("div", {
-    staticClass: "r-link grid grid-cols-2 m-10 font-bold border-t-btn"
+    staticClass: "r-link m-10 font-bold"
+  }, [_c("h3", {
+    staticClass: "text-center"
+  }, [_c("span", {
+    staticClass: "text-b-info"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Chronostep")))]), _vm._v(" "), _c("span", {
+    staticClass: "text-b-create"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Community")))])]), _vm._v(" "), _c("p", {
+    staticClass: "text-center"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.WelcomeToChronoCommunity")))]), _vm._v(" "), _c("div", {
+    staticClass: "grid justify-center grid grid-cols-1 gap-4 my-10"
   }, [_c("button", {
-    staticClass: "h-12 text-black",
+    staticClass: "h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md",
     attrs: {
       type: "button"
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("SignIn")))]), _vm._v(" "), _c("button", {
-    staticClass: "h-12 bg-t-btn text-white",
+  }, [_c("i", {
+    staticClass: "fa-brands fa-facebook mr-3 text-lg"
+  }), _vm._v(_vm._s(_vm.lang.get("words.ContinueWithFacebook")) + "\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md",
     attrs: {
       type: "button"
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("SignUp")))])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("i", {
+    staticClass: "fa-brands fa-google mr-3 text-lg"
+  }), _vm._v(_vm._s(_vm.lang.get("words.ContinueWithGoogle")) + "\n        ")])]), _vm._v(" "), _c("p", {
+    staticClass: "horizontal-line text-center"
+  }, [_c("span", {
+    staticClass: "horizontal-line-text"
+  }, [_c("span", {
+    staticClass: "text-b-mute"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.HaveAccount")))]), _vm._v(" "), _c("router-link", {
+    staticClass: "text-b-info",
+    attrs: {
+      to: {
+        name: "login"
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.lang.get("words.LogIn.")))])], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "r-field flex flex-col gap-10 m-10"
   }, [_c("div", {
     staticClass: "r-field-required grid gap-y-5"
-  }, [_c("div", [_c("input", {
+  }, [_c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.FirstName")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -3069,10 +3100,10 @@ var render = function render() {
         trim: true
       }
     }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
     attrs: {
       type: "text",
-      placeholder: "Name"
+      placeholder: "First Name"
     },
     domProps: {
       value: _vm.$v.register.name.$model
@@ -3087,48 +3118,48 @@ var render = function render() {
         return _vm.$forceUpdate();
       }
     }
-  }), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("div", {
     staticClass: "errors"
   }, [_c("error-input", {
     attrs: {
       name: true
     }
-  })], 1)]), _vm._v(" "), _c("div", {
+  })], 1)]), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.MiddleName")) + " "), _c("span", {
+    staticClass: "text-b-mute"
+  }, [_vm._v("(optional)")])]), _vm._v(" "), _c("input", {
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "text",
+      placeholder: "Middle Name"
+    }
+  })])]), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.LastName")))]), _vm._v(" "), _c("input", {
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "text",
+      placeholder: "Last Name"
+    }
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
-  }, [_c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.email.$model,
-      expression: "$v.register.email.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "email",
-      placeholder: "E-mail"
-    },
-    domProps: {
-      value: _vm.$v.register.email.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.email, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      email: true
-    }
-  })], 1), _vm._v(" "), _c("div", [_c("input", {
+  }, [_c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Username")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.$v.register.username.$model,
       expression: "$v.register.username.$model"
     }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
     attrs: {
       type: "text",
       placeholder: "Username"
@@ -3143,155 +3174,22 @@ var render = function render() {
         _vm.$set(_vm.$v.register.username, "$model", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c("error-input", {
+  })]), _vm._v(" "), _c("error-input", {
     attrs: {
       username: true
     }
-  })], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "grid sm:grid-cols-2 gap-5"
-  }, [_c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.password.$model,
-      expression: "$v.register.password.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "password",
-      placeholder: "Password"
-    },
-    domProps: {
-      value: _vm.$v.register.password.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.password, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      password: true
-    }
-  })], 1), _vm._v(" "), _c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.password_confirmation.$model,
-      expression: "$v.register.password_confirmation.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "password",
-      placeholder: "Confirm Password"
-    },
-    domProps: {
-      value: _vm.$v.register.password_confirmation.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.password_confirmation, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      password_confirmation: true
-    }
-  })], 1)]), _vm._v(" "), _c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.address.$model,
-      expression: "$v.register.address.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "text",
-      placeholder: "Address"
-    },
-    domProps: {
-      value: _vm.$v.register.address.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.address, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      address: true
-    }
-  })], 1), _vm._v(" "), _c("div", {
-    staticClass: "grid sm:grid-cols-2 gap-5"
-  }, [_c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.zip_code.$model,
-      expression: "$v.register.zip_code.$model"
-    }],
-    staticClass: "h-12 w-full",
-    attrs: {
-      type: "text",
-      pattern: "[0-9]{5}",
-      placeholder: "Zip Code"
-    },
-    domProps: {
-      value: _vm.$v.register.zip_code.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.zip_code, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      zip_code: true
-    }
-  })], 1), _vm._v(" "), _c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.tel.$model,
-      expression: "$v.register.tel.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "tel",
-      placeholder: "Telephone"
-    },
-    domProps: {
-      value: _vm.$v.register.tel.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.tel, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      tel: true
-    }
-  })], 1)])]), _vm._v(" "), _c("div", {
-    staticClass: "r-field-opt grid gap-y-5"
-  }, [_c("div", [_c("input", {
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Nickname")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.$v.register.nick_name.$model,
       expression: "$v.register.nick_name.$model"
     }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
     attrs: {
       type: "text",
       placeholder: "Nickname"
@@ -3306,45 +3204,24 @@ var render = function render() {
         _vm.$set(_vm.$v.register.nick_name, "$model", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c("error-input", {
+  })]), _vm._v(" "), _c("error-input", {
     attrs: {
       nick_name: true
     }
-  })], 1), _vm._v(" "), _c("div", {
+  })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
-  }, [_c("div", [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.register.birth_date.$model,
-      expression: "$v.register.birth_date.$model"
-    }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
-    attrs: {
-      type: "date"
-    },
-    domProps: {
-      value: _vm.$v.register.birth_date.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.register.birth_date, "$model", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("error-input", {
-    attrs: {
-      birth_date: true
-    }
-  })], 1), _vm._v(" "), _c("div", [_c("select", {
+  }, [_c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Gender")))]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.$v.register.gender.$model,
       expression: "$v.register.gender.$model"
     }],
-    staticClass: "h-12 w-full rounded-lg border-t-btn",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -3371,11 +3248,237 @@ var render = function render() {
     domProps: {
       selected: _vm.$v.register.gender.$model == "1"
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Female")))])]), _vm._v(" "), _c("error-input", {
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Female")))])])]), _vm._v(" "), _c("error-input", {
     attrs: {
       gender: true
     }
-  })], 1)])]), _vm._v(" "), _c("ui-button", {
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.DateOfBirth")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.birth_date.$model,
+      expression: "$v.register.birth_date.$model"
+    }],
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.$v.register.birth_date.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.birth_date, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      birth_date: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "grid sm:grid-cols-2 gap-5"
+  }, [_c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Gender")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.tel.$model,
+      expression: "$v.register.tel.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "tel",
+      placeholder: "Telephone"
+    },
+    domProps: {
+      value: _vm.$v.register.tel.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.tel, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      tel: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Zipcode")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.zip_code.$model,
+      expression: "$v.register.zip_code.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input",
+    attrs: {
+      type: "text",
+      pattern: "[0-9]{5}",
+      placeholder: "Zip Code"
+    },
+    domProps: {
+      value: _vm.$v.register.zip_code.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.zip_code, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      zip_code: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "grid sm:grid-cols-1 gap-5"
+  }, [_c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Address")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.address.$model,
+      expression: "$v.register.address.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "text",
+      placeholder: "Address"
+    },
+    domProps: {
+      value: _vm.$v.register.address.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.address, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      address: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Email")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.email.$model,
+      expression: "$v.register.email.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "email",
+      placeholder: "E-mail"
+    },
+    domProps: {
+      value: _vm.$v.register.email.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.email, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      email: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Password")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.password.$model,
+      expression: "$v.register.password.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "password",
+      placeholder: "Password"
+    },
+    domProps: {
+      value: _vm.$v.register.password.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.password, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      password: true
+    }
+  })], 1), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "grid gap-y-2"
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.PasswordConfirmation")))]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.password_confirmation.$model,
+      expression: "$v.register.password_confirmation.$model"
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    attrs: {
+      type: "password",
+      placeholder: "Confirm Password"
+    },
+    domProps: {
+      value: _vm.$v.register.password_confirmation.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.password_confirmation, "$model", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      password_confirmation: true
+    }
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "grid sm:grid-cols-1 gap-5"
+  }, [_c("div", [_c("label", {
+    staticClass: "flex flex-flow gap-4 content-center"
+  }, [_c("input", {
+    staticClass: "termsAndPrivacy",
+    attrs: {
+      type: "checkbox"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "text-b-mute"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.TermsAndPrivacy")))])])])]), _vm._v(" "), _c("ui-button", {
+    staticClass: "text-white",
     attrs: {
       type: "create",
       size: "full",
@@ -3387,25 +3490,12 @@ var render = function render() {
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_vm._v(_vm._s(_vm.lang.get("words.SignUp")))])], 1)])]);
+  }, [_c("span", {
+    staticClass: "font-bold"
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Continue")))])])], 1)])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "r-social r-social flex justify-center text-white text-center gap-x-10 mx-10 sm:mx-16"
-  }, [_c("button", {
-    staticClass: "h-12 w-full rounded-lg bg-c-fb"
-  }, [_c("i", {
-    staticClass: "fa-brands fa-facebook-f"
-  })]), _vm._v(" "), _c("button", {
-    staticClass: "h-12 w-full rounded-lg bg-c-google text-white"
-  }, [_c("i", {
-    staticClass: "fa-brands fa-google"
-  })])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -8333,7 +8423,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ui-alert[data-v-3669dc8d] {\n  min-height: 70px;\n  width: 95%;\n  margin: auto;\n  display: flex;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 0.9375rem;\n  line-height: 1.4;\n  margin-bottom: 1rem;\n  overflow: hidden;\n  position: absolute;\n  right: 15px;\n  left: 15px;\n  bottom: 0;\n  transition: margin-bottom 0.3s;\n  opacity: 0.7;\n}\n.ui-alert.has-no-transition[data-v-3669dc8d],\n.ui-alert.has-no-transition .ui-alert__body[data-v-3669dc8d] {\n  transition: none;\n}\n.ui-alert[data-v-3669dc8d]:hover {\n  opacity: 1;\n}\n.ui-alert a[data-v-3669dc8d] {\n  text-decoration: none;\n}\n.ui-alert a[data-v-3669dc8d]:hover, .ui-alert a[data-v-3669dc8d]:focus {\n  text-decoration: underline;\n}\n.ui-alert__icon[data-v-3669dc8d] {\n  flex-shrink: 0;\n  margin-right: 0.75rem;\n}\n.ui-alert__icon img[data-v-3669dc8d] {\n  width: 20px;\n  height: auto;\n}\n.ui-alert__body[data-v-3669dc8d] {\n  align-items: center;\n  color: rgba(0, 0, 0, 0.75);\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 0;\n  margin-top: 0;\n  min-height: 3rem;\n  padding: 0.75rem 2rem 0.75rem 1rem;\n  border-radius: 5px;\n  transition: opacity 0.3s, margin-top 0.4s;\n  width: 100%;\n}\n.ui-alert__content[data-v-3669dc8d] {\n  flex-grow: 1;\n  word-break: break-all;\n}\n.ui-alert__dismiss-button[data-v-3669dc8d] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  align-self: flex-start;\n  flex-shrink: 0;\n  margin-bottom: -0.25rem;\n  margin-left: 0.5rem;\n  margin-right: -0.5rem;\n  margin-top: -0.25rem;\n}\n.ui-alert--type-info[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-info .ui-alert__body[data-v-3669dc8d] {\n  background-color: #2196f3;\n}\n.ui-alert--type-info .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(33, 150, 243);\n}\n.ui-alert--type-info a[data-v-3669dc8d] {\n  color: rgb(33, 150, 243);\n}\n.ui-alert--type-success[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-success .ui-alert__body[data-v-3669dc8d] {\n  background-color: #4caf50;\n}\n.ui-alert--type-success .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-success a[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-warning[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-warning .ui-alert__body[data-v-3669dc8d] {\n  background-color: #ff9800;\n}\n.ui-alert--type-warning .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-warning a[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-error[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-error .ui-alert__body[data-v-3669dc8d] {\n  background-color: #f44336;\n}\n.ui-alert--type-error .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}\n.ui-alert--type-error a[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ui-alert[data-v-3669dc8d] {\n  min-height: 70px;\n  width: 95%;\n  margin: auto;\n  display: flex;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.0714285714rem;\n  line-height: 1.4;\n  margin-bottom: 1.1428571429rem;\n  overflow: hidden;\n  position: absolute;\n  right: 15px;\n  left: 15px;\n  bottom: 0;\n  transition: margin-bottom 0.3s;\n  opacity: 0.7;\n}\n.ui-alert.has-no-transition[data-v-3669dc8d],\n.ui-alert.has-no-transition .ui-alert__body[data-v-3669dc8d] {\n  transition: none;\n}\n.ui-alert[data-v-3669dc8d]:hover {\n  opacity: 1;\n}\n.ui-alert a[data-v-3669dc8d] {\n  text-decoration: none;\n}\n.ui-alert a[data-v-3669dc8d]:hover, .ui-alert a[data-v-3669dc8d]:focus {\n  text-decoration: underline;\n}\n.ui-alert__icon[data-v-3669dc8d] {\n  flex-shrink: 0;\n  margin-right: 0.8571428571rem;\n}\n.ui-alert__icon img[data-v-3669dc8d] {\n  width: 20px;\n  height: auto;\n}\n.ui-alert__body[data-v-3669dc8d] {\n  align-items: center;\n  color: rgba(0, 0, 0, 0.75);\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 0;\n  margin-top: 0;\n  min-height: 3.4285714286rem;\n  padding: 0.75rem 2rem 0.75rem 1rem;\n  border-radius: 5px;\n  transition: opacity 0.3s, margin-top 0.4s;\n  width: 100%;\n}\n.ui-alert__content[data-v-3669dc8d] {\n  flex-grow: 1;\n  word-break: break-all;\n}\n.ui-alert__dismiss-button[data-v-3669dc8d] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  align-self: flex-start;\n  flex-shrink: 0;\n  margin-bottom: -0.2857142857rem;\n  margin-left: 0.5714285714rem;\n  margin-right: -0.5714285714rem;\n  margin-top: -0.2857142857rem;\n}\n.ui-alert--type-info[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-info .ui-alert__body[data-v-3669dc8d] {\n  background-color: #56ccf2;\n}\n.ui-alert--type-info .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-info a[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-success[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-success .ui-alert__body[data-v-3669dc8d] {\n  background-color: #4caf50;\n}\n.ui-alert--type-success .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-success a[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-warning[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-warning .ui-alert__body[data-v-3669dc8d] {\n  background-color: #ff9800;\n}\n.ui-alert--type-warning .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-warning a[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-error[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-error .ui-alert__body[data-v-3669dc8d] {\n  background-color: #f44336;\n}\n.ui-alert--type-error .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}\n.ui-alert--type-error a[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8357,7 +8447,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ui-button[data-v-3c5e1551] {\n  width: 150px;\n  height: 50px;\n  border-radius: 0.125rem;\n  position: relative;\n}\n.ui-btn--type-create[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: #71C5DC;\n}\n.ui-btn--type-edit[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: white;\n}\n.ui-btn--type-remove[data-v-3c5e1551] {\n  color: rgba(0, 0, 0, 0.87);\n  background-color: rgb(244, 67, 54);\n}\n.ui-content[data-v-3c5e1551] {\n  display: flex;\n  justify-content: center;\n  grid-gap: 10px;\n}\n.ui-btn--icon-left[data-v-3c5e1551] {\n  flex-direction: row;\n}\n.ui-btn--icon-right[data-v-3c5e1551] {\n  flex-direction: row-reverse;\n}\n.is-loading[data-v-3c5e1551], .is-disabled[data-v-3c5e1551] {\n  opacity: 0.5;\n}\n.ui-btn--size-adjust[data-v-3c5e1551] {\n  width: auto;\n  padding: 10px;\n  font-size: 12px;\n}\n.ui-btn--size-full[data-v-3c5e1551] {\n  width: 100%;\n  padding: 10px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ui-button[data-v-3c5e1551] {\n  width: 150px;\n  height: 3.5rem;\n  border-radius: 10px;\n  position: relative;\n}\n.ui-btn--type-create[data-v-3c5e1551] {\n  color: whitesmoke;\n  background-color: rgb(24, 50, 141);\n}\n.ui-btn--type-edit[data-v-3c5e1551] {\n  color: whitesmoke;\n  background-color: white;\n}\n.ui-btn--type-remove[data-v-3c5e1551] {\n  color: whitesmoke;\n  background-color: rgb(244, 67, 54);\n}\n.ui-content[data-v-3c5e1551] {\n  display: flex;\n  justify-content: center;\n  grid-gap: 10px;\n}\n.ui-btn--icon-left[data-v-3c5e1551] {\n  flex-direction: row;\n}\n.ui-btn--icon-right[data-v-3c5e1551] {\n  flex-direction: row-reverse;\n}\n.is-loading[data-v-3c5e1551], .is-disabled[data-v-3c5e1551] {\n  opacity: 0.5;\n}\n.ui-btn--size-adjust[data-v-3c5e1551] {\n  width: auto;\n  padding: 10px;\n  font-size: 12px;\n}\n.ui-btn--size-full[data-v-3c5e1551] {\n  width: 100%;\n  padding: 10px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8381,7 +8471,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".border-t-btn[data-v-2ebeb09e] {\n  border: thin solid #51536C;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-2ebeb09e] {\n  border: thin solid rgb(58, 59, 60);\n}\n#registerComponent input[data-v-2ebeb09e]::-moz-placeholder, #registerComponent select[data-v-2ebeb09e]::-moz-placeholder {\n  padding-left: 20px;\n}\n#registerComponent input[data-v-2ebeb09e]::placeholder, #registerComponent select[data-v-2ebeb09e]::placeholder {\n  padding-left: 20px;\n}\n.termsAndPrivacy[data-v-2ebeb09e] {\n  height: 27px;\n  transform: scale(1.5);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

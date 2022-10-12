@@ -1,80 +1,144 @@
 <template>
-  <div id="$v.registerComponent" class="h-screen flex content-center justify-center">
-    <form class="h-auto w-[600px] m-auto bg-white shadow-gray-900 shadow-xl relative">
+  <div id="registerComponent" class="h-screen flex content-center justify-center">
+    <form class="h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white">
       <div v-show="loading" class="absolute w-full h-full bg-form-overlay"></div>
-      <div class="r-link grid grid-cols-2 m-10 font-bold border-t-btn">
-        <button type="button" class="h-12 text-black">{{ lang.get('SignIn') }}</button>
-        <button type="button" class="h-12 bg-t-btn text-white">{{ lang.get('SignUp') }}</button>
-      </div>
-
-      <div class="r-social r-social flex justify-center text-white text-center gap-x-10 mx-10 sm:mx-16">
-        <button class="h-12 w-full rounded-lg bg-c-fb"><i class="fa-brands fa-facebook-f"></i></button>
-        <button class="h-12 w-full rounded-lg bg-c-google text-white"><i class="fa-brands fa-google"></i></button>
+      <div class="r-link m-10 font-bold">
+        <h3 class="text-center">
+          <span class="text-b-info">{{ lang.get('words.Chronostep') }}</span> <span class="text-b-create">{{ lang.get('words.Community') }}</span>
+        </h3>
+        <p class="text-center">{{ lang.get('words.WelcomeToChronoCommunity') }}</p>
+        <div class="grid justify-center grid grid-cols-1 gap-4 my-10">
+          <button type="button" class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md">
+            <i class="fa-brands fa-facebook mr-3 text-lg"></i>{{ lang.get('words.ContinueWithFacebook') }}
+          </button>
+          <button type="button" class="h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md">
+            <i class="fa-brands fa-google mr-3 text-lg"></i>{{ lang.get('words.ContinueWithGoogle') }}
+          </button>
+        </div>
+        <p class="horizontal-line text-center">
+          <span class="horizontal-line-text">
+            <span class="text-b-mute">{{ lang.get('words.HaveAccount') }}</span> 
+            <router-link :to="{ name: 'login' }" class="text-b-info">{{ lang.get('words.LogIn.') }}</router-link>
+          </span>
+        </p>
       </div>
       <div class="r-field flex flex-col gap-10 m-10">
         <div class="r-field-required grid gap-y-5">
           <div>
-            <input v-model.trim="$v.register.name.$model" class="h-12 w-full rounded-lg border-t-btn" type="text" placeholder="Name" /></input>
+            <label class="grid gap-y-2">
+              <span class="font-bold">{{ lang.get('words.FirstName') }}</span>
+              <input v-model.trim="$v.register.name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="First Name" /></input>
+            </label>
             <div class="errors">
               <error-input :name="true"></error-input>
             </div>
           </div>
+          <div>
+            <label class="grid gap-y-2">
+              <span class="font-bold">{{ lang.get('words.MiddleName') }} <span class="text-b-mute">(optional)</span></span>
+              <input class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Middle Name" /></input>
+            </label>
+          </div>
+          <div>
+            <label class="grid gap-y-2">
+              <span class="font-bold">{{ lang.get('words.LastName') }}</span>
+              <input class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Last Name" /></input>
+            </label>
+          </div>
           <div class="grid sm:grid-cols-2 gap-5">
             <div>
-              <input v-model="$v.register.email.$model" class="h-12 w-full rounded-lg border-t-btn" type="email" placeholder="E-mail" /></input>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Username') }}</span>
+                <input v-model="$v.register.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="text" placeholder="Username" ></input>
+              </label>
+              <error-input :username="true"></error-input>
+            </div>
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Nickname') }}</span>
+                <input v-model="$v.register.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="text" placeholder="Nickname" /></input>
+              </label>
+              <error-input :nick_name="true"></error-input>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Gender') }}</span>
+                <select v-model="$v.register.gender.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input">
+                  <option value="0" :selected="$v.register.gender.$model == '0'">{{ lang.get('words.Male') }}</option>
+                  <option value="1" :selected="$v.register.gender.$model == '1'">{{ lang.get('words.Female') }}</option>
+                </select>
+              </label>
+              <error-input :gender="true"></error-input>
+            </div>
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.DateOfBirth') }}</span>
+                <input v-model="$v.register.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="date" /></input>
+              </label>
+              <error-input :birth_date="true"></error-input>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Gender') }}</span>
+                <input v-model="$v.register.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="tel" placeholder="Telephone" /></input>
+              </label>
+              <error-input :tel="true"></error-input>
+            </div>
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Zipcode') }}</span>
+                <input v-model="$v.register.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
+              </label>
+              <error-input :zip_code="true"></error-input>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-1 gap-5">
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Address') }}</span>
+                <input v-model="$v.register.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Address" /></input>
+              </label>
+              <error-input :address="true"></error-input>
+            </div>
+            <div>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Email') }}</span>
+                <input v-model="$v.register.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="email" placeholder="E-mail" /></input>
+              </label>
               <error-input :email="true"></error-input>
             </div>
             <div>
-              <input v-model="$v.register.username.$model" class="h-12 w-full rounded-lg border-t-btn" type="text" placeholder="Username" /></input>
-              <error-input :username="true"></error-input>
-            </div>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-5">
-            <div>
-              <input v-model="$v.register.password.$model" class="h-12 w-full rounded-lg border-t-btn" type="password" placeholder="Password" /></input>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.Password') }}</span>
+                <input v-model="$v.register.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="password" placeholder="Password" /></input>
+              </label>
               <error-input :password="true"></error-input>
             </div>
             <div>
-              <input v-model="$v.register.password_confirmation.$model" class="h-12 w-full rounded-lg border-t-btn" type="password" placeholder="Confirm Password" /></input>
+              <label class="grid gap-y-2">
+                <span class="font-bold">{{ lang.get('words.PasswordConfirmation') }}</span>
+                <input v-model="$v.register.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="password" placeholder="Confirm Password" /></input>
+              </label>
               <error-input :password_confirmation="true"></error-input>
             </div>
           </div>
-          <div>
-            <input v-model="$v.register.address.$model" class="h-12 w-full rounded-lg border-t-btn" type="text" placeholder="Address" /></input>
-              <error-input :address="true"></error-input>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-5">
-            <div>
-              <input v-model="$v.register.zip_code.$model" class="h-12 w-full" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
-              <error-input :zip_code="true"></error-input>
-            </div>
-            <div>
-              <input v-model="$v.register.tel.$model" class="h-12 w-full rounded-lg border-t-btn" type="tel" placeholder="Telephone" /></input>
-              <error-input :tel="true"></error-input>
-            </div>
-          </div>
         </div>
-
-        <div class="r-field-opt grid gap-y-5">
+        <div class="grid sm:grid-cols-1 gap-5">
           <div>
-            <input v-model="$v.register.nick_name.$model" class="h-12 w-full rounded-lg border-t-btn" type="text" placeholder="Nickname" /></input>
-              <error-input :nick_name="true"></error-input>
-          </div>
-          <div class="grid sm:grid-cols-2 gap-5">
-            <div>
-              <input v-model="$v.register.birth_date.$model" class="h-12 w-full rounded-lg border-t-btn" type="date" /></input>
-              <error-input :birth_date="true"></error-input>
+              <label class="flex flex-flow gap-4 content-center">
+                <input type="checkbox" class="termsAndPrivacy"/></input>
+                <span class="text-b-mute">{{ lang.get('words.TermsAndPrivacy') }}</span>
+              </label>
+              <!-- <error-input :termsAndPrivacy="true"></error-input> -->
             </div>
-            <div>
-              <select v-model="$v.register.gender.$model" class="h-12 w-full rounded-lg border-t-btn">
-                <option value="0" :selected="$v.register.gender.$model == '0'">{{ lang.get('words.Male') }}</option>
-                <option value="1" :selected="$v.register.gender.$model == '1'">{{ lang.get('words.Female') }}</option>
-              </select>
-              <error-input :gender="true"></error-input>
-            </div>
-          </div>
         </div>
-        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading">{{ lang.get('words.SignUp') }}</ui-button>
+        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" class="text-white">
+          <span class="font-bold">{{ lang.get('words.Continue') }}</span>
+        </ui-button>
       </div>
     </form>
   </div>
@@ -244,7 +308,17 @@ export default {
 </script>
 <style scoped lang="scss">
 @import '../../../sass/imports';
-  .border-t-btn {
-    border: thin solid $brand-button-color;
+  .border-b-input {
+    border: thin solid $brand-bg-input;
+  }
+  #registerComponent {
+    input::placeholder, select::placeholder {
+      padding-left: 20px;
+    }
+  }
+
+  .termsAndPrivacy {
+    height: 27px;
+    transform: scale(1.5);
   }
 </style>

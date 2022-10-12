@@ -105,14 +105,14 @@ export default {
 
 .ui-button {
     width: 150px;
-    height: 50px;
+    height: $ui-input-button-size;
     border-radius: $ui-default-border-radius;
     position: relative;
 }
 
 .ui-btn--type-create {
     color: $primary-text-color;
-    background-color: $brand-color-create;
+    background-color: $brand-primary;
 }
 
 .ui-btn--type-edit {
@@ -122,7 +122,7 @@ export default {
 
 .ui-btn--type-remove {
     color: $primary-text-color;
-    background-color: $brand-color-danger;
+    background-color: $brand-danger;
 }
 
 .ui-content {

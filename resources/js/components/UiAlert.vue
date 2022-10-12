@@ -197,49 +197,49 @@ $ui-alert-margin-bottom     : rem(16px) !default;
 .ui-alert--type-info {
     transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-info, 1);
+        background-color: rgba($brand-info, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-info;
+        color: $brand-info;
     }
     a {
-        color: $brand-color-info;
+        color: $brand-info;
     }
 }
 .ui-alert--type-success {
     transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-success, 1);
+        background-color: rgba($brand-success, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-success;
+        color: $brand-success;
     }
     a {
-        color: $brand-color-success;
+        color: $brand-success;
     }
 }
 .ui-alert--type-warning {
     transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-warning, 1);
+        background-color: rgba($brand-warning, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-warning;
+        color: $brand-warning;
     }
     a {
-        color: $brand-color-warning;
+        color: $brand-warning;
     }
 }
 .ui-alert--type-error  {
     transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-danger, 1);
+        background-color: rgba($brand-danger, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-danger;
+        color: $brand-danger;
     }
     a {
-        color: $brand-color-danger;
+        color: $brand-danger;
     }
 }
 
