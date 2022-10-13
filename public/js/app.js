@@ -1810,7 +1810,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'error-input',
   props: {
-    name: {
+    first_name: {
+      type: Boolean,
+      "default": false
+    },
+    middle_name: {
+      type: Boolean,
+      "default": false
+    },
+    last_name: {
       type: Boolean,
       "default": false
     },
@@ -1851,6 +1859,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": false
     },
     gender: {
+      type: Boolean,
+      "default": false
+    },
+    termsAndPrivacy: {
       type: Boolean,
       "default": false
     }
@@ -2151,7 +2163,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       register: {
-        name: '',
+        first_name: '',
+        middle_name: '',
+        last_name: '',
         email: '',
         username: '',
         password: '',
@@ -2161,17 +2175,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         tel: '',
         nick_name: '',
         birth_date: '',
-        gender: 0
+        gender: 0,
+        termsAndPrivacy: false
       },
       errors: {}
     };
   },
   validations: {
     register: {
-      name: {
+      first_name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4),
-        maxLength: 50
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(2),
+        maxLength: 16
+      },
+      middle_name: {
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(2),
+        maxLength: 16
+      },
+      last_name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(2),
+        maxLength: 16
       },
       email: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -2216,14 +2240,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       gender: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+      },
+      termsAndPrivacy: {
+        checked: function checked(val) {
+          return val == true;
+        }
       }
     }
   },
-  mounted: function mounted() {//
+  mounted: function mounted() {// 
   },
   computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
-    inputName: function inputName() {
-      return this.$v.register.name.$error;
+    inputFirstName: function inputFirstName() {
+      return this.$v.register.first_name.$error;
+    },
+    inputMiddleName: function inputMiddleName() {
+      return this.$v.register.first_name.$error;
+    },
+    inputLastName: function inputLastName() {
+      return this.$v.register.first_name.$error;
     },
     inputEmail: function inputEmail() {
       return this.$v.register.email.$error;
@@ -2254,6 +2289,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     inputGender: function inputGender() {
       return this.$v.register.gender.$error;
+    },
+    inputTermsAndPrivacy: function inputTermsAndPrivacy() {
+      return this.$v.register.termsAndPrivacy.$error;
+    },
+    formData: function formData() {
+      var formData = {};
+      var name = '';
+
+      if (this.register.first_name && this.register.middle_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.middle_name + ' ' + this.register.last_name;
+      } else if (this.register.first_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.last_name;
+      }
+
+      this.register.name = name;
+      return this.register;
+    },
+    isInvalid: function isInvalid() {
+      return _.values(this.register).some(function (v) {
+        return v === '';
+      });
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
@@ -2262,7 +2318,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(true);
       this.errors = null;
-      this.$http.post('api/register', this.register).then(function (response) {
+      var formData = this.formData;
+      this.$http.post('api/register', formData).then(function (response) {
         if (_.has(response, 'data.errors')) {
           _this.errors = response.data.errors;
         } else {
@@ -2329,6 +2386,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.errors.gender = null;
       }
     },
+    inputTermsAndPrivacy: {
+      handler: function handler(value) {
+        this.errors.termsAndPrivacy = false;
+      }
+    },
     immediate: true,
     deep: true
   }
@@ -2376,7 +2438,7 @@ var render = function render() {
     attrs: {
       id: "errorInputComponent"
     }
-  }, [_vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+  }, [_vm.first_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2386,31 +2448,97 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm.$parent.errors.name.length > 1
+        block: _vm.$parent.errors.first_name.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.required && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
-      expression: "!$parent.$v.register.name.required && $parent.$v.register.name.$anyDirty && name"
+      value: !_vm.$parent.$v.register.first_name.required && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.required && $parent.$v.register.first_name.$anyDirty && first_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.minLength && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
-      expression: "!$parent.$v.register.name.minLength && $parent.$v.register.name.$anyDirty && name"
+      value: !_vm.$parent.$v.register.first_name.minLength && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.minLength && $parent.$v.register.first_name.$anyDirty && first_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The name must be at least 4.")]), _vm._v(" "), _c("span", {
+  }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.$parent.$v.register.name.maxLength && _vm.$parent.$v.register.name.$anyDirty && _vm.name,
-      expression: "!$parent.$v.register.name.maxLength && $parent.$v.register.name.$anyDirty && name"
+      value: !_vm.$parent.$v.register.first_name.maxLength && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.maxLength && $parent.$v.register.first_name.$anyDirty && first_name"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.middle_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.name,
+        expression: "name"
+      }],
+      key: key,
+      "class": ["error-text", {
+        block: _vm.$parent.errors.middle_name.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.middle_name.minLength && _vm.$parent.$v.register.middle_name.$anyDirty && _vm.middle_name,
+      expression: "!$parent.$v.register.middle_name.minLength && $parent.$v.register.middle_name.$anyDirty && middle_name"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.middle_name.maxLength && _vm.$parent.$v.register.middle_name.$anyDirty && _vm.middle_name,
+      expression: "!$parent.$v.register.middle_name.maxLength && $parent.$v.register.middle_name.$anyDirty && middle_name"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.last_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.name,
+        expression: "name"
+      }],
+      key: key,
+      "class": ["error-text", {
+        block: _vm.$parent.errors.last_name.length > 1
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  }), 0) : _c("div", [_c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.last_name.required && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.required && $parent.$v.register.last_name.$anyDirty && last_name"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The name field is required.")]), _vm._v(" "), _c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.last_name.minLength && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.minLength && $parent.$v.register.last_name.$anyDirty && last_name"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.last_name.maxLength && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.maxLength && $parent.$v.register.last_name.$anyDirty && last_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "email") ? _c("div", _vm._l(_vm.$parent.errors.email, function (message, key, index) {
@@ -2735,7 +2863,29 @@ var render = function render() {
       expression: "!$parent.$v.register.gender.required && $parent.$v.register.gender.$anyDirty && gender"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password field is required.")])])]);
+  }, [_vm._v("The password field is required.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "termsAndPrivacy") ? _c("div", [_vm._v("\n      " + _vm._s("i am ") + "\n      "), _vm._l(_vm.$parent.errors.termsAndPrivacy, function (message, key, index) {
+    return _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.termsAndPrivacy,
+        expression: "termsAndPrivacy"
+      }],
+      key: key,
+      staticClass: "error-text",
+      "class": ["error-text", {
+        block: typeof _vm.$parent.errors.termsAndPrivacy == "boolean"
+      }]
+    }, [_vm._v(_vm._s(message))]);
+  })], 2) : _c("div", [_c("span", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.$parent.$v.register.termsAndPrivacy.checked && _vm.$parent.$v.register.termsAndPrivacy.$anyDirty && _vm.termsAndPrivacy,
+      expression: "!$parent.$v.register.termsAndPrivacy.checked && $parent.$v.register.termsAndPrivacy.$anyDirty && termsAndPrivacy"
+    }],
+    staticClass: "error-text"
+  }, [_vm._v("The Terms and Conditions must be accepted.")])])]);
 };
 
 var staticRenderFns = [];
@@ -3094,25 +3244,25 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
-      value: _vm.$v.register.name.$model,
-      expression: "$v.register.name.$model",
+      value: _vm.$v.register.first_name.$model,
+      expression: "$v.register.first_name.$model",
       modifiers: {
         trim: true
       }
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "First Name"
     },
     domProps: {
-      value: _vm.$v.register.name.$model
+      value: _vm.$v.register.first_name.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.register.name, "$model", $event.target.value.trim());
+        _vm.$set(_vm.$v.register.first_name, "$model", $event.target.value.trim());
       },
       blur: function blur($event) {
         return _vm.$forceUpdate();
@@ -3122,7 +3272,7 @@ var render = function render() {
     staticClass: "errors"
   }, [_c("error-input", {
     attrs: {
-      name: true
+      first_name: true
     }
   })], 1)]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "grid gap-y-2"
@@ -3131,22 +3281,78 @@ var render = function render() {
   }, [_vm._v(_vm._s(_vm.lang.get("words.MiddleName")) + " "), _c("span", {
     staticClass: "text-b-mute"
   }, [_vm._v("(optional)")])]), _vm._v(" "), _c("input", {
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: _vm.$v.register.middle_name.$model,
+      expression: "$v.register.middle_name.$model",
+      modifiers: {
+        trim: true
+      }
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "Middle Name"
+    },
+    domProps: {
+      value: _vm.$v.register.middle_name.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.middle_name, "$model", $event.target.value.trim());
+      },
+      blur: function blur($event) {
+        return _vm.$forceUpdate();
+      }
     }
-  })])]), _vm._v(" "), _c("div", [_c("label", {
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "errors"
+  }, [_c("error-input", {
+    attrs: {
+      middle_name: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", [_c("label", {
     staticClass: "grid gap-y-2"
   }, [_c("span", {
     staticClass: "font-bold"
   }, [_vm._v(_vm._s(_vm.lang.get("words.LastName")))]), _vm._v(" "), _c("input", {
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: _vm.$v.register.last_name.$model,
+      expression: "$v.register.last_name.$model",
+      modifiers: {
+        trim: true
+      }
+    }],
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "Last Name"
+    },
+    domProps: {
+      value: _vm.$v.register.last_name.$model
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.$v.register.last_name, "$model", $event.target.value.trim());
+      },
+      blur: function blur($event) {
+        return _vm.$forceUpdate();
+      }
     }
-  })])]), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "errors"
+  }, [_c("error-input", {
+    attrs: {
+      last_name: true
+    }
+  })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "grid sm:grid-cols-2 gap-5"
   }, [_c("div", [_c("label", {
     staticClass: "grid gap-y-2"
@@ -3159,7 +3365,7 @@ var render = function render() {
       value: _vm.$v.register.username.$model,
       expression: "$v.register.username.$model"
     }],
-    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "Username"
@@ -3189,7 +3395,7 @@ var render = function render() {
       value: _vm.$v.register.nick_name.$model,
       expression: "$v.register.nick_name.$model"
     }],
-    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "Nickname"
@@ -3221,7 +3427,7 @@ var render = function render() {
       value: _vm.$v.register.gender.$model,
       expression: "$v.register.gender.$model"
     }],
-    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -3263,7 +3469,7 @@ var render = function render() {
       value: _vm.$v.register.birth_date.$model,
       expression: "$v.register.birth_date.$model"
     }],
-    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input",
+    staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "date"
     },
@@ -3294,7 +3500,7 @@ var render = function render() {
       value: _vm.$v.register.tel.$model,
       expression: "$v.register.tel.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "tel",
       placeholder: "Telephone"
@@ -3324,7 +3530,7 @@ var render = function render() {
       value: _vm.$v.register.zip_code.$model,
       expression: "$v.register.zip_code.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       pattern: "[0-9]{5}",
@@ -3357,7 +3563,7 @@ var render = function render() {
       value: _vm.$v.register.address.$model,
       expression: "$v.register.address.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "text",
       placeholder: "Address"
@@ -3387,7 +3593,7 @@ var render = function render() {
       value: _vm.$v.register.email.$model,
       expression: "$v.register.email.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "email",
       placeholder: "E-mail"
@@ -3417,7 +3623,7 @@ var render = function render() {
       value: _vm.$v.register.password.$model,
       expression: "$v.register.password.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "password",
       placeholder: "Password"
@@ -3447,7 +3653,7 @@ var render = function render() {
       value: _vm.$v.register.password_confirmation.$model,
       expression: "$v.register.password_confirmation.$model"
     }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input",
+    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "password",
       placeholder: "Confirm Password"
@@ -3471,18 +3677,52 @@ var render = function render() {
   }, [_c("div", [_c("label", {
     staticClass: "flex flex-flow gap-4 content-center"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.$v.register.termsAndPrivacy.$model,
+      expression: "$v.register.termsAndPrivacy.$model"
+    }],
     staticClass: "termsAndPrivacy",
     attrs: {
       type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.$v.register.termsAndPrivacy.$model) ? _vm._i(_vm.$v.register.termsAndPrivacy.$model, null) > -1 : _vm.$v.register.termsAndPrivacy.$model
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.$v.register.termsAndPrivacy.$model,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+
+        if (Array.isArray($$a)) {
+          var $$v = null,
+              $$i = _vm._i($$a, $$v);
+
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$c);
+        }
+      }
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "text-b-mute"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.TermsAndPrivacy")))])])])]), _vm._v(" "), _c("ui-button", {
+  }, [_vm._v(_vm._s(_vm.lang.get("words.TermsAndPrivacy")))])]), _vm._v(" "), _c("error-input", {
+    attrs: {
+      termsAndPrivacy: true
+    }
+  })], 1)]), _vm._v(" "), _c("ui-button", {
     staticClass: "text-white",
     attrs: {
       type: "create",
       size: "full",
-      withLoading: _vm.loading
+      withLoading: _vm.loading,
+      disabled: _vm.$v.register.$anyError || !_vm.$v.register.$anyDirty || _vm.isInvalid
     },
     on: {
       click: function click($event) {
@@ -8423,7 +8663,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ui-alert[data-v-3669dc8d] {\n  min-height: 70px;\n  width: 95%;\n  margin: auto;\n  display: flex;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.0714285714rem;\n  line-height: 1.4;\n  margin-bottom: 1.1428571429rem;\n  overflow: hidden;\n  position: absolute;\n  right: 15px;\n  left: 15px;\n  bottom: 0;\n  transition: margin-bottom 0.3s;\n  opacity: 0.7;\n}\n.ui-alert.has-no-transition[data-v-3669dc8d],\n.ui-alert.has-no-transition .ui-alert__body[data-v-3669dc8d] {\n  transition: none;\n}\n.ui-alert[data-v-3669dc8d]:hover {\n  opacity: 1;\n}\n.ui-alert a[data-v-3669dc8d] {\n  text-decoration: none;\n}\n.ui-alert a[data-v-3669dc8d]:hover, .ui-alert a[data-v-3669dc8d]:focus {\n  text-decoration: underline;\n}\n.ui-alert__icon[data-v-3669dc8d] {\n  flex-shrink: 0;\n  margin-right: 0.8571428571rem;\n}\n.ui-alert__icon img[data-v-3669dc8d] {\n  width: 20px;\n  height: auto;\n}\n.ui-alert__body[data-v-3669dc8d] {\n  align-items: center;\n  color: rgba(0, 0, 0, 0.75);\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 0;\n  margin-top: 0;\n  min-height: 3.4285714286rem;\n  padding: 0.75rem 2rem 0.75rem 1rem;\n  border-radius: 5px;\n  transition: opacity 0.3s, margin-top 0.4s;\n  width: 100%;\n}\n.ui-alert__content[data-v-3669dc8d] {\n  flex-grow: 1;\n  word-break: break-all;\n}\n.ui-alert__dismiss-button[data-v-3669dc8d] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  align-self: flex-start;\n  flex-shrink: 0;\n  margin-bottom: -0.2857142857rem;\n  margin-left: 0.5714285714rem;\n  margin-right: -0.5714285714rem;\n  margin-top: -0.2857142857rem;\n}\n.ui-alert--type-info[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-info .ui-alert__body[data-v-3669dc8d] {\n  background-color: #56ccf2;\n}\n.ui-alert--type-info .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-info a[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-success[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-success .ui-alert__body[data-v-3669dc8d] {\n  background-color: #4caf50;\n}\n.ui-alert--type-success .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-success a[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-warning[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-warning .ui-alert__body[data-v-3669dc8d] {\n  background-color: #ff9800;\n}\n.ui-alert--type-warning .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-warning a[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-error[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-error .ui-alert__body[data-v-3669dc8d] {\n  background-color: #f44336;\n}\n.ui-alert--type-error .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}\n.ui-alert--type-error a[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".ui-alert[data-v-3669dc8d] {\n  min-height: 70px;\n  width: 95%;\n  margin: auto;\n  display: flex;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.0714285714rem;\n  line-height: 1.4;\n  margin-bottom: 1.1428571429rem;\n  overflow: hidden;\n  position: fixed;\n  right: 15px;\n  left: 15px;\n  bottom: 0px;\n  transition: margin-bottom 0.3s;\n  opacity: 0.7;\n}\n.ui-alert.has-no-transition[data-v-3669dc8d],\n.ui-alert.has-no-transition .ui-alert__body[data-v-3669dc8d] {\n  transition: none;\n}\n.ui-alert[data-v-3669dc8d]:hover {\n  opacity: 1;\n}\n.ui-alert a[data-v-3669dc8d] {\n  text-decoration: none;\n}\n.ui-alert a[data-v-3669dc8d]:hover, .ui-alert a[data-v-3669dc8d]:focus {\n  text-decoration: underline;\n}\n.ui-alert__icon[data-v-3669dc8d] {\n  flex-shrink: 0;\n  margin-right: 0.8571428571rem;\n}\n.ui-alert__icon img[data-v-3669dc8d] {\n  width: 20px;\n  height: auto;\n}\n.ui-alert__body[data-v-3669dc8d] {\n  align-items: center;\n  color: rgba(0, 0, 0, 0.75);\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 0;\n  margin-top: 0;\n  min-height: 3.4285714286rem;\n  padding: 0.75rem 2rem 0.75rem 1rem;\n  border-radius: 5px;\n  transition: opacity 0.3s, margin-top 0.4s;\n  width: 100%;\n}\n.ui-alert__content[data-v-3669dc8d] {\n  flex-grow: 1;\n  word-break: break-all;\n}\n.ui-alert__dismiss-button[data-v-3669dc8d] {\n  position: absolute;\n  top: 20px;\n  right: 20px;\n  align-self: flex-start;\n  flex-shrink: 0;\n  margin-bottom: -0.2857142857rem;\n  margin-left: 0.5714285714rem;\n  margin-right: -0.5714285714rem;\n  margin-top: -0.2857142857rem;\n}\n.ui-alert--type-info[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-info .ui-alert__body[data-v-3669dc8d] {\n  background-color: #56ccf2;\n}\n.ui-alert--type-info .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-info a[data-v-3669dc8d] {\n  color: rgb(86, 204, 242);\n}\n.ui-alert--type-success[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-success .ui-alert__body[data-v-3669dc8d] {\n  background-color: #4caf50;\n}\n.ui-alert--type-success .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-success a[data-v-3669dc8d] {\n  color: rgb(76, 175, 80);\n}\n.ui-alert--type-warning[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-warning .ui-alert__body[data-v-3669dc8d] {\n  background-color: #ff9800;\n}\n.ui-alert--type-warning .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-warning a[data-v-3669dc8d] {\n  color: rgb(255, 152, 0);\n}\n.ui-alert--type-error[data-v-3669dc8d] {\n  transition: opacity 0.3s;\n}\n.ui-alert--type-error .ui-alert__body[data-v-3669dc8d] {\n  background-color: #f44336;\n}\n.ui-alert--type-error .ui-alert__icon[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}\n.ui-alert--type-error a[data-v-3669dc8d] {\n  color: rgb(244, 67, 54);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8471,7 +8711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-2ebeb09e] {\n  border: thin solid rgb(58, 59, 60);\n}\n#registerComponent input[data-v-2ebeb09e]::-moz-placeholder, #registerComponent select[data-v-2ebeb09e]::-moz-placeholder {\n  padding-left: 20px;\n}\n#registerComponent input[data-v-2ebeb09e]::placeholder, #registerComponent select[data-v-2ebeb09e]::placeholder {\n  padding-left: 20px;\n}\n.termsAndPrivacy[data-v-2ebeb09e] {\n  height: 27px;\n  transform: scale(1.5);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-2ebeb09e] {\n  border: thin solid rgb(58, 59, 60);\n}\n.termsAndPrivacy[data-v-2ebeb09e] {\n  height: 27px;\n  transform: scale(1.5);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

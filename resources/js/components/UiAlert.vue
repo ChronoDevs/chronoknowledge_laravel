@@ -129,10 +129,10 @@ $ui-alert-margin-bottom     : rem(16px) !default;
     line-height: 1.4;
     margin-bottom: $ui-alert-margin-bottom;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     right: 15px;
     left: 15px;
-    bottom: 0;
+    bottom: 0px;
     transition: margin-bottom 0.3s;
     opacity: 0.7;
     &.has-no-transition {

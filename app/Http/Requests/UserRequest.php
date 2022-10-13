@@ -33,7 +33,8 @@ class UserRequest extends FormRequest
             'gender' => 'in:0,1', // 0 - male, 1 female
             'zip_code' => 'required|string|max:8',
             'address' => 'string|min:4|max:100',
-            'tel' => 'string|size:11'
+            'tel' => 'string|size:11',
+            'termsAndPrivacy' => 'accepted'
         ];
     }
 }

@@ -1,16 +1,41 @@
 <template>
   <div id="errorInputComponent" class="error-input">
-    <!-- Name -->
-    <div v-if="_.get($parent.errors, 'name')">
+    <!-- First Name -->
+    <div v-if="first_name && _.get($parent.errors, 'name')">
         <span v-show="name" v-for="(message, key, index) in $parent.errors.name" :key="key" :class="[
             'error-text',
-            { 'block': $parent.errors.name.length > 1 }
+            { 'block': $parent.errors.first_name.length > 1 }
         ]">{{ message }}</span>
     </div>
     <div v-else>
-        <span v-show="!$parent.$v.register.name.required && $parent.$v.register.name.$anyDirty && name" class="error-text">The name field is required.</span>
-        <span v-show="!$parent.$v.register.name.minLength && $parent.$v.register.name.$anyDirty && name" class="error-text">The name must be at least 4.</span>
-        <span v-show="!$parent.$v.register.name.maxLength && $parent.$v.register.name.$anyDirty && name" class="error-text">The name may not be greater than 60.</span>
+        <span v-show="!$parent.$v.register.first_name.required && $parent.$v.register.first_name.$anyDirty && first_name" class="error-text">The name field is required.</span>
+        <span v-show="!$parent.$v.register.first_name.minLength && $parent.$v.register.first_name.$anyDirty && first_name" class="error-text">The name must be at least 2.</span>
+        <span v-show="!$parent.$v.register.first_name.maxLength && $parent.$v.register.first_name.$anyDirty && first_name" class="error-text">The name may not be greater than 60.</span>
+    </div>
+
+    <!-- Middle Name -->
+    <div v-if="middle_name && _.get($parent.errors, 'name')">
+        <span v-show="name" v-for="(message, key, index) in $parent.errors.name" :key="key" :class="[
+            'error-text',
+            { 'block': $parent.errors.middle_name.length > 1 }
+        ]">{{ message }}</span>
+    </div>
+    <div v-else>
+        <span v-show="!$parent.$v.register.middle_name.minLength && $parent.$v.register.middle_name.$anyDirty && middle_name" class="error-text">The name must be at least 2.</span>
+        <span v-show="!$parent.$v.register.middle_name.maxLength && $parent.$v.register.middle_name.$anyDirty && middle_name" class="error-text">The name may not be greater than 60.</span>
+    </div>
+
+    <!-- Last Name -->
+    <div v-if="last_name && _.get($parent.errors, 'name')">
+        <span v-show="name" v-for="(message, key, index) in $parent.errors.name" :key="key" :class="[
+            'error-text',
+            { 'block': $parent.errors.last_name.length > 1 }
+        ]">{{ message }}</span>
+    </div>
+    <div v-else>
+        <span v-show="!$parent.$v.register.last_name.required && $parent.$v.register.last_name.$anyDirty && last_name" class="error-text">The name field is required.</span>
+        <span v-show="!$parent.$v.register.last_name.minLength && $parent.$v.register.last_name.$anyDirty && last_name" class="error-text">The name must be at least 2.</span>
+        <span v-show="!$parent.$v.register.last_name.maxLength && $parent.$v.register.last_name.$anyDirty && last_name" class="error-text">The name may not be greater than 60.</span>
     </div>
 
     <!-- Email -->
@@ -135,6 +160,18 @@
     <div v-else>
         <span v-show="!$parent.$v.register.gender.required && $parent.$v.register.gender.$anyDirty && gender" class="error-text">The password field is required.</span>
     </div>
+
+     <!-- Terms And Privacy -->
+     <div v-if="_.get($parent.errors, 'termsAndPrivacy')">
+        {{ 'i am '}}
+        <span v-show="termsAndPrivacy" v-for="(message, key, index) in $parent.errors.termsAndPrivacy" :key="key" class="error-text" :class="[
+            'error-text',
+            { 'block': typeof $parent.errors.termsAndPrivacy == 'boolean' }
+        ]">{{ message }}</span>
+    </div>
+    <div v-else>
+        <span v-show="!$parent.$v.register.termsAndPrivacy.checked && $parent.$v.register.termsAndPrivacy.$anyDirty && termsAndPrivacy" class="error-text">The Terms and Conditions must be accepted.</span>
+    </div>
   </div>
 </template>
 
@@ -144,7 +181,15 @@ import { getters, mutations, actions } from '../store'
 export default {
     name: 'error-input',
     props: {
-        name: {
+        first_name: {
+            type: Boolean,
+            default: false
+        },
+        middle_name: {
+            type: Boolean,
+            default: false
+        },
+        last_name: {
             type: Boolean,
             default: false
         },
@@ -185,6 +230,10 @@ export default {
             default: false
         },
         gender: {
+            type: Boolean,
+            default: false
+        },
+        termsAndPrivacy: {
             type: Boolean,
             default: false
         }

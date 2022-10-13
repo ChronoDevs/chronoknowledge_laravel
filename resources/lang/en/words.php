@@ -7,7 +7,7 @@ return [
     'Address' => 'Address',
     // B
     'Birthdate' => 'Birthdate',
-    'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Conditions and Privacy Policy of Chronosteps Community.',
+    'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
     // C
     'ContinueWithFacebook' => 'Continue with Facebook',
     'ContinueWithGoogle' => 'Continue with Google',

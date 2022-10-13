@@ -27,36 +27,42 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.FirstName') }}</span>
-              <input v-model.trim="$v.register.name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="First Name" /></input>
+              <input v-model.trim="$v.register.first_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="First Name" /></input>
             </label>
             <div class="errors">
-              <error-input :name="true"></error-input>
+              <error-input :first_name="true"></error-input>
             </div>
           </div>
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.MiddleName') }} <span class="text-b-mute">(optional)</span></span>
-              <input class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Middle Name" /></input>
+              <input v-model.trim="$v.register.middle_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Middle Name" /></input>
             </label>
+            <div class="errors">
+              <error-input :middle_name="true"></error-input>
+            </div>
           </div>
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.LastName') }}</span>
-              <input class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Last Name" /></input>
+              <input v-model.trim="$v.register.last_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Last Name" /></input>
             </label>
+            <div class="errors">
+              <error-input :last_name="true"></error-input>
+            </div>
           </div>
           <div class="grid sm:grid-cols-2 gap-5">
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Username') }}</span>
-                <input v-model="$v.register.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="text" placeholder="Username" ></input>
+                <input v-model="$v.register.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Username" ></input>
               </label>
               <error-input :username="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Nickname') }}</span>
-                <input v-model="$v.register.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="text" placeholder="Nickname" /></input>
+                <input v-model="$v.register.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Nickname" /></input>
               </label>
               <error-input :nick_name="true"></error-input>
             </div>
@@ -65,7 +71,7 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Gender') }}</span>
-                <select v-model="$v.register.gender.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input">
+                <select v-model="$v.register.gender.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0">
                   <option value="0" :selected="$v.register.gender.$model == '0'">{{ lang.get('words.Male') }}</option>
                   <option value="1" :selected="$v.register.gender.$model == '1'">{{ lang.get('words.Female') }}</option>
                 </select>
@@ -75,7 +81,7 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.DateOfBirth') }}</span>
-                <input v-model="$v.register.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input" type="date" /></input>
+                <input v-model="$v.register.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="date" /></input>
               </label>
               <error-input :birth_date="true"></error-input>
             </div>
@@ -84,14 +90,14 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Gender') }}</span>
-                <input v-model="$v.register.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="tel" placeholder="Telephone" /></input>
+                <input v-model="$v.register.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="tel" placeholder="Telephone" /></input>
               </label>
               <error-input :tel="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Zipcode') }}</span>
-                <input v-model="$v.register.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
+                <input v-model="$v.register.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input pl-6 focus:placeholder:opacity-0" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
               </label>
               <error-input :zip_code="true"></error-input>
             </div>
@@ -100,28 +106,28 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Address') }}</span>
-                <input v-model="$v.register.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="text" placeholder="Address" /></input>
+                <input v-model="$v.register.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Address" /></input>
               </label>
               <error-input :address="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Email') }}</span>
-                <input v-model="$v.register.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="email" placeholder="E-mail" /></input>
+                <input v-model="$v.register.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="email" placeholder="E-mail" /></input>
               </label>
               <error-input :email="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Password') }}</span>
-                <input v-model="$v.register.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="password" placeholder="Password" /></input>
+                <input v-model="$v.register.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="password" placeholder="Password" /></input>
               </label>
               <error-input :password="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.PasswordConfirmation') }}</span>
-                <input v-model="$v.register.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input" type="password" placeholder="Confirm Password" /></input>
+                <input v-model="$v.register.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="password" placeholder="Confirm Password" /></input>
               </label>
               <error-input :password_confirmation="true"></error-input>
             </div>
@@ -130,13 +136,14 @@
         <div class="grid sm:grid-cols-1 gap-5">
           <div>
               <label class="flex flex-flow gap-4 content-center">
-                <input type="checkbox" class="termsAndPrivacy"/></input>
+                <input type="checkbox" v-model="$v.register.termsAndPrivacy.$model" class="termsAndPrivacy"/></input>
                 <span class="text-b-mute">{{ lang.get('words.TermsAndPrivacy') }}</span>
               </label>
-              <!-- <error-input :termsAndPrivacy="true"></error-input> -->
+              <error-input :termsAndPrivacy="true"></error-input>
             </div>
         </div>
-        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" class="text-white">
+        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" :disabled="
+        $v.register.$anyError || !$v.register.$anyDirty || isInvalid" class="text-white">
           <span class="font-bold">{{ lang.get('words.Continue') }}</span>
         </ui-button>
       </div>
@@ -152,7 +159,9 @@ export default {
   data() {
     return {
       register: {
-        name: '',
+        first_name: '',
+        middle_name: '',
+        last_name: '',
         email: '',
         username: '',
         password: '',
@@ -162,15 +171,22 @@ export default {
         tel: '',
         nick_name: '',
         birth_date: '',
-        gender: 0
+        gender: 0,
+        termsAndPrivacy: false
       },
       errors: {}
     };
   },
   validations: {
     register: {
-      name: {
-        required, minLength: minLength(4), maxLength: 50
+      first_name: {
+        required, minLength: minLength(2), maxLength: 16
+      },
+      middle_name: {
+        minLength: minLength(2), maxLength: 16
+      },
+      last_name: {
+        required, minLength: minLength(2), maxLength: 16
       },
       email: {
         required, email, minLength: minLength(4), maxLength: 50
@@ -204,15 +220,22 @@ export default {
       },
       gender: {
         required
+      },
+      termsAndPrivacy: {
+        checked(val) {
+          return val == true;
+        }
       }
     }
   },
   mounted () {
-    //
+    // 
   },
   computed: {
     ...getters,
-    inputName: function() { return this.$v.register.name.$error },
+    inputFirstName: function() { return this.$v.register.first_name.$error },
+    inputMiddleName: function() { return this.$v.register.first_name.$error },
+    inputLastName: function() { return this.$v.register.first_name.$error },
     inputEmail: function() { return this.$v.register.email.$error },
     inputUsername: function() { return this.$v.register.username.$error },
     inputPassword: function() { return this.$v.register.password.$error },
@@ -222,7 +245,28 @@ export default {
     inputTel: function() { return this.$v.register.tel.$error },
     inputNickname: function() { return this.$v.register.nick_name.$error },
     inputBirthdate: function() { return this.$v.register.birth_date.$error },
-    inputGender: function() { return this.$v.register.gender.$error }
+    inputGender: function() { return this.$v.register.gender.$error },
+    inputTermsAndPrivacy: function() { return this.$v.register.termsAndPrivacy.$error },
+
+    formData: function() {
+      let formData = {}
+      let name = ''
+
+      if(this.register.first_name && this.register.middle_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.middle_name + ' ' + this.register.last_name;
+      }
+      else if(this.register.first_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.last_name;
+      }
+      this.register.name = name
+
+      return this.register
+    },
+    isInvalid: function() {
+      return _.values(this.register).some((v) => {
+        return v === ''
+      });
+    }
   },
   methods: {
     ...mutations,
@@ -230,8 +274,9 @@ export default {
     submit() {
       mutations.setLoading(true);
       this.errors = null;
+      let formData = this.formData
 
-      this.$http.post('api/register', this.register)
+      this.$http.post('api/register', formData)
       .then( (response) => {
           if(_.has(response, 'data.errors')) {
             this.errors = response.data.errors;
@@ -301,6 +346,11 @@ export default {
             this.errors.gender = null
           }
       },
+      inputTermsAndPrivacy: {
+          handler(value) {
+            this.errors.termsAndPrivacy = false
+          }
+      },
       immediate: true,
       deep: true
   }
@@ -310,11 +360,6 @@ export default {
 @import '../../../sass/imports';
   .border-b-input {
     border: thin solid $brand-bg-input;
-  }
-  #registerComponent {
-    input::placeholder, select::placeholder {
-      padding-left: 20px;
-    }
   }
 
   .termsAndPrivacy {

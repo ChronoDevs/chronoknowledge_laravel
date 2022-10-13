@@ -34,11 +34,13 @@ const app = new Vue({
         .finally(() => {
             mutations.setLoading(false)
         })
+
+        
     },
     computed: {
         ...getters
     },
     methods: {
-        ...mutations, ...actions,
+        ...mutations, ...actions
     }
 })
