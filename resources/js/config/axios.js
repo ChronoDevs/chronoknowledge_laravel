@@ -7,9 +7,7 @@ const instance = axios.create({
     baseURL: appConfig.SERVER_URL
   })
 
-// before a request is made
 instance.interceptors.request.use(config => {
-
   config.headers['Content-Type'] = 'application/json'
   config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('module.jwt')
 
@@ -19,7 +17,6 @@ instance.interceptors.request.use(config => {
 
 
 instance.interceptors.response.use(response => {
-
   mutations.setLoading(false)
   return response
 })

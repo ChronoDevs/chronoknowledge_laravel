@@ -4,7 +4,7 @@
   :class="classes"
   :disabled="disabled || loading"
   @click="onClick">
-    <clip-loader class="loaderCenter" :loading="loading" :color="loader.color" :size="loader.size"></clip-loader>
+    <clip-loader class="loaderCenter grid content-center" :loading="withLoading" :color="loader.color" :size="loader.size"></clip-loader>
 
     <div class="ui-content" :class="iconPos">
         <div v-show="withIcon" class="ui-btn-icon">
@@ -32,7 +32,7 @@ export default {
         },
         size: {
             type: String,
-            default: 'normal' // 'small', 'normal', 'large'
+            default: 'adjust' // 'adjust', 'full'
         },
         withIcon: {
             type: Boolean,
@@ -42,7 +42,7 @@ export default {
             type: String,
             default: 'left' // 'left', 'right'
         },
-        loading: {
+        withLoading: {
             type: Boolean,
             default: false
         },
@@ -73,8 +73,8 @@ export default {
             return [
                 `ui-btn--type-${this.type}`,
                 `ui-btn--size-${this.size}`,
-                { 'is-loading': this.loading },
-                { 'is-disabled': this.disabled || this.loading }
+                { 'is-loading': this.withLoading },
+                { 'is-disabled': this.disabled || this.withLoading }
             ];
         },
         iconPos() {
@@ -105,14 +105,14 @@ export default {
 
 .ui-button {
     width: 150px;
-    height: 50px;
+    height: $ui-input-button-size;
     border-radius: $ui-default-border-radius;
     position: relative;
 }
 
 .ui-btn--type-create {
     color: $primary-text-color;
-    background-color: $brand-color-create;
+    background-color: $brand-primary;
 }
 
 .ui-btn--type-edit {
@@ -122,7 +122,7 @@ export default {
 
 .ui-btn--type-remove {
     color: $primary-text-color;
-    background-color: $brand-color-danger;
+    background-color: $brand-danger;
 }
 
 .ui-content {
@@ -154,23 +154,14 @@ export default {
 // ================================================
 // Button Size
 // ================================================
-.ui-btn--size-small {
-    height: 40px;
+.ui-btn--size-adjust {
     width: auto;
     padding: 10px;
     font-size: 12px;
 }
 
-.ui-btn--size-normal {
-    height: 50px;
-    width: 150px;
-    padding: 10px;
-    // font-size: 12px;
-}
-
-.ui-btn--size-large {
-    height: 70px;
-    width: 200px;
+.ui-btn--size-full {
+    width: 100%;
     padding: 10px;
     // font-size: 12px;
 }

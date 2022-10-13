@@ -8,33 +8,36 @@ use Illuminate\Support\Facades\Schema;
 
 class MainEloquentRepository
 {
-    // public function acquireAll()
-    // {
-    //     return parent::acquireAll();
-    // }
+    public function add(array $attributes)
+    {
+        $rtn = false;
 
-    // public function acquire($id)
-    // {
-    //     return parent::acquire($id);
-    // }
+        if (!empty($this->Model)) {
+            $rtn = $this->Model::all();
+        }
 
-    // public function add(array $attributes)
-    // {
-    //     return parent::add($attributes);
-    // }
+        return $rtn;
+    }
 
-    // public function adjust(int $id, array $attributes)
-    // {
-    //     return parent::adjust($id, $attributes);
-    // }
+    /**
+     * add a model record
+     * NTC (No Try Catch) method
+     *
+     * @param Array $attributes
+     * @return Bool/Model
+     */
+    public function NTCadd(array $attributes)
+    {
+        $rtn = false;
 
-    // public function annul(array $id)
-    // {
-    //     return parent::annul($id);
-    // }
+        if (!empty($this->Model) && count($attributes) != 0) {
+            $rtn = $this->Model::create($attributes);
 
-    // public function acquireByAttributes($attributes, $returnCollection)
-    // {
-    //     return parent::acquireByAttributes($attributes, $returnCollection);
-    // }
+            if ($rtn) {
+                $rtn = $rtn->fresh();
+            }
+        }
+
+        return $rtn;
+    }
 }

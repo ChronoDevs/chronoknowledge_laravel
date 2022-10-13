@@ -26,11 +26,27 @@ class UserService
     {
         $user = false;
 
-        DB::beginTransaction();
+        $data = [
+            'email' => request()->get('email'),
+            'username' => request()->get('username'),
+            'password' => request()->get('password'),
+            'name' => request()->get('name'),
+            'nick_name' => request()->get('nick_name'),
+            'birth_date' => request()->get('birth_date'),
+            'gender' => request()->get('gender'),
+            'zip_code' => request()->get('zip_code'),
+            'address' => request()->get('address'),
+            'tel' => request()->get('tel'),
+            'email_verified_at' => request()->get('email_verified_at'),
+            'deleted_at' => request()->get('deleted_at')
+        ];
+
+        \DB::beginTransaction();
         try {
-            $repository->insert
+            $user = $this->repository->add($data);
+            \DB::commit();
         } catch (\Exception $e) {
-            DB::rollback();
+            \DB::rollback();
         }
 
         return $user;

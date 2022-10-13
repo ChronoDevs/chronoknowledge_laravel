@@ -21,8 +21,8 @@
           </section>
         </div>
 
-        <script src="{{ mix('js/app.js') }}"></script>
         @stack('assetJs')
+        <script src="{{ mix('js/app.js') }}"></script>
 
         <noscript>
           This website relies on JavaScript, which you appear to have disabled. You will not be

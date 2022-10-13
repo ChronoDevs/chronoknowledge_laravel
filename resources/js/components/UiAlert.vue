@@ -1,6 +1,6 @@
 <template>
    <transition name="fade" :css="disableAnimation">
-        <div v-if="" class="ui-alert" :class="classes" role="alert">
+        <div v-show="showAlert" class="ui-alert" :class="classes" role="alert">
             <div class="ui-alert__body">
                 <div class="ui-alert__icon" v-if="!removeIcon">
                     <slot name="icon">
@@ -29,26 +29,30 @@ import { getters, mutations, actions } from '../store'
 export default {
     name: 'ui-button',
     props: {
-      type: {
-          type: String,
-          default: 'info' // 'info', 'success', 'warning', or 'error'
-      },
-      removeIcon: {
-          type: Boolean,
-          default: false
-      },
-      disableAnimation: {
-          type: Boolean,
-          default: false
-      },
-      dismissible: {
-          type: Boolean,
-          default: true
-      },
-      timer: {
-          type: Number,
-          default: 10  //  in secs
-      }
+        showAlert: {
+            type: Boolean,
+            default: false // 'info', 'success', 'warning', or 'error'
+        },
+        type: {
+            type: String,
+            default: 'info' // 'info', 'success', 'warning', or 'error'
+        },
+        removeIcon: {
+            type: Boolean,
+            default: false
+        },
+        disableAnimation: {
+            type: Boolean,
+            default: false
+        },
+        dismissible: {
+            type: Boolean,
+            default: true
+        },
+        timer: {
+            type: Number,
+            default: 10  //  in secs
+        }
     },
     data() {
         return {
@@ -63,7 +67,6 @@ export default {
         this.TYPE_ERROR = "error";
     },
     beforeMount() {
-        console.log(this.timerCount);
         this.timerCount = this.timer;
     },
     computed: {
@@ -78,26 +81,30 @@ export default {
     methods: {
         ...mutations, ...actions,
         dismissAlert() {
-            console.log('dismiss alert');
-            this.$emit('dismiss');
+            mutations.closeAlert()
         },
+        initTimer(value) {
+            this.timerCount = this.timer
+
+            setInterval(() => {
+                if(this.timerCount == 0) {
+                    mutations.closeAlert();
+                }
+                if (this.timerCount > 0) {
+                    this.timerCount--;
+                }
+            }, 1000);
+        }
     },
     watch: {
-        timerCount: {
+        showAlert: {
             handler(value) {
-
-                if (value > 0) {
-                    setTimeout(() => {
-                        this.timerCount--;
-
-                        if(this.timerCount == 0) {
-                            this.dismissAlert();
-                        }
-                    }, 1000);
+                if(value == true) {
+                    this.initTimer()
                 }
-
             },
-            immediate: true // This ensures the watcher is triggered upon creation
+            immediate: true,
+            deep: true
         }
 
     }
@@ -122,10 +129,10 @@ $ui-alert-margin-bottom     : rem(16px) !default;
     line-height: 1.4;
     margin-bottom: $ui-alert-margin-bottom;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     right: 15px;
     left: 15px;
-    bottom: 0;
+    bottom: 0px;
     transition: margin-bottom 0.3s;
     opacity: 0.7;
     &.has-no-transition {
@@ -188,47 +195,51 @@ $ui-alert-margin-bottom     : rem(16px) !default;
 // Types
 // ================================================
 .ui-alert--type-info {
+    transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-info, 0.12);
+        background-color: rgba($brand-info, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-info;
+        color: $brand-info;
     }
     a {
-        color: $brand-color-info;
+        color: $brand-info;
     }
 }
 .ui-alert--type-success {
+    transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-success, 0.12);
+        background-color: rgba($brand-success, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-success;
+        color: $brand-success;
     }
     a {
-        color: $brand-color-success;
+        color: $brand-success;
     }
 }
 .ui-alert--type-warning {
+    transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-warning, 0.12);
+        background-color: rgba($brand-warning, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-warning;
+        color: $brand-warning;
     }
     a {
-        color: $brand-color-warning;
+        color: $brand-warning;
     }
 }
 .ui-alert--type-error  {
+    transition: opacity 0.3s;
     .ui-alert__body {
-        background-color: rgba($brand-color-danger, 0.12);
+        background-color: rgba($brand-danger, 1);
     }
     .ui-alert__icon {
-        color: $brand-color-danger;
+        color: $brand-danger;
     }
     a {
-        color: $brand-color-danger;
+        color: $brand-danger;
     }
 }
 
