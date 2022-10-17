@@ -13,5 +13,4 @@ const auth = [
     component: Login
   }
 ];
-
 export default auth

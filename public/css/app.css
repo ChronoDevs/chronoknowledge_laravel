@@ -42,3 +42,8 @@ body p {
   background: rgb(36, 37, 38);
   padding: 0 100px;
 }
+
+.checkbox-footer {
+  height: 27px;
+  transform: scale(1.5);
+}
