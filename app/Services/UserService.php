@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Interfaces\UserRepositoryInterface;
+use Exception;
 
 class UserService
 {
@@ -15,6 +16,31 @@ class UserService
     public function __construct(UserRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     *
+     * @param Int $id
+     * @return JSON $user
+     */
+    public function login()
+    {
+        $rtn = [];
+
+        $data = request()->only('email', 'password');
+        $user = new User;
+        // $user = $this->service->acquireByAttributes($data);
+
+        if (auth()->attempt($data)) {
+            $rtn = [
+                'token' => $user->createToken('chronoknowledge')->accessToken,
+                'user' => auth()->user()
+            ];
+        } else {
+            throw new \Exception("The given data was invalid.");
+        }
+
+        return response()->json($rtn, 200);
     }
 
     /**

@@ -6,7 +6,6 @@ Vue.use(Router)
 import LandingPage from '../pages/landing/LandingPage.vue'
 import authRoutes from '../pages/auth'
 
-
 const routes = [
   {
     path: '/',
