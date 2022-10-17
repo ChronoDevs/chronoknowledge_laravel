@@ -276,7 +276,7 @@ export default {
       this.errors = null;
       let formData = this.formData
 
-      this.$http.post('api/form', formData)
+      this.$http.post('api/register', formData)
       .then( (response) => {
           if(_.has(response, 'data.errors')) {
             this.errors = response.data.errors;
