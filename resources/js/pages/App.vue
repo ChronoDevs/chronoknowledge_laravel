@@ -47,11 +47,6 @@ export default {
     ...actions,
     initApp() {
       mutations.setLoading(true)
-      let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null
-
-      if(user) {
-        mutations.setUser(user)
-      }
     }
   }
 };

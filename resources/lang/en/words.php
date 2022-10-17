@@ -14,7 +14,6 @@ return [
     'Continue' => 'Continue',
     'Chronostep' => 'Chronostep',
     'Community' => 'Community',
-    'ContinueWithEmail' => 'Have a password? Continue with your email address',
     // D
     'DateOfBirth' => 'Date of Birth',
     // E
@@ -48,7 +47,7 @@ return [
     // Q
 
     // R
-    'RememberMe' => 'Remember Me?',
+
     // S
     'SignIn' => 'Sign In',
     'SignUp' => 'Sign Up',

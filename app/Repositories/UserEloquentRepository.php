@@ -23,51 +23,6 @@ class UserEloquentRepository extends MainEloquentRepository implements UserRepos
      *======================================================================*/
 
     /**
-     * acquire a list of records base on attributes given
-     * call NTC (No Try Catch) method
-     *
-     * @param Array $attributes
-     * @param Bool $returnCollection - either return by BuildQuery or Collection
-     * @return BuildQuery|Collection
-     */
-    public function acquireByAttributes(array $attributes, bool $returnCollection = true)
-    {
-        if ($returnCollection) {
-            $rtn = $this->arrayToCollection([]);
-        } else {
-            $rtn = $this->Model::query();
-        }
-
-        try {
-            $rtn = $this->NTCacquireByAttributes($attributes, $returnCollection);
-        } catch (\Exception $e) {
-            Log::error('Exception: ' . $e->getMessage());
-        }
-
-        return $rtn;
-    }
-
-    /**
-     * acquire a list of records base on attributes given
-     * NTC (No Try Catch) method
-     *
-     * @param Array $attributes
-     * @param Bool $returnCollection - either return by BuildQuery or Collection
-     * @return BuildQuery|Collection
-     */
-    public function NTCacquireByAttributes(array $attributes, bool $returnCollection = true)
-    {
-        if ($returnCollection) {
-            $rtn = $this->arrayToCollection([]);
-        } else {
-            $rtn = $this->Model::query();
-        }
-
-        //
-        return $rtn;
-    }
-
-    /**
      * add a User record
      *
      * @param Array $attributes

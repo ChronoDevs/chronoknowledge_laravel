@@ -2108,11 +2108,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].component("ClipLoader", (__webpack_r
   methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
     initApp: function initApp() {
       _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(true);
-      var user = localStorage['chronoknowledge.user'] ? JSON.parse(localStorage['chronoknowledge.user']) : null;
-
-      if (user) {
-        _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setUser(user);
-      }
     }
   })
 });
@@ -2130,127 +2125,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      form: {
-        email: "",
-        password: "",
-        remember: false
-      },
-      errors: {}
-    };
-  },
-  validations: {
-    form: {
-      email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4),
-        maxLength: 50
-      },
-      password: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4),
-        maxLength: 60
-      },
-      remember: {// checked(val) {
-        //   return val == true;
-        // }
-      }
-    }
-  },
-  mounted: function mounted() {
-    this.setLogin();
-  },
-  computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
-    inputEmail: function inputEmail() {
-      return this.$v.form.email.$error;
-    },
-    inputPassword: function inputPassword() {
-      return this.$v.form.password.$error;
-    },
-    // inputRememberMe: function() { return this.$v.form.remember.$error },
-    isInvalid: function isInvalid() {
-      return _.values(this.form).some(function (v) {
-        return v === "";
-      });
-    }
-  }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
-    submit: function submit() {
-      var _this = this;
-
-      _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(true);
-      this.errors = null;
-      var formData = this.form;
-      this.$http.post("api/login", formData).then(function (response) {
-        if (_.has(response, "data.errors")) {
-          _this.errors = response.data.errors;
-        } else if (_.has(response, "data.exception")) {
-          var alertData = {
-            showAlert: true,
-            type: "error",
-            message: "Sorry our server has problem at the moment. Please come back later. Thank you."
-          };
-          _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setAlert(alertData);
-        } else {
-          // SUCCESS
-          if (_this.form.remember) {
-            localStorage.setItem("remember_user", JSON.stringify(_this.form));
-          } else if (localStorage["remember_user"] && !_this.form.remember) {
-            localStorage.removeItem("remember_user");
-          }
-
-          localStorage.setItem("chronoknowledge.jwt", JSON.stringify(response.data.token));
-          localStorage.setItem("chronoknowledge.user", JSON.stringify(response.data.user));
-
-          _this.$router.push("/");
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      })["finally"](function () {
-        _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(false);
-      });
-    },
-    setLogin: function setLogin() {
-      var remember_user = localStorage["remember_user"] ? JSON.parse(localStorage["remember_user"]) : null;
-
-      if (remember_user) {
-        this.form = remember_user;
-      }
-    }
-  }),
-  watch: {
-    inputEmail: {
-      handler: function handler(value) {
-        this.errors.email = null;
-      }
-    },
-    inputPassword: {
-      handler: function handler(value) {
-        this.errors.password = null;
-      }
-    },
-    // inputRememberMe: {
-    //     handler(value) {
-    //       this.errors.remember = false
-    //     }
-    // },
-    immediate: true,
-    deep: true
-  }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({// this.$http
+  //     .get('api/login')
+  //     .then(function(response){
+  //       localStorage.setItem("module.jwt", response.data.token);
+  //     })
+  //     .finally(function (){
+  //       mutations.setLoading(false)
+  //     })
 });
 
 /***/ }),
@@ -2280,7 +2162,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      form: {
+      register: {
         first_name: '',
         middle_name: '',
         last_name: '',
@@ -2300,7 +2182,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   validations: {
-    form: {
+    register: {
       first_name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(2),
@@ -2370,63 +2252,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
     inputFirstName: function inputFirstName() {
-      return this.$v.form.first_name.$error;
+      return this.$v.register.first_name.$error;
     },
     inputMiddleName: function inputMiddleName() {
-      return this.$v.form.first_name.$error;
+      return this.$v.register.first_name.$error;
     },
     inputLastName: function inputLastName() {
-      return this.$v.form.first_name.$error;
+      return this.$v.register.first_name.$error;
     },
     inputEmail: function inputEmail() {
-      return this.$v.form.email.$error;
+      return this.$v.register.email.$error;
     },
     inputUsername: function inputUsername() {
-      return this.$v.form.username.$error;
+      return this.$v.register.username.$error;
     },
     inputPassword: function inputPassword() {
-      return this.$v.form.password.$error;
+      return this.$v.register.password.$error;
     },
     inputPasswordC: function inputPasswordC() {
-      return this.$v.form.password_confirmation.$error;
+      return this.$v.register.password_confirmation.$error;
     },
     inputAddress: function inputAddress() {
-      return this.$v.form.address.$error;
+      return this.$v.register.address.$error;
     },
     inputZipCode: function inputZipCode() {
-      return this.$v.form.zip_code.$error;
+      return this.$v.register.zip_code.$error;
     },
     inputTel: function inputTel() {
-      return this.$v.form.tel.$error;
+      return this.$v.register.tel.$error;
     },
     inputNickname: function inputNickname() {
-      return this.$v.form.nick_name.$error;
+      return this.$v.register.nick_name.$error;
     },
     inputBirthdate: function inputBirthdate() {
-      return this.$v.form.birth_date.$error;
+      return this.$v.register.birth_date.$error;
     },
     inputGender: function inputGender() {
-      return this.$v.form.gender.$error;
+      return this.$v.register.gender.$error;
     },
     inputTermsAndPrivacy: function inputTermsAndPrivacy() {
-      return this.$v.form.termsAndPrivacy.$error;
+      return this.$v.register.termsAndPrivacy.$error;
     },
     formData: function formData() {
       var formData = {};
       var name = '';
 
-      if (this.form.first_name && this.form.middle_name && this.form.last_name) {
-        name = this.form.first_name + ' ' + this.form.middle_name + ' ' + this.form.last_name;
-      } else if (this.form.first_name && this.form.last_name) {
-        name = this.form.first_name + ' ' + this.form.last_name;
+      if (this.register.first_name && this.register.middle_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.middle_name + ' ' + this.register.last_name;
+      } else if (this.register.first_name && this.register.last_name) {
+        name = this.register.first_name + ' ' + this.register.last_name;
       }
 
-      this.form.name = name;
-      return this.form;
+      this.register.name = name;
+      return this.register;
     },
     isInvalid: function isInvalid() {
-      return _.values(this.form).some(function (v) {
-        return v === '' || v === false;
+      return _.values(this.register).some(function (v) {
+        return v === '';
       });
     }
   }),
@@ -2437,7 +2319,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(true);
       this.errors = null;
       var formData = this.formData;
-      this.$http.post('api/form', formData).then(function (response) {
+      this.$http.post('api/register', formData).then(function (response) {
         if (_.has(response, 'data.errors')) {
           _this.errors = response.data.errors;
         } else {
@@ -2445,14 +2327,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           var alertData = {
             showAlert: true,
             type: 'success',
-            message: 'Account is now formed.'
+            message: 'Account is now registered.'
           };
           _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setAlert(alertData);
-
-          _this.$router.push('login');
         }
-      })["finally"](function () {
-        _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(false); //
+      })["finally"](function () {//
       });
     }
   }),
@@ -2559,7 +2438,7 @@ var render = function render() {
     attrs: {
       id: "errorInputComponent"
     }
-  }, [_vm.first_name && _vm._.get(_vm.$parent.errors, "name", false) ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+  }, [_vm.first_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2569,34 +2448,34 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "first_name", false)
+        block: _vm.$parent.errors.first_name.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.first_name && !_vm.$parent.$v["form"].first_name.required && _vm.$parent.$v["form"].first_name.$anyDirty,
-      expression: "first_name && !$parent.$v[`form`].first_name.required && $parent.$v[`form`].first_name.$anyDirty"
+      value: !_vm.$parent.$v.register.first_name.required && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.required && $parent.$v.register.first_name.$anyDirty && first_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.first_name && !_vm.$parent.$v["form"].first_name.minLength && _vm.$parent.$v["form"].first_name.$anyDirty,
-      expression: "first_name && !$parent.$v[`form`].first_name.minLength && $parent.$v[`form`].first_name.$anyDirty"
+      value: !_vm.$parent.$v.register.first_name.minLength && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.minLength && $parent.$v.register.first_name.$anyDirty && first_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.first_name && !_vm.$parent.$v["form"].first_name.maxLength && _vm.$parent.$v["form"].first_name.$anyDirty,
-      expression: "first_name && !$parent.$v[`form`].first_name.maxLength && $parent.$v[`form`].first_name.$anyDirty"
+      value: !_vm.$parent.$v.register.first_name.maxLength && _vm.$parent.$v.register.first_name.$anyDirty && _vm.first_name,
+      expression: "!$parent.$v.register.first_name.maxLength && $parent.$v.register.first_name.$anyDirty && first_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.middle_name && _vm._.get(_vm.$parent.errors, "name", false) ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.middle_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2606,26 +2485,26 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "middle_name", false)
+        block: _vm.$parent.errors.middle_name.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.middle_name && !_vm.$parent.$v["form"].middle_name.minLength && _vm.$parent.$v["form"].middle_name.$anyDirty,
-      expression: "middle_name && !$parent.$v[`form`].middle_name.minLength && $parent.$v[`form`].middle_name.$anyDirty"
+      value: !_vm.$parent.$v.register.middle_name.minLength && _vm.$parent.$v.register.middle_name.$anyDirty && _vm.middle_name,
+      expression: "!$parent.$v.register.middle_name.minLength && $parent.$v.register.middle_name.$anyDirty && middle_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.middle_name && !_vm.$parent.$v["form"].middle_name.maxLength && _vm.$parent.$v["form"].middle_name.$anyDirty,
-      expression: "middle_name && !$parent.$v[`form`].middle_name.maxLength && $parent.$v[`form`].middle_name.$anyDirty"
+      value: !_vm.$parent.$v.register.middle_name.maxLength && _vm.$parent.$v.register.middle_name.$anyDirty && _vm.middle_name,
+      expression: "!$parent.$v.register.middle_name.maxLength && $parent.$v.register.middle_name.$anyDirty && middle_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.last_name && _vm._.get(_vm.$parent.errors, "name", false) ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm.last_name && _vm._.get(_vm.$parent.errors, "name") ? _c("div", _vm._l(_vm.$parent.errors.name, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2635,34 +2514,34 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "last_name", false)
+        block: _vm.$parent.errors.last_name.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.last_name && !_vm.$parent.$v["form"].last_name.required && _vm.$parent.$v["form"].last_name.$anyDirty,
-      expression: "last_name && !$parent.$v[`form`].last_name.required && $parent.$v[`form`].last_name.$anyDirty"
+      value: !_vm.$parent.$v.register.last_name.required && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.required && $parent.$v.register.last_name.$anyDirty && last_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.last_name && !_vm.$parent.$v["form"].last_name.minLength && _vm.$parent.$v["form"].last_name.$anyDirty,
-      expression: "last_name && !$parent.$v[`form`].last_name.minLength && $parent.$v[`form`].last_name.$anyDirty"
+      value: !_vm.$parent.$v.register.last_name.minLength && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.minLength && $parent.$v.register.last_name.$anyDirty && last_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The name must be at least 2.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.last_name && !_vm.$parent.$v["form"].last_name.maxLength && _vm.$parent.$v["form"].last_name.$anyDirty,
-      expression: "last_name && !$parent.$v[`form`].last_name.maxLength && $parent.$v[`form`].last_name.$anyDirty"
+      value: !_vm.$parent.$v.register.last_name.maxLength && _vm.$parent.$v.register.last_name.$anyDirty && _vm.last_name,
+      expression: "!$parent.$v.register.last_name.maxLength && $parent.$v.register.last_name.$anyDirty && last_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "email", false) ? _c("div", _vm._l(_vm.$parent.errors.email, function (message, key, index) {
+  }, [_vm._v("The name may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "email") ? _c("div", _vm._l(_vm.$parent.errors.email, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2672,42 +2551,42 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "email", false)
+        block: _vm.$parent.errors.email.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.email && !_vm.$parent.$v["form"].email.required && _vm.$parent.$v["form"].email.$anyDirty,
-      expression: "email && !$parent.$v[`form`].email.required && $parent.$v[`form`].email.$anyDirty"
+      value: !_vm.$parent.$v.register.email.required && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.required && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.email && !_vm.$parent.$v["form"].email.email && _vm.$parent.$v["form"].email.$anyDirty,
-      expression: "email && !$parent.$v[`form`].email.email && $parent.$v[`form`].email.$anyDirty"
+      value: !_vm.$parent.$v.register.email.email && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.email && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email must be a valid email address.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.email && !_vm.$parent.$v["form"].email.minLength && _vm.$parent.$v["form"].email.$anyDirty,
-      expression: "email && !$parent.$v[`form`].email.minLength && $parent.$v[`form`].email.$anyDirty"
+      value: !_vm.$parent.$v.register.email.minLength && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.minLength && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
   }, [_vm._v("The email must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.email && !_vm.$parent.$v["form"].email.maxLength && _vm.$parent.$v["form"].email.$anyDirty,
-      expression: "email && !$parent.$v[`form`].email.maxLength && $parent.$v[`form`].email.$anyDirty"
+      value: !_vm.$parent.$v.register.email.maxLength && _vm.$parent.$v.register.email.$anyDirty && _vm.email,
+      expression: "!$parent.$v.register.email.maxLength && $parent.$v.register.email.$anyDirty && email"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The email may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "username", false) ? _c("div", _vm._l(_vm.$parent.errors.username, function (message, key, index) {
+  }, [_vm._v("The email may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "username") ? _c("div", _vm._l(_vm.$parent.errors.username, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2717,34 +2596,34 @@ var render = function render() {
       }],
       key: key,
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "username", false)
+        block: _vm.$parent.errors.username.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.username && !_vm.$parent.$v["form"].username.required && _vm.$parent.$v["form"].username.$anyDirty,
-      expression: "username && !$parent.$v[`form`].username.required && $parent.$v[`form`].username.$anyDirty"
+      value: !_vm.$parent.$v.register.username.required && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.required && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
   }, [_vm._v("The username field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.username && !_vm.$parent.$v["form"].username.minLength && _vm.$parent.$v["form"].username.$anyDirty,
-      expression: "username && !$parent.$v[`form`].username.minLength && $parent.$v[`form`].username.$anyDirty"
+      value: !_vm.$parent.$v.register.username.minLength && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.minLength && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
   }, [_vm._v("The username must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.username && !_vm.$parent.$v["form"].username.maxLength && _vm.$parent.$v["form"].username.$anyDirty,
-      expression: "username && !$parent.$v[`form`].username.maxLength && $parent.$v[`form`].username.$anyDirty"
+      value: !_vm.$parent.$v.register.username.maxLength && _vm.$parent.$v.register.username.$anyDirty && _vm.username,
+      expression: "!$parent.$v.register.username.maxLength && $parent.$v.register.username.$anyDirty && username"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The user may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password", false) ? _c("div", _vm._l(_vm.$parent.errors.password, function (message, key, index) {
+  }, [_vm._v("The user may not be greater than 50.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password") ? _c("div", _vm._l(_vm.$parent.errors.password, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2755,34 +2634,34 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "password", false)
+        block: _vm.$parent.errors.password.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.password && !_vm.$parent.$v["form"].password.required && _vm.$parent.$v["form"].password.$anyDirty,
-      expression: "password && !$parent.$v[`form`].password.required && $parent.$v[`form`].password.$anyDirty"
+      value: !_vm.$parent.$v.register.password.required && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.required && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.password && !_vm.$parent.$v["form"].password.minLength && _vm.$parent.$v["form"].password.$anyDirty,
-      expression: "password && !$parent.$v[`form`].password.minLength && $parent.$v[`form`].password.$anyDirty"
+      value: !_vm.$parent.$v.register.password.minLength && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.minLength && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.password && !_vm.$parent.$v["form"].password.maxLength && _vm.$parent.$v["form"].password.$anyDirty,
-      expression: "password && !$parent.$v[`form`].password.maxLength && $parent.$v[`form`].password.$anyDirty"
+      value: !_vm.$parent.$v.register.password.maxLength && _vm.$parent.$v.register.password.$anyDirty && _vm.password,
+      expression: "!$parent.$v.register.password.maxLength && $parent.$v.register.password.$anyDirty && password"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password_confirmation", false) ? _c("div", _vm._l(_vm.$parent.errors.password_confirmation, function (message, key, index) {
+  }, [_vm._v("The password may not be greater than 60.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "password_confirmation") ? _c("div", _vm._l(_vm.$parent.errors.password_confirmation, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2793,26 +2672,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "password_confirmation", false)
+        block: _vm.$parent.errors.password_confirmation.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.password_confirmation && !_vm.$parent.$v["form"].password_confirmation.required && _vm.$parent.$v["form"].password_confirmation.$anyDirty,
-      expression: "password_confirmation && !$parent.$v[`form`].password_confirmation.required && $parent.$v[`form`].password_confirmation.$anyDirty"
+      value: !_vm.$parent.$v.register.password_confirmation.required && _vm.$parent.$v.register.password_confirmation.$anyDirty && _vm.password_confirmation,
+      expression: "!$parent.$v.register.password_confirmation.required && $parent.$v.register.password_confirmation.$anyDirty && password_confirmation"
     }],
     staticClass: "error-text"
   }, [_vm._v("The password_confirmation field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.password_confirmation && _vm.$parent.$v["form"].password_confirmation.$model !== _vm.$parent.$v["form"].password.$model && _vm.$parent.$v["form"].password_confirmation.$anyDirty,
-      expression: "password_confirmation && $parent.$v[`form`].password_confirmation.$model !== $parent.$v[`form`].password.$model && $parent.$v[`form`].password_confirmation.$anyDirty"
+      value: _vm.$parent.$v.register.password_confirmation.$model !== _vm.$parent.$v.register.password.$model && _vm.$parent.$v.register.password_confirmation.$anyDirty && _vm.password_confirmation,
+      expression: "$parent.$v.register.password_confirmation.$model !== $parent.$v.register.password.$model && $parent.$v.register.password_confirmation.$anyDirty && password_confirmation"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password_confirmation does not match.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "address", false) ? _c("div", _vm._l(_vm.$parent.errors.address, function (message, key, index) {
+  }, [_vm._v("The password_confirmation does not match.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "address") ? _c("div", _vm._l(_vm.$parent.errors.address, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2823,26 +2702,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "address", false)
+        block: _vm.$parent.errors.address.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.address && !_vm.$parent.$v["form"].address.minLength && _vm.$parent.$v["form"].address.$anyDirty,
-      expression: "address && !$parent.$v[`form`].address.minLength && $parent.$v[`form`].address.$anyDirty"
+      value: !_vm.$parent.$v.register.address.minLength && _vm.$parent.$v.register.address.$anyDirty && _vm.address,
+      expression: "!$parent.$v.register.address.minLength && $parent.$v.register.address.$anyDirty && address"
     }],
     staticClass: "error-text"
   }, [_vm._v("The address must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.address && !_vm.$parent.$v["form"].address.maxLength && _vm.$parent.$v["form"].address.$anyDirty,
-      expression: "address && !$parent.$v[`form`].address.maxLength && $parent.$v[`form`].address.$anyDirty"
+      value: !_vm.$parent.$v.register.address.maxLength && _vm.$parent.$v.register.address.$anyDirty && _vm.address,
+      expression: "!$parent.$v.register.address.maxLength && $parent.$v.register.address.$anyDirty && address"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The address may not be greater than 100.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "zip_code", false) ? _c("div", _vm._l(_vm.$parent.errors.zip_code, function (message, key, index) {
+  }, [_vm._v("The address may not be greater than 100.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "zip_code") ? _c("div", _vm._l(_vm.$parent.errors.zip_code, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2853,26 +2732,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "zip_code", false)
+        block: _vm.$parent.errors.zip_code.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.zip_code && !_vm.$parent.$v["form"].zip_code.required && _vm.$parent.$v["form"].zip_code.$anyDirty,
-      expression: "zip_code && !$parent.$v[`form`].zip_code.required && $parent.$v[`form`].zip_code.$anyDirty"
+      value: !_vm.$parent.$v.register.zip_code.required && _vm.$parent.$v.register.zip_code.$anyDirty && _vm.zip_code,
+      expression: "!$parent.$v.register.zip_code.required && $parent.$v.register.zip_code.$anyDirty && zip_code"
     }],
     staticClass: "error-text"
   }, [_vm._v("The zip_code field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.zip_code && !_vm.$parent.$v["form"].zip_code.maxLength && _vm.$parent.$v["form"].zip_code.$anyDirty,
-      expression: "zip_code && !$parent.$v[`form`].zip_code.maxLength && $parent.$v[`form`].zip_code.$anyDirty"
+      value: !_vm.$parent.$v.register.zip_code.maxLength && _vm.$parent.$v.register.zip_code.$anyDirty && _vm.zip_code,
+      expression: "!$parent.$v.register.zip_code.maxLength && $parent.$v.register.zip_code.$anyDirty && zip_code"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The zip_code may not be greater than 8.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "tel", false) ? _c("div", _vm._l(_vm.$parent.errors.tel, function (message, key, index) {
+  }, [_vm._v("The zip_code may not be greater than 8.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "tel") ? _c("div", _vm._l(_vm.$parent.errors.tel, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2883,26 +2762,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "tel", false)
+        block: _vm.$parent.errors.tel.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.tel && !_vm.$parent.$v["form"].tel.minLength && _vm.$parent.$v["form"].tel.$anyDirty,
-      expression: "tel && !$parent.$v[`form`].tel.minLength && $parent.$v[`form`].tel.$anyDirty"
+      value: !_vm.$parent.$v.register.tel.minLength && _vm.$parent.$v.register.tel.$anyDirty && _vm.tel,
+      expression: "!$parent.$v.register.tel.minLength && $parent.$v.register.tel.$anyDirty && tel"
     }],
     staticClass: "error-text"
   }, [_vm._v("The telephone is not valid.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.tel && !_vm.$parent.$v["form"].tel.maxLength && _vm.$parent.$v["form"].tel.$anyDirty,
-      expression: "tel && !$parent.$v[`form`].tel.maxLength && $parent.$v[`form`].tel.$anyDirty"
+      value: !_vm.$parent.$v.register.tel.maxLength && _vm.$parent.$v.register.tel.$anyDirty && _vm.tel,
+      expression: "!$parent.$v.register.tel.maxLength && $parent.$v.register.tel.$anyDirty && tel"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The telephone may not be greater than 11.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "nick_name", false) ? _c("div", _vm._l(_vm.$parent.errors.nick_name, function (message, key, index) {
+  }, [_vm._v("The telephone may not be greater than 11.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "nick_name") ? _c("div", _vm._l(_vm.$parent.errors.nick_name, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2913,26 +2792,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "nick_name", false)
+        block: _vm.$parent.errors.nick_name.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.nick_name && !_vm.$parent.$v["form"].nick_name.minLength && _vm.$parent.$v["form"].nick_name.$anyDirty,
-      expression: "nick_name && !$parent.$v[`form`].nick_name.minLength && $parent.$v[`form`].nick_name.$anyDirty"
+      value: !_vm.$parent.$v.register.nick_name.minLength && _vm.$parent.$v.register.nick_name.$anyDirty && _vm.nick_name,
+      expression: "!$parent.$v.register.nick_name.minLength && $parent.$v.register.nick_name.$anyDirty && nick_name"
     }],
     staticClass: "error-text"
   }, [_vm._v("The nickname must be at least 4.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.nick_name && !_vm.$parent.$v["form"].nick_name.maxLength && _vm.$parent.$v["form"].nick_name.$anyDirty,
-      expression: "nick_name && !$parent.$v[`form`].nick_name.maxLength && $parent.$v[`form`].nick_name.$anyDirty"
+      value: !_vm.$parent.$v.register.nick_name.maxLength && _vm.$parent.$v.register.nick_name.$anyDirty && _vm.nick_name,
+      expression: "!$parent.$v.register.nick_name.maxLength && $parent.$v.register.nick_name.$anyDirty && nick_name"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The nickname may not be greater than 20.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "birth_date", false) ? _c("div", _vm._l(_vm.$parent.errors.birth_date, function (message, key, index) {
+  }, [_vm._v("The nickname may not be greater than 20.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "birth_date") ? _c("div", _vm._l(_vm.$parent.errors.birth_date, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2943,26 +2822,26 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "birth_date", false)
+        block: _vm.$parent.errors.birth_date.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.birth_date && !_vm.$parent.$v["form"].birth_date.required && _vm.$parent.$v["form"].birth_date.$anyDirty,
-      expression: "birth_date && !$parent.$v[`form`].birth_date.required && $parent.$v[`form`].birth_date.$anyDirty"
+      value: !_vm.$parent.$v.register.birth_date.required && _vm.$parent.$v.register.birth_date.$anyDirty && _vm.birth_date,
+      expression: "!$parent.$v.register.birth_date.required && $parent.$v.register.birth_date.$anyDirty && birth_date"
     }],
     staticClass: "error-text"
   }, [_vm._v("The birth date field is required.")]), _vm._v(" "), _c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.birth_date && !_vm.$parent.$v["form"].birth_date.isDate && _vm.$parent.$v["form"].birth_date.$anyDirty,
-      expression: "birth_date && !$parent.$v[`form`].birth_date.isDate && $parent.$v[`form`].birth_date.$anyDirty"
+      value: !_vm.$parent.$v.register.birth_date.isDate && _vm.$parent.$v.register.birth_date.$anyDirty && _vm.birth_date,
+      expression: "!$parent.$v.register.birth_date.isDate && $parent.$v.register.birth_date.$anyDirty && birth_date"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The birth date is not a valid date.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "gender", false) ? _c("div", _vm._l(_vm.$parent.errors.gender, function (message, key, index) {
+  }, [_vm._v("The birth date is not a valid date.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "gender") ? _c("div", _vm._l(_vm.$parent.errors.gender, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2973,18 +2852,18 @@ var render = function render() {
       key: key,
       staticClass: "error-text",
       "class": ["error-text", {
-        block: _vm._.get(_vm.$parent.errors, "gender", false)
+        block: _vm.$parent.errors.gender.length > 1
       }]
     }, [_vm._v(_vm._s(message))]);
   }), 0) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.gender && !_vm.$parent.$v["form"].gender.required && _vm.$parent.$v["form"].gender.$anyDirty,
-      expression: "gender && !$parent.$v[`form`].gender.required && $parent.$v[`form`].gender.$anyDirty"
+      value: !_vm.$parent.$v.register.gender.required && _vm.$parent.$v.register.gender.$anyDirty && _vm.gender,
+      expression: "!$parent.$v.register.gender.required && $parent.$v.register.gender.$anyDirty && gender"
     }],
     staticClass: "error-text"
-  }, [_vm._v("The password field is required.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "termsAndPrivacy", false) ? _c("div", _vm._l(_vm.$parent.errors.termsAndPrivacy, function (message, key, index) {
+  }, [_vm._v("The password field is required.")])]), _vm._v(" "), _vm._.get(_vm.$parent.errors, "termsAndPrivacy") ? _c("div", [_vm._v("\n      " + _vm._s("i am ") + "\n      "), _vm._l(_vm.$parent.errors.termsAndPrivacy, function (message, key, index) {
     return _c("span", {
       directives: [{
         name: "show",
@@ -2998,12 +2877,12 @@ var render = function render() {
         block: typeof _vm.$parent.errors.termsAndPrivacy == "boolean"
       }]
     }, [_vm._v(_vm._s(message))]);
-  }), 0) : _c("div", [_c("span", {
+  })], 2) : _c("div", [_c("span", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.termsAndPrivacy && !_vm.$parent.$v["form"].termsAndPrivacy.checked && _vm.$parent.$v["form"].termsAndPrivacy.$anyDirty,
-      expression: "termsAndPrivacy && !$parent.$v[`form`].termsAndPrivacy.checked && $parent.$v[`form`].termsAndPrivacy.$anyDirty"
+      value: !_vm.$parent.$v.register.termsAndPrivacy.checked && _vm.$parent.$v.register.termsAndPrivacy.$anyDirty && _vm.termsAndPrivacy,
+      expression: "!$parent.$v.register.termsAndPrivacy.checked && $parent.$v.register.termsAndPrivacy.$anyDirty && termsAndPrivacy"
     }],
     staticClass: "error-text"
   }, [_vm._v("The Terms and Conditions must be accepted.")])])]);
@@ -3258,10 +3137,10 @@ render._withStripped = true;
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3270,184 +3149,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "h-screen flex content-center justify-center",
-    attrs: {
-      id: "formComponent"
-    }
-  }, [_c("form", {
-    staticClass: "h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
-  }, [_c("div", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }],
-    staticClass: "absolute w-full h-full bg-form-overlay"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "r-link m-10 font-bold"
-  }, [_c("h3", {
-    staticClass: "text-center"
-  }, [_c("span", {
-    staticClass: "text-b-info"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Chronostep")))]), _vm._v(" "), _c("span", {
-    staticClass: "text-b-create"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Community")))])]), _vm._v(" "), _c("p", {
-    staticClass: "text-center"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.WelcomeToChronoCommunity")))]), _vm._v(" "), _c("div", {
-    staticClass: "grid justify-center grid grid-cols-1 gap-4 my-10"
-  }, [_c("button", {
-    staticClass: "h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md",
-    attrs: {
-      type: "button"
-    }
-  }, [_c("i", {
-    staticClass: "fa-brands fa-facebook mr-3 text-lg"
-  }), _vm._v(_vm._s(_vm.lang.get("words.ContinueWithFacebook")) + "\n        ")]), _vm._v(" "), _c("button", {
-    staticClass: "h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md",
-    attrs: {
-      type: "button"
-    }
-  }, [_c("i", {
-    staticClass: "fa-brands fa-google mr-3 text-lg"
-  }), _vm._v(_vm._s(_vm.lang.get("words.ContinueWithGoogle")) + "\n        ")])]), _vm._v(" "), _c("p", {
-    staticClass: "horizontal-line text-center"
-  }, [_c("span", {
-    staticClass: "horizontal-line-text p-0"
-  }, [_c("span", {
-    staticClass: "text-b-mute"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.ContinueWithEmail")))])])])]), _vm._v(" "), _c("div", {
-    staticClass: "r-field flex flex-col gap-10 m-10"
-  }, [_c("div", {
-    staticClass: "r-field-required grid gap-y-5"
-  }, [_c("div", [_c("label", {
-    staticClass: "grid gap-y-2"
-  }, [_c("span", {
-    staticClass: "font-bold"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Email")))]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.form.email.$model,
-      expression: "$v.form.email.$model"
-    }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
-    attrs: {
-      type: "email",
-      placeholder: "E-mail"
-    },
-    domProps: {
-      value: _vm.$v.form.email.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.form.email, "$model", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c("error-input", {
-    attrs: {
-      email: true
-    }
-  })], 1), _vm._v(" "), _c("div", [_c("label", {
-    staticClass: "grid gap-y-2"
-  }, [_c("span", {
-    staticClass: "font-bold"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Password")))]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.form.password.$model,
-      expression: "$v.form.password.$model"
-    }],
-    staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
-    attrs: {
-      type: "password",
-      placeholder: "Password"
-    },
-    domProps: {
-      value: _vm.$v.form.password.$model
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.$v.form.password, "$model", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c("error-input", {
-    attrs: {
-      password: true
-    }
-  })], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "grid sm:grid-cols-1 gap-5"
-  }, [_c("div", [_c("label", {
-    staticClass: "flex flex-flow gap-4 content-center"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.$v.form.remember.$model,
-      expression: "$v.form.remember.$model"
-    }],
-    staticClass: "checkbox-footer",
-    attrs: {
-      type: "checkbox"
-    },
-    domProps: _defineProperty({
-      checked: true
-    }, "checked", Array.isArray(_vm.$v.form.remember.$model) ? _vm._i(_vm.$v.form.remember.$model, null) > -1 : _vm.$v.form.remember.$model),
-    on: {
-      change: function change($event) {
-        var $$a = _vm.$v.form.remember.$model,
-            $$el = $event.target,
-            $$c = $$el.checked ? true : false;
-
-        if (Array.isArray($$a)) {
-          var $$v = null,
-              $$i = _vm._i($$a, $$v);
-
-          if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.$v.form.remember, "$model", $$a.concat([$$v]));
-          } else {
-            $$i > -1 && _vm.$set(_vm.$v.form.remember, "$model", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-          }
-        } else {
-          _vm.$set(_vm.$v.form.remember, "$model", $$c);
-        }
-      }
-    }
-  }), _vm._v(" "), _c("span", {
-    staticClass: "text-b-mute"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.RememberMe")))])]), _vm._v(" "), _c("error-input", {
-    attrs: {
-      rememberMe: true
-    }
-  })], 1)]), _vm._v(" "), _c("ui-button", {
-    staticClass: "text-white",
-    attrs: {
-      type: "create",
-      size: "full",
-      withLoading: _vm.loading,
-      disabled: _vm.$v.form.$anyError || !_vm.$v.form.$anyDirty || _vm.isInvalid
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.submit.apply(null, arguments);
-      }
-    }
-  }, [_c("span", {
-    staticClass: "font-bold"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Continue")))])])], 1)])]);
+  return _c("div", [_vm._v("Login")]);
 };
 
 var staticRenderFns = [];
@@ -3475,7 +3181,7 @@ var render = function render() {
   return _c("div", {
     staticClass: "h-screen flex content-center justify-center",
     attrs: {
-      id: "formComponent"
+      id: "registerComponent"
     }
   }, [_c("form", {
     staticClass: "h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
@@ -3538,8 +3244,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
-      value: _vm.$v.form.first_name.$model,
-      expression: "$v.form.first_name.$model",
+      value: _vm.$v.register.first_name.$model,
+      expression: "$v.register.first_name.$model",
       modifiers: {
         trim: true
       }
@@ -3550,13 +3256,13 @@ var render = function render() {
       placeholder: "First Name"
     },
     domProps: {
-      value: _vm.$v.form.first_name.$model
+      value: _vm.$v.register.first_name.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.first_name, "$model", $event.target.value.trim());
+        _vm.$set(_vm.$v.register.first_name, "$model", $event.target.value.trim());
       },
       blur: function blur($event) {
         return _vm.$forceUpdate();
@@ -3578,8 +3284,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
-      value: _vm.$v.form.middle_name.$model,
-      expression: "$v.form.middle_name.$model",
+      value: _vm.$v.register.middle_name.$model,
+      expression: "$v.register.middle_name.$model",
       modifiers: {
         trim: true
       }
@@ -3590,13 +3296,13 @@ var render = function render() {
       placeholder: "Middle Name"
     },
     domProps: {
-      value: _vm.$v.form.middle_name.$model
+      value: _vm.$v.register.middle_name.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.middle_name, "$model", $event.target.value.trim());
+        _vm.$set(_vm.$v.register.middle_name, "$model", $event.target.value.trim());
       },
       blur: function blur($event) {
         return _vm.$forceUpdate();
@@ -3616,8 +3322,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
-      value: _vm.$v.form.last_name.$model,
-      expression: "$v.form.last_name.$model",
+      value: _vm.$v.register.last_name.$model,
+      expression: "$v.register.last_name.$model",
       modifiers: {
         trim: true
       }
@@ -3628,13 +3334,13 @@ var render = function render() {
       placeholder: "Last Name"
     },
     domProps: {
-      value: _vm.$v.form.last_name.$model
+      value: _vm.$v.register.last_name.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.last_name, "$model", $event.target.value.trim());
+        _vm.$set(_vm.$v.register.last_name, "$model", $event.target.value.trim());
       },
       blur: function blur($event) {
         return _vm.$forceUpdate();
@@ -3656,8 +3362,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.username.$model,
-      expression: "$v.form.username.$model"
+      value: _vm.$v.register.username.$model,
+      expression: "$v.register.username.$model"
     }],
     staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3665,13 +3371,13 @@ var render = function render() {
       placeholder: "Username"
     },
     domProps: {
-      value: _vm.$v.form.username.$model
+      value: _vm.$v.register.username.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.username, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.username, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3686,8 +3392,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.nick_name.$model,
-      expression: "$v.form.nick_name.$model"
+      value: _vm.$v.register.nick_name.$model,
+      expression: "$v.register.nick_name.$model"
     }],
     staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3695,13 +3401,13 @@ var render = function render() {
       placeholder: "Nickname"
     },
     domProps: {
-      value: _vm.$v.form.nick_name.$model
+      value: _vm.$v.register.nick_name.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.nick_name, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.nick_name, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3718,8 +3424,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.gender.$model,
-      expression: "$v.form.gender.$model"
+      value: _vm.$v.register.gender.$model,
+      expression: "$v.register.gender.$model"
     }],
     staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     on: {
@@ -3731,7 +3437,7 @@ var render = function render() {
           return val;
         });
 
-        _vm.$set(_vm.$v.form.gender, "$model", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.$v.register.gender, "$model", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c("option", {
@@ -3739,14 +3445,14 @@ var render = function render() {
       value: "0"
     },
     domProps: {
-      selected: _vm.$v.form.gender.$model == "0"
+      selected: _vm.$v.register.gender.$model == "0"
     }
   }, [_vm._v(_vm._s(_vm.lang.get("words.Male")))]), _vm._v(" "), _c("option", {
     attrs: {
       value: "1"
     },
     domProps: {
-      selected: _vm.$v.form.gender.$model == "1"
+      selected: _vm.$v.register.gender.$model == "1"
     }
   }, [_vm._v(_vm._s(_vm.lang.get("words.Female")))])])]), _vm._v(" "), _c("error-input", {
     attrs: {
@@ -3760,21 +3466,21 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.birth_date.$model,
-      expression: "$v.form.birth_date.$model"
+      value: _vm.$v.register.birth_date.$model,
+      expression: "$v.register.birth_date.$model"
     }],
     staticClass: "h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
       type: "date"
     },
     domProps: {
-      value: _vm.$v.form.birth_date.$model
+      value: _vm.$v.register.birth_date.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.birth_date, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.birth_date, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3787,12 +3493,12 @@ var render = function render() {
     staticClass: "grid gap-y-2"
   }, [_c("span", {
     staticClass: "font-bold"
-  }, [_vm._v(_vm._s(_vm.lang.get("words.Telephone")))]), _vm._v(" "), _c("input", {
+  }, [_vm._v(_vm._s(_vm.lang.get("words.Gender")))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.tel.$model,
-      expression: "$v.form.tel.$model"
+      value: _vm.$v.register.tel.$model,
+      expression: "$v.register.tel.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3800,13 +3506,13 @@ var render = function render() {
       placeholder: "Telephone"
     },
     domProps: {
-      value: _vm.$v.form.tel.$model
+      value: _vm.$v.register.tel.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.tel, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.tel, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3821,8 +3527,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.zip_code.$model,
-      expression: "$v.form.zip_code.$model"
+      value: _vm.$v.register.zip_code.$model,
+      expression: "$v.register.zip_code.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3831,13 +3537,13 @@ var render = function render() {
       placeholder: "Zip Code"
     },
     domProps: {
-      value: _vm.$v.form.zip_code.$model
+      value: _vm.$v.register.zip_code.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.zip_code, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.zip_code, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3854,8 +3560,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.address.$model,
-      expression: "$v.form.address.$model"
+      value: _vm.$v.register.address.$model,
+      expression: "$v.register.address.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3863,13 +3569,13 @@ var render = function render() {
       placeholder: "Address"
     },
     domProps: {
-      value: _vm.$v.form.address.$model
+      value: _vm.$v.register.address.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.address, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.address, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3884,8 +3590,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.email.$model,
-      expression: "$v.form.email.$model"
+      value: _vm.$v.register.email.$model,
+      expression: "$v.register.email.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3893,13 +3599,13 @@ var render = function render() {
       placeholder: "E-mail"
     },
     domProps: {
-      value: _vm.$v.form.email.$model
+      value: _vm.$v.register.email.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.email, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.email, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3914,8 +3620,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.password.$model,
-      expression: "$v.form.password.$model"
+      value: _vm.$v.register.password.$model,
+      expression: "$v.register.password.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3923,13 +3629,13 @@ var render = function render() {
       placeholder: "Password"
     },
     domProps: {
-      value: _vm.$v.form.password.$model
+      value: _vm.$v.register.password.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.password, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.password, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3944,8 +3650,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.password_confirmation.$model,
-      expression: "$v.form.password_confirmation.$model"
+      value: _vm.$v.register.password_confirmation.$model,
+      expression: "$v.register.password_confirmation.$model"
     }],
     staticClass: "h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0",
     attrs: {
@@ -3953,13 +3659,13 @@ var render = function render() {
       placeholder: "Confirm Password"
     },
     domProps: {
-      value: _vm.$v.form.password_confirmation.$model
+      value: _vm.$v.register.password_confirmation.$model
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.$v.form.password_confirmation, "$model", $event.target.value);
+        _vm.$set(_vm.$v.register.password_confirmation, "$model", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("error-input", {
@@ -3974,19 +3680,19 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.$v.form.termsAndPrivacy.$model,
-      expression: "$v.form.termsAndPrivacy.$model"
+      value: _vm.$v.register.termsAndPrivacy.$model,
+      expression: "$v.register.termsAndPrivacy.$model"
     }],
-    staticClass: "checkbox-footer",
+    staticClass: "termsAndPrivacy",
     attrs: {
       type: "checkbox"
     },
     domProps: {
-      checked: Array.isArray(_vm.$v.form.termsAndPrivacy.$model) ? _vm._i(_vm.$v.form.termsAndPrivacy.$model, null) > -1 : _vm.$v.form.termsAndPrivacy.$model
+      checked: Array.isArray(_vm.$v.register.termsAndPrivacy.$model) ? _vm._i(_vm.$v.register.termsAndPrivacy.$model, null) > -1 : _vm.$v.register.termsAndPrivacy.$model
     },
     on: {
       change: function change($event) {
-        var $$a = _vm.$v.form.termsAndPrivacy.$model,
+        var $$a = _vm.$v.register.termsAndPrivacy.$model,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
 
@@ -3995,12 +3701,12 @@ var render = function render() {
               $$i = _vm._i($$a, $$v);
 
           if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.$v.form.termsAndPrivacy, "$model", $$a.concat([$$v]));
+            $$i < 0 && _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$a.concat([$$v]));
           } else {
-            $$i > -1 && _vm.$set(_vm.$v.form.termsAndPrivacy, "$model", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            $$i > -1 && _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
           }
         } else {
-          _vm.$set(_vm.$v.form.termsAndPrivacy, "$model", $$c);
+          _vm.$set(_vm.$v.register.termsAndPrivacy, "$model", $$c);
         }
       }
     }
@@ -4016,7 +3722,7 @@ var render = function render() {
       type: "create",
       size: "full",
       withLoading: _vm.loading,
-      disabled: _vm.$v.form.$anyError || !_vm.$v.form.$anyDirty || _vm.isInvalid
+      disabled: _vm.$v.register.$anyError || !_vm.$v.register.$anyDirty || _vm.isInvalid
     },
     on: {
       click: function click($event) {
@@ -4234,8 +3940,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_5__["default"]({
   router: _config_routes_js__WEBPACK_IMPORTED_MODULE_3__["default"],
   validations: {},
   created: function created() {
-    var _this = this;
-
     _store__WEBPACK_IMPORTED_MODULE_4__.mutations.setLoading(true);
     this.$http.get('api/language').then(function (response) {
       var source = {
@@ -4246,29 +3950,6 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_5__["default"]({
       _store__WEBPACK_IMPORTED_MODULE_4__.mutations.setLang(_config_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
     })["finally"](function () {
       _store__WEBPACK_IMPORTED_MODULE_4__.mutations.setLoading(false);
-    });
-    _config_routes_js__WEBPACK_IMPORTED_MODULE_3__["default"].beforeEach(function (to, from, next) {
-      if (to.matched.some(function (record) {
-        return record.meta.requiresAuth;
-      })) {
-        // this route requires auth, check if logged in
-        // if not, redirect to login page.
-        if (_this.user) {
-          next();
-        } else {
-          next({
-            name: 'Login'
-          });
-        }
-      } else {
-        next();
-      }
-
-      if (to.name == 'login' || to.name == 'register' && _this.user) {
-        next({
-          name: 'landing-page'
-        });
-      }
     });
   },
   computed: _objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_4__.getters),
@@ -4469,10 +4150,7 @@ var auth = [{
 }, {
   path: '/login',
   name: 'login',
-  component: _Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-  meta: {
-    requiresAuth: true
-  }
+  component: _Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (auth);
 
@@ -4497,7 +4175,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = vue__WEBPACK_IMPORTED_MODULE_1__["default"].observable({
-  user: null,
   loading: false,
   lang: null,
   alert: {
@@ -4542,15 +4219,9 @@ var getters = {
   }),
   loader: function loader() {
     return state.loader;
-  },
-  user: function user() {
-    return state.user;
   }
 };
 var mutations = {
-  setUser: function setUser(data) {
-    return state.user = data;
-  },
   setLoading: function setLoading(val) {
     return state.loading = val;
   },
@@ -9023,30 +8694,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".ui-button[data-v-3c5e1551] {\n  width
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-42c42d6a] {\n  border: thin solid rgb(58, 59, 60);\n}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Register.vue?vue&type=style&index=0&id=2ebeb09e&scoped=true&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Register.vue?vue&type=style&index=0&id=2ebeb09e&scoped=true&lang=scss& ***!
@@ -9064,7 +8711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-2ebeb09e] {\n  border: thin solid rgb(58, 59, 60);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".border-b-input[data-v-2ebeb09e] {\n  border: thin solid rgb(58, 59, 60);\n}\n.termsAndPrivacy[data-v-2ebeb09e] {\n  height: 27px;\n  transform: scale(1.5);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41009,36 +40656,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_style_index_0_id_42c42d6a_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_style_index_0_id_42c42d6a_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_style_index_0_id_42c42d6a_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Register.vue?vue&type=style&index=0&id=2ebeb09e&scoped=true&lang=scss&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Register.vue?vue&type=style&index=0&id=2ebeb09e&scoped=true&lang=scss& ***!
@@ -41644,25 +41261,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=42c42d6a&scoped=true& */ "./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true&");
+/* harmony import */ var _Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=42c42d6a& */ "./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&");
 /* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/pages/auth/Login.vue?vue&type=script&lang=js&");
-/* harmony import */ var _Login_vue_vue_type_style_index_0_id_42c42d6a_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& */ "./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
-;
 
 
 /* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "42c42d6a",
+  null,
   null
   
 )
@@ -41934,19 +41549,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a& ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=template&id=42c42d6a&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&scoped=true&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_42c42d6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=template&id=42c42d6a& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=template&id=42c42d6a&");
 
 
 /***/ }),
@@ -42020,19 +41635,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_UiButton_vue_vue_type_style_index_0_id_3c5e1551_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UiButton.vue?vue&type=style&index=0&id=3c5e1551&scoped=true&lang=scss& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UiButton.vue?vue&type=style&index=0&id=3c5e1551&scoped=true&lang=scss&");
-
-
-/***/ }),
-
-/***/ "./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& ***!
-  \*****************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_style_index_0_id_42c42d6a_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/auth/Login.vue?vue&type=style&index=0&id=42c42d6a&scoped=true&lang=scss&");
 
 
 /***/ }),

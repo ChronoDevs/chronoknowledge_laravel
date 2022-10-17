@@ -10,10 +10,8 @@ const auth = [
   {
     path: '/login',
     name: 'login',
-    component: Login,
-    meta: {
-      requiresAuth: true
-    }
+    component: Login
   }
 ];
+
 export default auth

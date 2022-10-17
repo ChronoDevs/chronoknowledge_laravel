@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['namespace' => 'Api' ], function () {
-    Route::post('login', 'UserController@login')->name('login');
+    Route::get('login', 'UserController@login')->name('login');
     Route::post('register', 'UserController@register')->name('register');
 
     Route::get('language', function () {

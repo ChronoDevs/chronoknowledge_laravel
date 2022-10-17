@@ -25,9 +25,15 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $rtn = null;
-        $rtn = $this->service->login();
-        return $rtn;
+        $user = new User;
+
+        if(auth()->attempt(['email' => 'admin@chronoknowledge.com', 'password' => 'admin'])) {
+            return response()->json([
+                'token' => $user->createToken('chronoknowledge')->accessToken,
+                'user' => auth()->user()
+            ]);
+        }
+
         // throw new Exception("Invalid credentials.");
     }
 
