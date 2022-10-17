@@ -2437,7 +2437,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setLoading(true);
       this.errors = null;
       var formData = this.formData;
-      this.$http.post('api/form', formData).then(function (response) {
+      this.$http.post('api/register', formData).then(function (response) {
         if (_.has(response, 'data.errors')) {
           _this.errors = response.data.errors;
         } else {
@@ -4258,9 +4258,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_5__["default"]({
         });
       } else {
         var noAuthExcept = (to.name == 'login' || to.name == 'register') && !_this._.isEmpty(_this.user);
-        if (noAuthExcept) next({
-          name: 'landing-page'
-        });else next();
+
+        if (noAuthExcept) {
+          next({
+            name: 'landing-page'
+          });
+        } else {
+          next();
+        }
       }
     });
   },

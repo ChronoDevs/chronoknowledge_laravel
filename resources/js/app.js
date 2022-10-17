@@ -48,10 +48,11 @@ const app = new Vue({
             } else {
               let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);
 
-              if (noAuthExcept)
+              if (noAuthExcept){
                 next({ name: 'landing-page' })
-              else
-                next()
+              }
+              else {
+                next() }
 
             }
           })

@@ -55,7 +55,7 @@ class UserService
         $data = [
             'email' => request()->get('email'),
             'username' => request()->get('username'),
-            'password' => request()->get('password'),
+            'password' => \Hash::make(request()->get('password')),
             'name' => request()->get('name'),
             'nick_name' => request()->get('nick_name'),
             'birth_date' => request()->get('birth_date'),
