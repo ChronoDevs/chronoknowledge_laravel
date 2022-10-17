@@ -40,17 +40,19 @@ const app = new Vue({
             if (to.matched.some(record => record.meta.requiresAuth)) {
               // this route requires auth, check if logged in
               // if not, redirect to login page.
-              if (this.user) {
+              if (this.user)
                 next()
-              } else {
+              else
                 next({ name: 'Login' })
-              }
-            } else {
-              next()
-            }
 
-            if(to.name == 'login' || to.name == 'register' && this.user) {
+            } else {
+              let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);
+
+              if (noAuthExcept)
                 next({ name: 'landing-page' })
+              else
+                next()
+
             }
           })
     },

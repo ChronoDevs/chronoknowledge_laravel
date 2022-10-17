@@ -4253,21 +4253,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_5__["default"]({
       })) {
         // this route requires auth, check if logged in
         // if not, redirect to login page.
-        if (_this.user) {
-          next();
-        } else {
-          next({
-            name: 'Login'
-          });
-        }
-      } else {
-        next();
-      }
-
-      if (to.name == 'login' || to.name == 'register' && _this.user) {
-        next({
-          name: 'landing-page'
+        if (_this.user) next();else next({
+          name: 'Login'
         });
+      } else {
+        var noAuthExcept = (to.name == 'login' || to.name == 'register') && !_this._.isEmpty(_this.user);
+        if (noAuthExcept) next({
+          name: 'landing-page'
+        });else next();
       }
     });
   },
@@ -4469,10 +4462,7 @@ var auth = [{
 }, {
   path: '/login',
   name: 'login',
-  component: _Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-  meta: {
-    requiresAuth: true
-  }
+  component: _Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (auth);
 
