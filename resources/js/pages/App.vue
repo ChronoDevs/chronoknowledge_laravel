@@ -1,13 +1,10 @@
 <template>
   <div>
-    <!-- <top-nav></top-nav>
-    <main class="p-10">
+    <top-nav></top-nav>
+    <main>
       <router-view></router-view>
     </main>
-    <footer></footer> -->
-    <router-link :to="{ name: 'login' }">Login</router-link>
-    <router-link :to="{ name: 'register' }">Register</router-link>
-    <router-view></router-view>
+    <!-- <footer></footer> -->
 
     <ui-alert
         :showAlert="alert.showAlert"
@@ -18,16 +15,20 @@
         :timer="alert.timer">
         {{ alert.message }}
     </ui-alert>
+
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import { getters, mutations, actions } from "../store";
+import TopNav from '../components/main/TopNav.vue'
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
 Vue.component("ErrorInput", require("../components/ErrorInput.vue").default);
+Vue.component("Loading", require("../components/Loading.vue").default);
 Vue.component("ClipLoader", require("vue-spinner/src/ClipLoader.vue").default);
 
 export default {
@@ -36,6 +37,7 @@ export default {
       //
     };
   },
+  components: { TopNav },
   beforeMount() {
     this.initApp()
   },

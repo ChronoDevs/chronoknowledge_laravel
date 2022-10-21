@@ -1,13 +1,13 @@
 <template>
-  <div id="formComponent" class="h-screen flex content-center justify-center">
-    <form class="h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white">
+  <div id="formComponent" class="flex content-center justify-center my-24">
+    <form class="h-auto w-[600px] m-auto bg-bt-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white">
       <div v-show="loading" class="absolute w-full h-full bg-form-overlay"></div>
-      <div class="r-link m-10 font-bold">
-        <h3 class="text-center">
+      <div class="m-10">
+        <h3 class="text-center font-bold">
           <span class="text-b-info">{{ lang.get('words.Chronostep') }}</span> <span class="text-b-create">{{ lang.get('words.Community') }}</span>
         </h3>
         <p class="text-center">{{ lang.get('words.WelcomeToChronoCommunity') }}</p>
-        <div class="grid justify-center grid grid-cols-1 gap-4 my-10">
+        <div class="grid justify-center grid grid-cols-1 gap-6 my-10">
           <button type="button" class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md">
             <i class="fa-brands fa-facebook mr-3 text-lg"></i>{{ lang.get('words.ContinueWithFacebook') }}
           </button>
@@ -27,7 +27,7 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.FirstName') }}</span>
-              <input v-model.trim="$v.form.first_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="First Name"/>
+              <input v-model.trim="$v.form.first_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="First Name"/>
             </label>
             <div class="errors">
               <error-input :first_name="true"></error-input>
@@ -36,7 +36,7 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.MiddleName') }} <span class="text-b-mute">(optional)</span></span>
-              <input v-model.trim="$v.form.middle_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Middle Name"/>
+              <input v-model.trim="$v.form.middle_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Middle Name"/>
             </label>
             <div class="errors">
               <error-input :middle_name="true"></error-input>
@@ -45,7 +45,7 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.LastName') }}</span>
-              <input v-model.trim="$v.form.last_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Last Name"/>
+              <input v-model.trim="$v.form.last_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Last Name"/>
             </label>
             <div class="errors">
               <error-input :last_name="true"></error-input>
@@ -55,14 +55,14 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Username') }}</span>
-                <input v-model="$v.form.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Username"/>
+                <input v-model="$v.form.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Username"/>
               </label>
               <error-input :username="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Nickname') }}</span>
-                <input v-model="$v.form.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Nickname"/>
+                <input v-model="$v.form.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Nickname"/>
               </label>
               <error-input :nick_name="true"></error-input>
             </div>
@@ -71,7 +71,7 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Gender') }}</span>
-                <select v-model="$v.form.gender.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0">
+                <select v-model="$v.form.gender.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0">
                   <option value="0" :selected="$v.form.gender.$model == '0'">{{ lang.get('words.Male') }}</option>
                   <option value="1" :selected="$v.form.gender.$model == '1'">{{ lang.get('words.Female') }}</option>
                 </select>
@@ -81,7 +81,7 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.DateOfBirth') }}</span>
-                <input v-model="$v.form.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input pl-6 focus:placeholder:opacity-0" type="date"/>
+                <input v-model="$v.form.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="date"/>
               </label>
               <error-input :birth_date="true"></error-input>
             </div>
@@ -90,14 +90,14 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Telephone') }}</span>
-                <input v-model="$v.form.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="tel" placeholder="Telephone"/>
+                <input v-model="$v.form.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="tel" placeholder="Telephone"/>
               </label>
               <error-input :tel="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Zipcode') }}</span>
-                <input v-model="$v.form.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input pl-6 focus:placeholder:opacity-0" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
+                <input v-model="$v.form.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input focus:placeholder:opacity-0" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
               </label>
               <error-input :zip_code="true"></error-input>
             </div>
@@ -106,28 +106,28 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Address') }}</span>
-                <input v-model="$v.form.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="text" placeholder="Address"/>
+                <input v-model="$v.form.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Address"/>
               </label>
               <error-input :address="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Email') }}</span>
-                <input v-model="$v.form.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="email" placeholder="E-mail"/>
+                <input v-model="$v.form.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="email" placeholder="E-mail"/>
               </label>
               <error-input :email="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Password') }}</span>
-                <input v-model="$v.form.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="password" placeholder="Password"/>
+                <input v-model="$v.form.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="password" placeholder="Password"/>
               </label>
               <error-input :password="true"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.PasswordConfirmation') }}</span>
-                <input v-model="$v.form.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0" type="password" placeholder="Confirm Password"/>
+                <input v-model="$v.form.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="password" placeholder="Confirm Password"/>
               </label>
               <error-input :password_confirmation="true"></error-input>
             </div>
@@ -135,8 +135,8 @@
         </div>
         <div class="grid sm:grid-cols-1 gap-5">
           <div>
-              <label class="flex flex-flow gap-4 content-center">
-                <input type="checkbox" v-model="$v.form.termsAndPrivacy.$model" class="checkbox-footer"/>
+              <label class="flex flex-flow gap-6 content-center">
+                <input type="checkbox" v-model="$v.form.termsAndPrivacy.$model" class="my-1"/>
                 <span class="text-b-mute">{{ lang.get('words.TermsAndPrivacy') }}</span>
               </label>
               <error-input :termsAndPrivacy="true"></error-input>

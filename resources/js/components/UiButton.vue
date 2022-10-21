@@ -1,6 +1,6 @@
 <template>
   <button
-  class="ui-button"
+  class="ui-button h-14"
   :class="classes"
   :disabled="disabled || loading"
   @click="onClick">

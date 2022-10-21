@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'user@chronoknowledge.com',
             'username' => 'user',
             'password' => \Hash::make('password'),
-            'name' => 'user',
+            'name' => 'Fel Reind Entica',
             'nick_name' => 'user', // password
             'gender' => '1', // female - 0, male - 1
             'zip_code' => '1234', // password

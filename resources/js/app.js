@@ -20,6 +20,12 @@ const app = new Vue({
     validations:{},
     created: function () {
         mutations.setLoading(true)
+        let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null;
+
+        if(user) {
+          mutations.setUser(user)
+          mutations.setIsLoggedIn(true)
+        }
 
         this.$http.get('api/language')
         .then( response => {
@@ -48,12 +54,10 @@ const app = new Vue({
             } else {
               let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);
 
-              if (noAuthExcept){
+              if (noAuthExcept)
                 next({ name: 'landing-page' })
-              }
-              else {
-                next() }
-
+              else
+                next()
             }
           })
     },
