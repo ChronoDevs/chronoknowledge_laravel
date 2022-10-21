@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const state = Vue.observable({
   user: null,
+  isLoggedIn: false,
   loading: false,
   lang: null,
   alert: {
@@ -27,11 +28,13 @@ export const getters = {
     lang: () => state.lang,
     _: () => _,
     loader: () => state.loader,
-    user: () => state.user
+    user: () => state.user,
+    isLoggedIn: () => state.isLoggedIn
 }
 
 export const mutations = {
     setUser: (data) => state.user = data,
+    setIsLoggedIn: (val) => state.isLoggedIn = val,
     setLoading: (val) => state.loading = val,
     setLang: (lang) => state.lang = lang,
     setAlert: (data) => {

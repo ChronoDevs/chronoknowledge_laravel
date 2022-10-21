@@ -1,16 +1,16 @@
 <template>
-  <div id="formComponent" class="h-screen flex content-center justify-center">
+  <div id="formComponent" class="flex content-center justify-center my-24">
     <form
-      class="h-auto w-[600px] m-auto bg-b-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
+      class="h-auto w-[600px] m-auto bg-bt-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
     >
       <div v-show="loading" class="absolute w-full h-full bg-form-overlay"></div>
-      <div class="r-link m-10 font-bold">
-        <h3 class="text-center">
+      <div class="m-10">
+        <h3 class="text-center font-bold">
           <span class="text-b-info">{{ lang.get("words.Chronostep") }}</span>
           <span class="text-b-create">{{ lang.get("words.Community") }}</span>
         </h3>
         <p class="text-center">{{ lang.get("words.WelcomeToChronoCommunity") }}</p>
-        <div class="grid justify-center grid grid-cols-1 gap-4 my-10">
+        <div class="grid justify-center grid grid-cols-1 gap-6 my-10">
           <button
             type="button"
             class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md"
@@ -39,7 +39,7 @@
               <span class="font-bold">{{ lang.get("words.Email") }}</span>
               <input
                 v-model="$v.form.email.$model"
-                class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0"
+                class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0"
                 type="email"
                 placeholder="E-mail"
               />
@@ -51,7 +51,7 @@
               <span class="font-bold">{{ lang.get("words.Password") }}</span>
               <input
                 v-model="$v.form.password.$model"
-                class="h-14 w-full rounded-lg bg-b-input border-b-input pl-6 focus:placeholder:opacity-0"
+                class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0"
                 type="password"
                 placeholder="Password"
               />
@@ -61,11 +61,11 @@
         </div>
         <div class="grid sm:grid-cols-1 gap-5">
           <div>
-            <label class="flex flex-flow gap-4 content-center">
+            <label class="flex flex-flow gap-6 content-center">
               <input
                 type="checkbox"
                 v-model="$v.form.remember.$model"
-                class="checkbox-footer"
+                class="my-1"
                 :checked="true"
               />
               <span class="text-b-mute">{{ lang.get("words.RememberMe") }}</span>
@@ -158,19 +158,29 @@ export default {
             let alertData = {
               showAlert: true,
               type: "error",
-              message: "Sorry our server has problem at the moment. Please come back later. Thank you."
+              message:
+                "Sorry our server has problem at the moment. Please come back later. Thank you.",
             };
             mutations.setAlert(alertData);
           } else {
             // SUCCESS
+            mutations.setUser(response.data.user);
+            mutations.setIsLoggedIn(true);
+
             if (this.form.remember) {
               localStorage.setItem("remember_user", JSON.stringify(this.form));
             } else if (localStorage["remember_user"] && !this.form.remember) {
               localStorage.removeItem("remember_user");
             }
 
-            localStorage.setItem("chronoknowledge.jwt", JSON.stringify(response.data.token));
-            localStorage.setItem("chronoknowledge.user", JSON.stringify(response.data.user));
+            localStorage.setItem(
+              "chronoknowledge.jwt",
+              JSON.stringify(response.data.token)
+            );
+            localStorage.setItem(
+              "chronoknowledge.user",
+              JSON.stringify(response.data.user)
+            );
             this.$router.push("/");
           }
         })
@@ -182,7 +192,9 @@ export default {
         });
     },
     setLogin() {
-      let remember_user = localStorage["remember_user"] ? JSON.parse(localStorage["remember_user"]) : null;
+      let remember_user = localStorage["remember_user"]
+        ? JSON.parse(localStorage["remember_user"])
+        : null;
       if (remember_user) {
         this.form = remember_user;
       }

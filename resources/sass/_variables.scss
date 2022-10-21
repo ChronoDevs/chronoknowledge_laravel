@@ -4,9 +4,13 @@
 // The UI font stack
 $font-stack                     : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+
+// Brand colors
 $brand-theme-color-primary      : rgb(24, 25, 26);
 
 $brand-theme-color-secondary    : rgb(36, 37, 38);
+
+$brand-link : rgb(1, 110, 181);
 
 $brand-bg-input             :  rgb(58, 59, 60);
 
@@ -22,21 +26,26 @@ $brand-info     : rgba(86,204,242);
 
 $brand-warning     : rgba(255,152,0);
 
-$brand-mute : rgb(168, 165, 172);
+$brand-mute : lightgray;
 
 $fb-pallete     : #5352ed;
 
 $google-pallete : #ff6348;
 
 // Base font size
-$base-font-size         : 14px !default; // typically 16px in most browsers
+$base-font-size         : 14px !default;
 
-// Brand colors
-$brand-primary-color    : $md-blue !default;
-$brand-accent-color     : $md-purple-a400 !default;
+// Base gap
+$base-gap          : 1.5rem;
+
+$base-comp-gap-x          : 5rem;
+
+$base-comp-gap-y          : 2.5rem;
 
 // Primary text color
-$primary-text-color     : whitesmoke;
+$primary-text-color     : rgb(255, 255, 255);
+
+$link-text-color     : rgb(1, 110, 181);
 
 // Secondary text color
 $secondary-text-color   : rgba(black, 0.54) !default;
@@ -60,7 +69,7 @@ $ui-input-margin-bottom             : rem(16px) !default;
 // Input label
 $ui-input-label-color               : $secondary-text-color !default;
 $ui-input-label-color--hover        : rgba(black, 0.75) !default;
-$ui-input-label-color--active       : $brand-primary-color !default;
+// $ui-input-label-color--active       : $brand-primary-color !default;
 $ui-input-label-color--invalid      : $md-red !default;
 $ui-input-label-font-size           : rem(15px) !default;
 $ui-input-label-line-height         : normal !default;
@@ -76,7 +85,7 @@ $ui-input-text-color--invalid       : $md-red !default;
 // Input border
 $ui-input-border-color              : $divider-color !default;
 $ui-input-border-color--hover       : rgba(black, 0.3) !default;
-$ui-input-border-color--active      : $brand-primary-color !default;
+// $ui-input-border-color--active      : $brand-primary-color !default;
 $ui-input-border-color--invalid     : $md-red !default;
 $ui-input-border-width              : 1px !default;
 $ui-input-border-width--active      : 2px !default;
@@ -150,6 +159,7 @@ $z-index-level-5        : 60 !default;
 $z-index-level-6        : 70 !default;
 
 // Z-index usage
+$z-index-main           : $z-index-level-1 !default;
 $z-index-toolbar        : $z-index-level-1 !default;
 $z-index-fab            : $z-index-level-2 !default;
 $z-index-nav-drawer     : $z-index-level-3 !default;

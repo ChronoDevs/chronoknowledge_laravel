@@ -1,51 +1,348 @@
 <template>
-    <div>
-      <h1 class="text-7xl">My Page..</h1>
-      <div id="default-carousel" class="relative" data-carousel="static">
-      <!-- Carousel wrapper -->
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-            <!-- Item 1 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <span class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
-                <img src="../../../assets/services/webdev.png" class="absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+    <div class="landingComponent">
+        <div class="about">
+            <h3 class="font-bold leadinng-8">
+            <span class="text-b-info">{{ lang.get('words.Chronostep') }}</span>
+            <span class="text-b-create">{{ lang.get('words.Community') }}</span>
+            </h3>
+            <div>
+                <p class="font-bold">{{ lang.get('words.AboutHeader1') }}</p>
+                <p class="mt-6">{{ lang.get('words.AboutHeader2') }}</p>
             </div>
-            <!-- Item 2 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="../../../assets/services/movdev.png" class="absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 3 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="../../../assets/services/businessys-dev.png" class="absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            <div class="grid font-bold">
+                <button class="px-4 py-2 border-2 border-b-link text-b-link rounded-lg">
+                    <router-link :to="{ name: 'register' }">{{ lang.get('words.CreateAccount') }}</router-link>
+                </button>
+                <button class="px-4 py-2 text-b-mute">
+                    <router-link :to="{ name: 'login' }">{{ lang.get('words.Login') }}</router-link>
+                </button>
             </div>
         </div>
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        <div class="posts">
+            <ul class="nav nav-tabs flex gap-6 list-none border-b-0 pl-0 font-bold" id="tabs-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a @click="setTab(POST_CATEGORY.relevant)" href="#relevant" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.relevant },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.relevant }
+                        ]" id="relevant-tab" data-bs-toggle="pill" data-bs-target="#relevant" role="tab" aria-controls="relevant"
+                    aria-selected="true">{{ lang.get('words.Relevant') }}</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a @click="setTab(POST_CATEGORY.latest)" href="#latest" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.latest },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.latest }
+                        ]" id="latest-tab" data-bs-toggle="pill" data-bs-target="#latest" role="tab"
+                    aria-controls="latest" aria-selected="false">{{ lang.get('words.Latest') }}</a>
+                </li>
+                <li class="nav-item" role="presentation" >
+                    <a @click="setTab(POST_CATEGORY.top)" href="#top" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.top },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.top }
+                        ]" id="top-tab" data-bs-toggle="pill" data-bs-target="#top" role="tab"
+                    aria-controls="top" aria-selected="false">{{ lang.get('words.Top') }}</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="tabs-tabContent">
+                <div v-show="postCategory == POST_CATEGORY.relevant" class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6" id="relevant" role="tabpanel" aria-labelledby="relevant-tab">
+                    <div v-for="(post, index) in posts" :key="index" class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
+                        <div class="flex gap-6">
+                            <div>
+                                <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
+                            </div>
+                            <div class="grid">
+                                <span class="text-b-info font-bold">{{ _.get(post, 'user.name', '') }}</span>
+                                <span class="text-b-mute">{{ _.get(post, 'user.job', '') }}</span>
+                                <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">{{ _.get(post, 'title', '') }}</h3>
+                        </div>
+                        <div class="text-b-dark">
+                            <span v-for="(category, index) in post.categories" :key="index">{{ category + ' '}}</span>
+                        </div>
+                        <div class="flex gap-6">
+                            <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}</span></span>
+                            <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
+                            <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="postCategory == POST_CATEGORY.latest" class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+                    <div class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
+                        <div class="flex gap-6">
+                            <div>
+                                <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
+                            </div>
+                            <div class="grid">
+                                <span class="text-b-info font-bold">Fel Reind Entica</span>
+                                <span class="text-b-mute">Software Engineer</span>
+                                <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">16 Libraries You Should Know as a React Developer. See my post now and read</h3>
+                        </div>
+                        <div class="text-b-dark">
+                            <span>#webdev</span>
+                            <span>#coding</span>
+                            <span>#react</span>
+                            <span>#productivity</span>
+                        </div>
+                        <div class="flex gap-6">
+                            <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}></span></span>
+                            <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
+                            <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="postCategory == POST_CATEGORY.top" class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="latest-tab">
+                    Tab 3 content
+                </div>
+            </div>
         </div>
-        <!-- Slider controls -->
-        <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full cursor-pointer group focus:outline-none" data-carousel-prev>
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-5 h-5 text-dark sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                <span class="sr-only">Previous</span>
-            </span>
-        </button>
-        <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full cursor-pointer group focus:outline-none" data-carousel-next>
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-5 h-5 text-dark sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="sr-only">Next</span>
-            </span>
-        </button>
+        <div class="categories">
+            <div class="grid grid-cols-1 gap-6">
+                <h4 class="font-bold text-b-mute">{{ lang.get('words.Categories') }}</h4>
+                <ul class="category-list ml-2">
+                    <li v-for="(category, index) in CATEGORIES" :key="index">
+                        <router-link :to="'#'" class="text-b-link underline">
+                            {{ category.type }}
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="app">
+            <div class="bg-white p-6 rounded-lg text-black">
+                <div>
+                    <h3 class="font-bold">{{ lang.get('words.MobileApplication') }}</h3>
+                    <h3 class="font-bold">{{ lang.get('words.LandingPage') }}</h3>
+                </div>
+                <div class="mt-6">
+                    <p class="text-small">{{ lang.get('words.MobileAdDescription') }}</p>
+                </div>
+                <div class="mt-6 flex gap-2">
+                    <button class="flex px-2 py-1 gap-2 items-center bg-black text-white">
+                        <span><i class="fa-brands fa-apple text-[2rem]"></i></span>
+                        <span class="text-[10px]">
+                            <span>{{ lang.get('words.DownloadOnThe') }}<br/>
+                                <span class="font-bold"> App Store</span>
+                            </span>
+                        </span>
+                    </button>
+                    <button class="flex px-2 py-1 gap-2 items-center bg-black text-white">
+                        <span><i class="fa-brands fa-google-play text-[2rem]"></i></span>
+                        <span class="text-[10px]">
+                            <span>{{ lang.get('words.GetItOn') }}<br/>
+                                <span class="font-bold"> Google Store</span>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="popular">
+            <div class="grid grid-cols-1 gap-6">
+                <h4 class="font-bold text-b-mute">{{ lang.get('words.PopularTags') }}</h4>
+                <ul class="popular-list ml-2">
+                    <li v-for="(category, index) in POPULAR_TAGS" :key="index">
+                        <span class="underline">
+                            #{{ category.type }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
+import { getters, mutations, actions } from "../../store";
+
 export default {
-  data() {
-    return {
-    };
-  },
+    data() {
+        return {
+            postCategory: 1, // default relevant
+            posts: [
+                {
+                    'title': '16 Libraries You Should Know as a React Developer. See my post now and read',
+                    categories: [
+                        '#webdev',
+                        '#coding',
+                        '#react',
+                        '#productivity'
+                    ],
+                    user: {
+                        name: 'Fel Reind Entica',
+                        job: 'Software Engineer'
+                    }
+                },
+                {
+                    'title': '16 Libraries You Should Know as a React Developer. See my post now and read.16 Libraries You Should Know as a React Developer. See my post now and read16 Libraries You Should Know as a React Developer. See my post now and read',
+                    categories: [
+                        '#webdev',
+                        '#coding',
+                        '#react',
+                        '#productivity'
+                    ],
+                    user: {
+                        name: 'Fel Reind Entica',
+                        job: 'Software Engineer'
+                    }
+                },
+                {
+                    'title': '16 Libraries You Should Know as a React Developer. See my post now and read',
+                    categories: [
+                        '#webdev',
+                        '#coding',
+                        '#react',
+                        '#productivity'
+                    ],
+                    user: {
+                        name: 'Fel Reind Entica',
+                        job: 'Software Engineer'
+                    }
+                },
+            ]
+        };
+    },
+    created() {
+        this.POST_CATEGORY = {
+            relevant: 1, latest: 2, top: 3
+        }
+        this.CATEGORIES = [
+            { type: 'Web Development' },
+            { type: 'Mobile Development' },
+            { type: 'REACT Dev' },
+            { type: 'Vuejs' },
+            { type: 'Javascript' },
+            { type: 'Magento' },
+            { type: 'WordPress' },
+            { type: 'UI/UX Design' },
+            { type: 'HTML/CSS' },
+            { type: 'Angular' },
+            { type: 'PHP Laravel' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' },
+            { type: 'Quality Testing' }
+        ]
+
+        this.POPULAR_TAGS = [
+            { type: 'javascript' },
+            { type: 'react' },
+            { type: 'vuejs' },
+            { type: 'webdev' },
+            { type: 'software developer' },
+            { type: 'mobilecoding' },
+            { type: 'chronostep' },
+            { type: 'beginner' },
+            { type: 'programming' },
+            { type: 'devops' },
+            { type: 'cheatsheet' },
+            { type: 'gwapoka?' }
+        ]
+    },
+    methods: {
+        ...mutations,...actions,
+        setTab(val) {
+            this.postCategory = val
+        }
+    },
+    computed: {
+        ...getters
+    }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../../../sass/imports";
+
+.landingComponent {
+    display: grid;
+    grid-template-areas:
+        "about posts posts categories"
+        "app posts posts popular";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: $base-comp-gap-y;
+    margin: $base-comp-gap-y $base-comp-gap-x;
+    // height: 100vh;
+
+    .about {
+        grid-area: about;
+        display: grid;
+        grid-row-gap: $base-gap;
+        padding: $base-gap;
+        background-color: $brand-theme-color-secondary;
+        border-radius: $ui-default-border-radius;
+        // max-width: 400px;
+        max-height: 50vh;
+    }
+    .posts {
+        grid-area: posts;
+        display: flex;
+        flex-direction: column;
+        grid-gap: $base-gap;
+
+        #relevant::-webkit-scrollbar {
+            display: none;
+        }
+
+        #relevant:hover::-webkit-scrollbar {
+            display: block;
+        }
+    }
+    .categories {
+        grid-area: categories;
+        max-height: 50vh;
+        width: 300px;
+
+        .category-list {
+            overflow-y: scroll;
+            max-height: calc(40vh - 50px);
+        }
+    }
+    .app {
+        grid-area: app;
+        display: grid;
+        grid-row-gap: $base-gap;
+        background-color: $brand-theme-color-secondary;
+        border-radius: $ui-default-border-radius;
+        // max-width: 400px;
+        max-height: 40vh;
+    }
+    .popular {
+        grid-area: popular;
+        max-height: 50vh;
+        width: 300px;
+
+        .popular-list {
+            overflow-y: scroll;
+            max-height: calc(40vh - 50px);
+        }
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+    .landingComponent {
+        display: grid;
+        grid-template-areas:
+            "about posts posts categories"
+            "app posts posts popular";
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-gap: $base-comp-gap-y;
+        margin: $base-comp-gap-y $base-comp-gap-x;
+        // height: 100vh;
+    }
+}
+
+</style>
