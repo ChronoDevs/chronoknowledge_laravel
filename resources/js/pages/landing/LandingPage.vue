@@ -1,6 +1,6 @@
 <template>
-    <div class="landingComponent">
-        <div class="about">
+    <div id="landingComponent" class="landing" :style="[ isLoggedIn ? landingLoggedInStyle : '' ]">
+        <div v-show="!isLoggedIn" class="about">
             <h3 class="font-bold leadinng-8">
             <span class="text-b-info">{{ lang.get('words.Chronostep') }}</span>
             <span class="text-b-create">{{ lang.get('words.Community') }}</span>
@@ -18,9 +18,85 @@
                 </button>
             </div>
         </div>
+        <div v-show="isLoggedIn" class="listing">
+            <aside class="" aria-label="Sidebar">
+                <div class="overflow-y-auto rounded">
+                    <ul class="space-y-2">
+                        <li>
+                            <router-link :to="{ name: 'home' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span class="ml-3">Home</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'listing' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-list"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Listings</span>
+                            <!-- <span class="inline-flex justify-center items-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> -->
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'favorites' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Favorites</span>
+                            <!-- <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> -->
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'team' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-people-group"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Team</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'faq' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">FAQs</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'about' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">About</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'guides' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-regular fa-note-sticky"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Guides</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'code-of-conduct' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Code of Conduct</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'privacy-policy' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Privacy Policy</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'terms' }" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-bt-secondary">
+                            <i class="fa-solid fa-handshake-simple"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Terms of Use</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <a @click="signOut()" href="#" class="flex items-center p-2 text-base font-normal rounded-lg text-b-danger hover:bg-bt-secondary">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
         <div class="posts">
             <ul class="nav nav-tabs flex gap-6 list-none border-b-0 pl-0 font-bold" id="tabs-tab" role="tablist">
-                <li class="nav-item" role="presentation">
+                <li class="nav-item" role="presentati on">
                     <a @click="setTab(POST_CATEGORY.relevant)" href="#relevant" :class="[
                         { 'text-b-mute': postCategory == POST_CATEGORY.relevant },
                         { 'text-b-primary': postCategory != POST_CATEGORY.relevant }
@@ -28,10 +104,10 @@
                     aria-selected="true">{{ lang.get('words.Relevant') }}</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a @click="setTab(POST_CATEGORY.latest)" href="#latest" :class="[
+                    <a @click="setTab(POST_CATEGORY.latest)" href="#latest" :classpapi="[
                         { 'text-b-mute': postCategory == POST_CATEGORY.latest },
                         { 'text-b-primary': postCategory != POST_CATEGORY.latest }
-                        ]" id="latest-tab" data-bs-toggle="pill" data-bs-target="#latest" role="tab"
+                         ]" id="latest-tab" data-bs-toggle="pill" data-bs-target="#latest" role="tab"
                     aria-controls="latest" aria-selected="false">{{ lang.get('words.Latest') }}</a>
                 </li>
                 <li class="nav-item" role="presentation" >
@@ -114,7 +190,7 @@
                 </ul>
             </div>
         </div>
-        <div class="app">
+        <div v-show="!isLoggedIn" class="app">
             <div class="bg-white p-6 rounded-lg text-black">
                 <div>
                     <h3 class="font-bold">{{ lang.get('words.MobileApplication') }}</h3>
@@ -253,10 +329,23 @@ export default {
         ...mutations,...actions,
         setTab(val) {
             this.postCategory = val
+        },
+        signOut() {
+            localStorage['chronoknowledge.jwt'] = null
+            localStorage['chronoknowledge.user'] = null
+            mutations.setUser(null)
+            mutations.setIsLoggedIn(false)
         }
     },
     computed: {
-        ...getters
+        ...getters,
+        landingLoggedInStyle() {
+            return {
+                'grid-template-areas': `'listing posts posts categories''listing posts posts popular'`,
+                'background-color': 'none',
+                'padding': '0'
+            }
+        }
     }
 };
 </script>
@@ -264,7 +353,12 @@ export default {
 <style lang="scss" scoped>
 @import "../../../sass/imports";
 
-.landingComponent {
+.landing-loggedIn {
+    grid-template-areas:
+        "listing posts posts categories"
+        "listing posts posts popular";
+}
+.landing {
     display: grid;
     grid-template-areas:
         "about posts posts categories"
@@ -285,6 +379,17 @@ export default {
         // max-width: 400px;
         max-height: 50vh;
     }
+
+    .listing {
+        grid-area: listing;
+        display: grid;
+        grid-row-gap: $base-gap;
+        // padding: $base-gap;
+        // background-color: $brand-theme-color-secondary;
+        border-radius: $ui-default-border-radius;
+        width: 300px;;
+    }
+
     .posts {
         grid-area: posts;
         display: flex;
@@ -332,7 +437,7 @@ export default {
 
 
 @media screen and (max-width: 1200px) {
-    .landingComponent {
+    .landing {
         display: grid;
         grid-template-areas:
             "about posts posts categories"
