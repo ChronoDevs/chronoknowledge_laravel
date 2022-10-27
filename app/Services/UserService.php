@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\ResetPasswordLink;
 use App\Interfaces\UserRepositoryInterface;
 use Exception;
 
@@ -76,6 +77,70 @@ class UserService
         }
 
         return $user;
+    }
+
+    /**
+     *
+     * @return JSON $reset_token
+     */
+    public function sendResetLinkEmail()
+    {
+        $reset_token = $this->randStr(10);
+        $data = [
+            'url' => env('APP_URL') . '?reset_token=' . $reset_token,
+            'reset_token' => $reset_token,
+            'email' => request()->get('email')
+        ];
+
+        $user = User::where('email', $data['email'])->get();
+
+        try {
+            $send = \Notification::send($user, new ResetPasswordLink($data));
+            return $data;
+        } catch (\Exception $e) {
+            \Log::error('Exception: ' . $e->getMessage());
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     *
+     * @return JSON $randomString
+     */
+    public function randStr($n) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+
+        return $randomString;
+    }
+
+    /**
+     *
+     * @return JSON $rtn
+     */
+    public function reset()
+    {
+        $rtn = [];
+
+        $adjustAttributes = [
+            'password' => \Hash::make(request()->get('new_password'))
+        ];
+        $whereAttributes = [
+            'email' => request()->get('email')
+        ];
+
+        try {
+            $rtn = $this->repository->adjustByAttributes($whereAttributes, $adjustAttributes);
+            return $rtn;
+        } catch (\Exception $e) {
+            \Log::error('Exception: ' . $e->getMessage());
+            throw new Exception($e->getMessage());
+        }
     }
 }
 ?>

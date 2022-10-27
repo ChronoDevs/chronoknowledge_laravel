@@ -84,4 +84,62 @@ class MainEloquentRepository
 
         return $rtn;
     }
+
+    /**
+     * adjust a list of records base on attributes given
+     * call NTC (No Try Catch) method
+     *
+     * @param Array $whereAttributes
+     * @param Array $adjustAttributes
+     * @return Bool
+     */
+    public function adjustByAttributes(array $whereAttributes, array $adjustAttributes)
+    {
+        $rtn = false;
+
+        try {
+            $rtn = $this->NTCadjustByAttributes($whereAttributes, $adjustAttributes);
+        } catch (\Exception $e) {
+            \L0g::error('Exception: ' . $e->getMessage());
+            \SlackLog::error('Exception: ' . $e->getMessage());
+        } catch (\Error $e) {
+            \L0g::error($e->getMessage());
+            \SlackLog::error($e->getMessage());
+        }
+
+        return $rtn;
+    }
+
+    /**
+     * adjust a list of records base on attributes given
+     * NTC (No Try Catch) method
+     *
+     * @param Array $whereAttributes
+     * @param Array $adjustAttributes
+     * @return Bool
+     */
+    public function NTCadjustByAttributes(array $whereAttributes, array $adjustAttributes)
+    {
+        $rtn = false;
+
+        if (!empty($this->Model) && count($whereAttributes) != 0 && count($adjustAttributes) != 0) {
+            $rtn = $this->Model::where(function ($query) use ($whereAttributes, $adjustAttributes) {
+                foreach ($whereAttributes as $key => $value) {
+                    if (is_array($value)) {
+                        $query->whereIn($key, $value);
+                    } else {
+                        $query->where($key, $value);
+                    }
+                }
+
+                return $query;
+            })->update($adjustAttributes);
+
+            if ($rtn === 0) {
+                $rtn = true;
+            }
+        }
+
+        return $rtn;
+    }
 }

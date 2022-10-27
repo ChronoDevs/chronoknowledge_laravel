@@ -32,7 +32,7 @@
           </span>
         </p>
       </div>
-      <div class="r-field flex flex-col gap-10 m-10">
+      <div class="r-field flex flex-col gap-6 m-10">
         <div class="r-field-required grid gap-y-5">
           <div>
             <label class="grid gap-y-2">
@@ -83,6 +83,7 @@
         >
           <span class="font-bold">{{ lang.get("words.Continue") }}</span>
         </ui-button>
+        <router-link :to="{ name: 'reset-password'}" :type="'sendEmail'" class="text-center text-b-link">Forgot Password?</router-link>
       </div>
     </form>
   </div>

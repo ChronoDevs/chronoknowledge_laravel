@@ -21,7 +21,7 @@ class UserController extends Controller
 
     /**
      * @param Reqeust $request
-     * @return JSON $user
+     * @return JSON $rtn
      */
     public function login(Request $request)
     {
@@ -33,12 +33,43 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return JSON $user
+     * @return JSON $rtn
      */
     public function register(UserRequest $request)
     {
         $rtn = null;
         $rtn = $this->service->registerUser();
         return $rtn;
+    }
+
+    /**
+     * @param Request $request
+     * @return JSON $rtn
+     */
+    public function sendResetLinkEmail(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|exists:users'
+        ]);
+
+        $rtn = null;
+        $rtn = $this->service->sendResetLinkEmail();
+        return $rtn;
+    }
+
+    /**
+     * @param Request $request
+     * @return JSON $rtn
+     */
+    public function reset(Request $request)
+    {
+        $validated = $request->validate([
+            'new_password' => 'required',
+            'password_confirmation' => 'required|same:new_password'
+        ]);
+
+        $rtn = null;
+        $rtn = $this->service->reset();
+        return response()->json($rtn, 200);
     }
 }
