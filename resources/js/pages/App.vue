@@ -6,14 +6,18 @@
     </main>
     <!-- <footer></footer> -->
 
+    <!-- Modals -->
+
+    <!-- Pop ups -->
     <ui-alert
-        :showAlert="alert.showAlert"
-        :type="alert.type"
-        :removeIcon="alert.removeIcon"
-        :disableAnimation="alert.disableAnimation"
-        :dismissible="alert.dismissible"
-        :timer="alert.timer">
-        {{ alert.message }}
+      :showAlert="alert.showAlert"
+      :type="alert.type"
+      :removeIcon="alert.removeIcon"
+      :disableAnimation="alert.disableAnimation"
+      :dismissible="alert.dismissible"
+      :timer="alert.timer"
+    >
+      {{ alert.message }}
     </ui-alert>
 
     <loading v-show="loading"></loading>
@@ -23,7 +27,8 @@
 <script>
 import Vue from "vue";
 import { getters, mutations, actions } from "../store";
-import TopNav from '../components/main/TopNav.vue'
+import TopNav from "../components/main/TopNav.vue";
+import ConfirmationModal from "../components/Confirmation.vue";
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
@@ -34,12 +39,12 @@ Vue.component("ClipLoader", require("vue-spinner/src/ClipLoader.vue").default);
 export default {
   data() {
     return {
-      //
+      param_reset_token: '',
     };
   },
-  components: { TopNav },
+  components: { TopNav, ConfirmationModal },
   beforeMount() {
-    this.initApp()
+    this.initApp();
   },
   computed: {
     ...getters
@@ -48,13 +53,38 @@ export default {
     ...mutations,
     ...actions,
     initApp() {
-      mutations.setLoading(true)
-      let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null
+      mutations.setLoading(true);
+      this.checkPasswordReset();
+      let user = localStorage["chronoknowledge.user"]
+        ? JSON.parse(localStorage["chronoknowledge.user"])
+        : null;
 
-      if(user) {
-        mutations.setUser(user)
+      if (user) {
+        mutations.setUser(user);
       }
+    },
+    checkPasswordReset() {
+      let parameterName = "reset_token";
+      let tmp = [];
+
+      location.search
+        .substr(1)
+        .split("&")
+        .forEach( (item) => {
+          tmp = item.split("=");
+          if (tmp[0] == parameterName) {
+            let reset_password = localStorage["chronoknowledge.reset_password"] ? JSON.parse(localStorage["chronoknowledge.reset_password"]) : null;
+
+            if (reset_password && reset_password.reset_token == decodeURIComponent(tmp[1])) {
+
+              this.$router.push({
+                name: "reset-password",
+                params: { type: 'reset-password' }
+              });
+            }
+          }
+        });
     }
-  }
+  },
 };
 </script>

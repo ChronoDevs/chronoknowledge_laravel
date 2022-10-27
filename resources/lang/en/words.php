@@ -9,7 +9,7 @@ return [
     'AboutHeader2' => "We're a place where engineers share, stay up-to-date and grow their careers.",
     // B
     'Birthdate' => 'Birthdate',
-    'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
+    'BackToLogin' => 'Back to login.',
     // C
     'ContinueWithFacebook' => 'Continue with Facebook',
     'ContinueWithGoogle' => 'Continue with Google',
@@ -20,13 +20,15 @@ return [
     'CreateAccount' => 'Create Account',
     'Comments' => 'Comments',
     'Categories' => 'Categories',
-    'MobileAdDescription' => 'Check our app version. We just made it more accessible for anyone to use with our services.',
+    'CreateAnAccount' => 'Create an account.',
+    'Confirm' => 'Confirm',
     // D
     'DateOfBirth' => 'Date of Birth',
     'Dashboard' => 'Dashboard',
     'DownloadOnThe' => 'Download on the',
     // E
     'Email' => 'Email',
+    'EnterYourRegisteredEmailAddressToThisAmazingCommunity' => 'Enter your registered email address to this amazing community.',
     // F
     'Female' => 'Female',
     'FirstName' => 'First Name',
@@ -52,9 +54,12 @@ return [
     'Male' => 'Male',
     'MiddleName' => 'Middle Name',
     'MobileApplication' => 'Mobile Application',
+    'MobileAdDescription' => 'Check our app version. We just made it more accessible for anyone to use with our services.',
     // N
     'Name' => 'Name',
     'Nickname' => 'Nickname',
+    'NoAccount' => "Don't have an account?",
+    'NewPassword' => 'New Password',
     // O
 
     // P
@@ -71,9 +76,12 @@ return [
     'SignUp' => 'Sign Up',
     'SignOut' => "Sign out",
     'Setting' => 'Setting',
+    'SendMeResetPasswordInstructions' => 'Send me reset password instructions.',
+    'SubmitTheFormToGetYourNewPassword' => 'Submit the form to get your new password.',
     // T
     'Telephone' => 'Telephone',
     'Top' => 'Top',
+    'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
     // U
     'Username' => 'Username',
     // V

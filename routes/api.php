@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Api' ], function () {
     Route::post('login', 'UserController@login')->name('login');
     Route::post('register', 'UserController@register')->name('register');
+    Route::post('password/email', 'UserController@sendResetLinkEmail');
+    Route::post('password/reset', 'UserController@reset');
 
     Route::get('language', function () {
         return response()->json([
