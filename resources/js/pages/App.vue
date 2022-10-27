@@ -1,6 +1,7 @@
 <template>
   <div>
     <top-nav></top-nav>
+    <sidebar></sidebar>
     <main>
       <router-view></router-view>
     </main>
@@ -28,6 +29,7 @@
 import Vue from "vue";
 import { getters, mutations, actions } from "../store";
 import TopNav from "../components/main/TopNav.vue";
+import Sidebar from "../components/main/Sidebar.vue"
 import ConfirmationModal from "../components/Confirmation.vue";
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
