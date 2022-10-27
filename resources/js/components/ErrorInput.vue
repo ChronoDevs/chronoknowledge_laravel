@@ -78,6 +78,19 @@
         <span v-show="password && !$parent.$v[`form`].password.maxLength && $parent.$v[`form`].password.$anyDirty" class="error-text">The password may not be greater than 60.</span>
     </div>
 
+    <!-- New Password -->
+    <div v-if="_.get($parent.errors, 'new_password', false)">
+        <span v-show="new_password" v-for="(message, key, index) in $parent.errors.new_password" :key="key" class="error-text" :class="[
+            'error-text',
+            { 'block': _.get($parent.errors, 'new_password', false) }
+        ]">{{ message }}</span>
+    </div>
+    <div v-else>
+        <span v-show="new_password && !$parent.$v[`form`].new_password.required && $parent.$v[`form`].new_password.$anyDirty" class="error-text">The new password field is required.</span>
+        <span v-show="new_password && !$parent.$v[`form`].new_password.minLength && $parent.$v[`form`].new_password.$anyDirty" class="error-text">The new password must be at least 4.</span>
+        <span v-show="new_password && !$parent.$v[`form`].new_password.maxLength && $parent.$v[`form`].new_password.$anyDirty" class="error-text">The new password may not be greater than 60.</span>
+    </div>
+
     <!-- Password Confirmation -->
     <div v-if="_.get($parent.errors, 'password_confirmation', false)">
         <span v-show="password_confirmation" v-for="(message, key, index) in $parent.errors.password_confirmation" :key="key" class="error-text" :class="[
@@ -87,7 +100,7 @@
     </div>
     <div v-else>
         <span v-show="password_confirmation && !$parent.$v[`form`].password_confirmation.required && $parent.$v[`form`].password_confirmation.$anyDirty" class="error-text">The password_confirmation field is required.</span>
-        <span v-show="password_confirmation && $parent.$v[`form`].password_confirmation.$model !== $parent.$v[`form`].password.$model && $parent.$v[`form`].password_confirmation.$anyDirty" class="error-text">The password_confirmation does not match.</span>
+        <span v-show="password_confirmation && $parent.$v[`form`].password_confirmation.$model !== $parent.$v[`form`].new_password.$model && $parent.$v[`form`].password_confirmation.$anyDirty" class="error-text">The password_confirmation does not match.</span>
     </div>
 
     <!-- Address -->
@@ -201,6 +214,10 @@ export default {
             default: false
         },
         password: {
+            type: Boolean,
+            default: false
+        },
+        new_password: {
             type: Boolean,
             default: false
         },

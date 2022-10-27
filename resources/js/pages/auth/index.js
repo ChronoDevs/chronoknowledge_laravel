@@ -1,5 +1,6 @@
 import Register from './Register.vue'
 import Login from './Login.vue'
+import ResetPassword from './ResetPassword.vue'
 
 const auth = [
   {
@@ -11,6 +12,11 @@ const auth = [
     path: '/login',
     name: 'login',
     component: Login
-  }
+  },
+  {
+    path: '/password/reset',
+    name: 'reset-password',
+    component: ResetPassword
+  },
 ];
 export default auth
