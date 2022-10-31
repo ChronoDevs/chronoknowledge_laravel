@@ -16,7 +16,8 @@
         "laravel/passport": "~9.3.0",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
-        "lcobucci/jwt": "^3.0"
+        "lcobucci/jwt": "^3.0",
+        "predis/predis": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

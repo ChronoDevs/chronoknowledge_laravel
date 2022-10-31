@@ -30,7 +30,7 @@
               <input v-model.trim="$v.form.first_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="First Name"/>
             </label>
             <div class="errors">
-              <error-input :first_name="true"></error-input>
+              <error-input :name="'first_name'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
           </div>
           <div>
@@ -39,7 +39,7 @@
               <input v-model.trim="$v.form.middle_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Middle Name"/>
             </label>
             <div class="errors">
-              <error-input :middle_name="true"></error-input>
+              <error-input :name="'middle_name'" :validations="['min.string', 'max.string']"></error-input>
             </div>
           </div>
           <div>
@@ -48,7 +48,7 @@
               <input v-model.trim="$v.form.last_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Last Name"/>
             </label>
             <div class="errors">
-              <error-input :last_name="true"></error-input>
+              <error-input :name="'last_name'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
           </div>
           <div class="grid sm:grid-cols-2 gap-5">
@@ -57,14 +57,14 @@
                 <span class="font-bold">{{ lang.get('words.Username') }}</span>
                 <input v-model="$v.form.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Username"/>
               </label>
-              <error-input :username="true"></error-input>
+              <error-input :name="'username'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Nickname') }}</span>
                 <input v-model="$v.form.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Nickname"/>
               </label>
-              <error-input :nick_name="true"></error-input>
+              <error-input :name="'nick_name'" :validations="['min.string', 'max.string']"></error-input>
             </div>
           </div>
           <div class="grid sm:grid-cols-2 gap-5">
@@ -76,14 +76,14 @@
                   <option value="1" :selected="$v.form.gender.$model == '1'">{{ lang.get('words.Female') }}</option>
                 </select>
               </label>
-              <error-input :gender="true"></error-input>
+              <error-input :name="'gender'" :validations="['required']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.DateOfBirth') }}</span>
                 <input v-model="$v.form.birth_date.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="date"/>
               </label>
-              <error-input :birth_date="true"></error-input>
+              <error-input :name="'birth_date'" :validations="['required', 'date']"></error-input>
             </div>
           </div>
           <div class="grid sm:grid-cols-2 gap-5">
@@ -92,14 +92,14 @@
                 <span class="font-bold">{{ lang.get('words.Telephone') }}</span>
                 <input v-model="$v.form.tel.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="tel" placeholder="Telephone"/>
               </label>
-              <error-input :tel="true"></error-input>
+              <error-input :name="'tel'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Zipcode') }}</span>
                 <input v-model="$v.form.zip_code.$model" class="h-14 w-full rounded-lg bg-b-input focus:placeholder:opacity-0" type="text" pattern="[0-9]{5}" placeholder="Zip Code" />
               </label>
-              <error-input :zip_code="true"></error-input>
+              <error-input :name="'zip_code'" :validations="['required', 'max.string']"></error-input>
             </div>
           </div>
           <div class="grid sm:grid-cols-1 gap-5">
@@ -108,28 +108,28 @@
                 <span class="font-bold">{{ lang.get('words.Address') }}</span>
                 <input v-model="$v.form.address.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Address"/>
               </label>
-              <error-input :address="true"></error-input>
+              <error-input :name="'address'" :validations="['min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Email') }}</span>
                 <input v-model="$v.form.email.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="email" placeholder="E-mail"/>
               </label>
-              <error-input :email="true"></error-input>
+              <error-input :name="'email'" :validations="['required', 'email', 'min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Password') }}</span>
                 <input v-model="$v.form.password.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="password" placeholder="Password"/>
               </label>
-              <error-input :password="true"></error-input>
+              <error-input :name="'password'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.PasswordConfirmation') }}</span>
                 <input v-model="$v.form.password_confirmation.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="password" placeholder="Confirm Password"/>
               </label>
-              <error-input :password_confirmation="true"></error-input>
+              <error-input :name="'password_confirmation'" :validations="['required', 'same']"></error-input>
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@
                 <input type="checkbox" v-model="$v.form.termsAndPrivacy.$model" class="my-1"/>
                 <span class="text-b-mute">{{ lang.get('words.TermsAndPrivacy') }}</span>
               </label>
-              <error-input :termsAndPrivacy="true"></error-input>
+              <error-input :name="'termsAndPrivacy'" :validations="['accepted']"></error-input>
             </div>
         </div>
         <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" :disabled="
@@ -153,7 +153,7 @@
 <script>
 import Vue from "vue";
 import { getters, mutations, actions } from "../../store";
-import { required, minLength, sameAs, email, helpers } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, sameAs, email, helpers } from 'vuelidate/lib/validators'
 
 export default {
   data() {
@@ -180,50 +180,53 @@ export default {
   validations: {
     form: {
       first_name: {
-        required, minLength: minLength(2), maxLength: 16
+        required, minLength: minLength(2), maxLength: maxLength(16)
       },
       middle_name: {
-        minLength: minLength(2), maxLength: 16
+        minLength: minLength(2), maxLength: maxLength(16)
       },
       last_name: {
-        required, minLength: minLength(2), maxLength: 16
+        required, minLength: minLength(2), maxLength: maxLength(16)
       },
       email: {
-        required, email, minLength: minLength(4), maxLength: 50
+        required, email, minLength: minLength(4), maxLength: maxLength(50)
       },
       username: {
-        required, minLength: minLength(4), maxLength: 50
+        required, minLength: minLength(4), maxLength: maxLength(50)
       },
       password: {
-        required, minLength: minLength(4), maxLength: 60,
+        required, minLength: minLength(4), maxLength: maxLength(60),
       },
       password_confirmation: {
         required
+        // sameAs: function(val) {
+        //   // console.log('password_confirmation', val, this.form)
+        // }
       },
       address: {
-        minLength: minLength(4), maxLength: 100
+        minLength: minLength(4), maxLength: maxLength(100)
       },
       zip_code: {
-        required, maxLength: 8
+        required, maxLength: maxLength(8)
       },
       tel: {
-        minLength: minLength(11), maxLength: 11
+        required, minLength: minLength(11), maxLength: maxLength(11)
       },
       nick_name: {
-        minLength: minLength(4), maxLength: 20
+        minLength: minLength(4), maxLength: maxLength(20)
       },
       birth_date: {
         required,
-        isDate: function() {
-          return moment(this.birth_date).isValid()
+        isDate: function(birth_date) {
+          return moment(birth_date).isValid()
         }
       },
       gender: {
         required
       },
       termsAndPrivacy: {
-        checked(val) {
-          return val == true;
+        accepted: (val) => {
+          return val;
         }
       }
     }

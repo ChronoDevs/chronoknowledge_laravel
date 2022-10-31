@@ -19,88 +19,93 @@
       </div>
     </div>
     <div class="posts">
-      <ul class="nav nav-tabs flex gap-6 list-none border-b-0 pl-0 font-bold" id="tabs-tab" role="tablist">
-          <li class="nav-item" role="presentati on">
-              <a @click="setTab(POST_CATEGORY.relevant)" href="#relevant" :class="[
-                  { 'text-b-mute': postCategory == POST_CATEGORY.relevant },
-                  { 'text-b-primary': postCategory != POST_CATEGORY.relevant }
-                  ]" id="relevant-tab" data-bs-toggle="pill" data-bs-target="#relevant" role="tab" aria-controls="relevant"
-              aria-selected="true">{{ lang.get('words.Relevant') }}</a>
-          </li>
-          <li class="nav-item" role="presentation">
-              <a @click="setTab(POST_CATEGORY.latest)" href="#latest" :class="[
-                  { 'text-b-mute': postCategory == POST_CATEGORY.latest },
-                  { 'text-b-primary': postCategory != POST_CATEGORY.latest }
-                  ]" id="latest-tab" data-bs-toggle="pill" data-bs-target="#latest" role="tab"
-              aria-controls="latest" aria-selected="false">{{ lang.get('words.Latest') }}</a>
-          </li>
-          <li class="nav-item" role="presentation" >
-              <a @click="setTab(POST_CATEGORY.top)" href="#top" :class="[
-                  { 'text-b-mute': postCategory == POST_CATEGORY.top },
-                  { 'text-b-primary': postCategory != POST_CATEGORY.top }
-                  ]" id="top-tab" data-bs-toggle="pill" data-bs-target="#top" role="tab"
-              aria-controls="top" aria-selected="false">{{ lang.get('words.Top') }}</a>
-          </li>
-      </ul>
+        <div class="flex justify-between items-center">
+            <ul class="nav nav-tabs flex gap-6 list-none border-b-0 pl-0 font-bold" id="tabs-tab" role="tablist">
+                <li class="nav-item" role="presentati on">
+                    <a @click="setTab(POST_CATEGORY.relevant)" href="#relevant" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.relevant },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.relevant }
+                        ]" id="relevant-tab" data-bs-toggle="pill" data-bs-target="#relevant" role="tab" aria-controls="relevant"
+                    aria-selected="true">{{ lang.get('words.Relevant') }}</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a @click="setTab(POST_CATEGORY.latest)" href="#latest" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.latest },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.latest }
+                        ]" id="latest-tab" data-bs-toggle="pill" data-bs-target="#latest" role="tab"
+                    aria-controls="latest" aria-selected="false">{{ lang.get('words.Latest') }}</a>
+                </li>
+                <li class="nav-item" role="presentation" >
+                    <a @click="setTab(POST_CATEGORY.top)" href="#top" :class="[
+                        { 'text-b-mute': postCategory == POST_CATEGORY.top },
+                        { 'text-b-primary': postCategory != POST_CATEGORY.top }
+                        ]" id="top-tab" data-bs-toggle="pill" data-bs-target="#top" role="tab"
+                    aria-controls="top" aria-selected="false">{{ lang.get('words.Top') }}</a>
+                </li>
+            </ul>
+            <div>
+                <router-link :to="{ name: 'post' }" class="block w-full sm:border-2 sm:border-b-link p-2 text-b-link hover:bg-b-primary sm:hover:bg-transparent rounded-lg"><i class="fa-solid fa-plus"></i> Add Post</router-link>
+            </div>
+        </div>
 
-      <div class="tab-content" id="tabs-tabContent">
-          <div v-show="postCategory == POST_CATEGORY.relevant" class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6" id="relevant" role="tabpanel" aria-labelledby="relevant-tab">
-              <div v-for="(post, index) in posts" :key="index" class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
-                  <div class="flex gap-6">
-                      <div>
-                          <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
-                      </div>
-                      <div class="grid">
-                          <span class="text-b-info font-bold">{{ _.get(post, 'user.name', '') }}</span>
-                          <span class="text-b-mute">{{ _.get(post, 'user.job', '') }}</span>
-                          <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
-                      </div>
-                  </div>
-                  <div>
-                      <h3 class="font-bold">{{ _.get(post, 'title', '') }}</h3>
-                  </div>
-                  <div class="text-b-dark">
-                      <span v-for="(category, index) in post.categories" :key="index">{{ category + ' '}}</span>
-                  </div>
-                  <div class="flex gap-6">
-                      <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}</span></span>
-                      <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
-                      <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
-                  </div>
-              </div>
-          </div>
-          <div v-show="postCategory == POST_CATEGORY.latest" class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
-              <div class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
-                  <div class="flex gap-6">
-                      <div>
-                          <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
-                      </div>
-                      <div class="grid">
-                          <span class="text-b-info font-bold">Fel Reind Entica</span>
-                          <span class="text-b-mute">Software Engineer</span>
-                          <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
-                      </div>
-                  </div>
-                  <div>
-                      <h3 class="font-bold">16 Libraries You Should Know as a React Developer. See my post now and read</h3>
-                  </div>
-                  <div class="text-b-dark">
-                      <span>#webdev</span>
-                      <span>#coding</span>
-                      <span>#react</span>
-                      <span>#productivity</span>
-                  </div>
-                  <div class="flex gap-6">
-                      <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}></span></span>
-                      <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
-                      <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
-                  </div>
-              </div>
-          </div>
-          <div v-show="postCategory == POST_CATEGORY.top" class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="latest-tab">
-              Tab 3 content
-          </div>
-      </div>
+        <div class="tab-content" id="tabs-tabContent">
+            <div v-show="postCategory == POST_CATEGORY.relevant" class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6" id="relevant" role="tabpanel" aria-labelledby="relevant-tab">
+                <div v-for="(post, index) in posts" :key="index" class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
+                    <div class="flex gap-6">
+                        <div>
+                            <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
+                        </div>
+                        <div class="grid">
+                            <span class="text-b-info font-bold">{{ _.get(post, 'user.name', '') }}</span>
+                            <span class="text-b-mute">{{ _.get(post, 'user.job', '') }}</span>
+                            <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">{{ _.get(post, 'title', '') }}</h3>
+                    </div>
+                    <div class="text-b-dark">
+                        <span v-for="(category, index) in post.categories" :key="index">{{ category + ' '}}</span>
+                    </div>
+                    <div class="flex gap-6">
+                        <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}</span></span>
+                        <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
+                        <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div v-show="postCategory == POST_CATEGORY.latest" class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+                <div class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg">
+                    <div class="flex gap-6">
+                        <div>
+                            <img src="../../../assets/icons/user-logo.png" class="h-12 border border-white rounded-full"/>
+                        </div>
+                        <div class="grid">
+                            <span class="text-b-info font-bold">Fel Reind Entica</span>
+                            <span class="text-b-mute">Software Engineer</span>
+                            <span class="text-gray-700"><small>October 3, 2022 | 8:02 AM</small></span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">16 Libraries You Should Know as a React Developer. See my post now and read</h3>
+                    </div>
+                    <div class="text-b-dark">
+                        <span>#webdev</span>
+                        <span>#coding</span>
+                        <span>#react</span>
+                        <span>#productivity</span>
+                    </div>
+                    <div class="flex gap-6">
+                        <span><i class="fa-regular fa-thumbs-up pr-3"></i><span class="text-b-mute">{{ lang.get('words.Likes') }}></span></span>
+                        <span><i class="fa-regular fa-comment pr-3"></i><span class="text-b-mute">{{ lang.get('words.Comments') }}</span></span>
+                        <span><i class="fa-regular fa-star pr-3"></i><span class="text-b-mute">{{ lang.get('words.Favorites') }}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div v-show="postCategory == POST_CATEGORY.top" class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="latest-tab">
+                Tab 3 content
+            </div>
+        </div>
     </div>
     <div class="categories">
       <div class="grid grid-cols-1 gap-6">

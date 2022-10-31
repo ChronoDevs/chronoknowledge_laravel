@@ -21,6 +21,7 @@ return [
     'Comments' => 'Comments',
     'Categories' => 'Categories',
     'CreateAnAccount' => 'Create an account.',
+    'CreatePost' => 'Create Post',
     'Confirm' => 'Confirm',
     // D
     'DateOfBirth' => 'Date of Birth',
@@ -66,6 +67,7 @@ return [
     'Password' => 'Password',
     'PasswordConfirmation' => 'Password Confirmation',
     'PopularTags' => 'Popular Tags',
+    'PlaneDescription' => 'Plane Description',
     // Q
 
     // R
@@ -82,6 +84,7 @@ return [
     'Telephone' => 'Telephone',
     'Top' => 'Top',
     'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
+    'Title' => 'Title',
     // U
     'Username' => 'Username',
     // V
