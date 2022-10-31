@@ -31,7 +31,8 @@ const app = new Vue({
         .then( response => {
             let source = {
                 'en.words': response.data.words,
-                'en.auth': response.data.auth
+                'en.auth': response.data.auth,
+                'en.validation': response.data.validation
             }
 
             lang.setMessages(source)

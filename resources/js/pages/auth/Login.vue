@@ -44,7 +44,7 @@
                 placeholder="E-mail"
               />
             </label>
-            <error-input :email="true"></error-input>
+            <error-input :name="'email'" :validations="['required', 'email', 'min.string', 'max.string']"></error-input>
           </div>
           <div>
             <label class="grid gap-y-2">
@@ -56,7 +56,7 @@
                 placeholder="Password"
               />
             </label>
-            <error-input :password="true"></error-input>
+            <error-input :name="'password'" :validations="['required', 'min.string', 'max.string']"></error-input>
           </div>
         </div>
         <div class="grid sm:grid-cols-1 gap-5">
@@ -70,7 +70,7 @@
               />
               <span class="text-b-mute">{{ lang.get("words.RememberMe") }}</span>
             </label>
-            <error-input :rememberMe="true"></error-input>
+            <error-input :name="'rememberMe'"></error-input>
           </div>
         </div>
         <ui-button
@@ -91,7 +91,7 @@
 <script>
 import Vue from "vue";
 import { getters, mutations, actions } from "../../store";
-import { required, minLength, sameAs, email, helpers } from "vuelidate/lib/validators";
+import { required, minLength, maxLength, sameAs, email, helpers } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -110,12 +110,12 @@ export default {
         required,
         email,
         minLength: minLength(4),
-        maxLength: 50,
+        maxLength: maxLength(50)
       },
       password: {
         required,
         minLength: minLength(4),
-        maxLength: 60,
+        maxLength: maxLength(60)
       },
       remember: {
         // checked(val) {
