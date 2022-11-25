@@ -23,7 +23,6 @@
 
         @stack('assetJs')
         <script src="{{ mix('js/app.js') }}"></script>
-
         <noscript>
           This website relies on JavaScript, which you appear to have disabled. You will not be
           able to use many of this website's features without JavaScript enabled.

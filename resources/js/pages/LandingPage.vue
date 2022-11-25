@@ -29,7 +29,7 @@ export default {
         ...getters,
         landingLoggedInStyle() {
             return {
-                'grid-template-areas': `'sidebar posts posts categories''sidebarclasspapi posts posts popular'`,
+                'grid-template-areas': `'sidebar posts posts category''sidebarclasspapi posts posts popular'`,
                 'background-color': 'none',
                 'padding': '0'
             }
@@ -43,7 +43,7 @@ export default {
 
 .landingLoggedIn {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 380px auto;
 }
 .landingGuest {
     display: grid;

@@ -165,6 +165,7 @@ export default {
       mutations.setUser(null)
       mutations.setIsLoggedIn(false)
       document.getElementById('user-dropdown').classList.add("hidden")
+      this.$router.push('/');
     }
   },
   computed: {

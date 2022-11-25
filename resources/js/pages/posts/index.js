@@ -1,10 +1,14 @@
-import PostForm from './PostForm.vue'
+import Post from './Post.vue'
 
 const post = [
   {
-    path: '/post',
+    path: '/post/:id',
     name: 'post',
-    component: PostForm
-  },
+    component: Post,
+    props: true,
+    meta: {
+      requiresAuth: true,
+    }
+  }
 ];
 export default post

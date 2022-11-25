@@ -4,7 +4,7 @@
   :class="classes"
   :disabled="disabled || loading"
   @click="onClick">
-    <clip-loader class="loaderCenter grid content-center" :loading="withLoading" :color="loader.color" :size="loader.size"></clip-loader>
+    <clip-loader class="loaderCenter grid content-center" :loading="withLoading" :color="loader.color.btPrimary" :size="loader.size"></clip-loader>
 
     <div class="ui-content" :class="iconPos">
         <div v-show="withIcon" class="ui-btn-icon">

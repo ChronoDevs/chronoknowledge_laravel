@@ -14,10 +14,10 @@ const routes = [
     name: 'landing-page',
     component: LandingPage,
     children: [
-      ...SidebarRoutes
+      ...SidebarRoutes,
+      ...postRoutes
     ]
   },
-  ...postRoutes,
   ...authRoutes
 ];
 

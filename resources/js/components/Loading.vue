@@ -2,7 +2,8 @@
 <template>
   <div>
     <div class="loading"></div>
-    <img class="h-12 loaderCenter" style="z-index: 9999" src="../../assets/chronostep.png" />
+    <clip-loader v-show="type == loader.type[0] && withLoading" class="loaderCenter grid content-center" :loading="withLoading" :color="loader.color.bLink" :size="loader.size"></clip-loader>
+    <img v-show="type == loader.type[1] && withLoading" class="h-12 loaderCenter"  style="z-index: 9999" src="../../assets/chronostep.png" />
   </div>
 </template>
 
@@ -11,6 +12,13 @@
   import { getters, mutations, actions } from "../store";
 
   export default {
+    props: {
+      type: {
+        type: String,
+        default: 'by-task' // by-page
+      },
+      withLoading: false
+    },
     data() {
       return {
         //

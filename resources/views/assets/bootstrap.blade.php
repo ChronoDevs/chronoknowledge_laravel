@@ -3,5 +3,7 @@
 @endpush
 
 @push('assetJs')
+    <script src="{{ asset('assets/admin-lte/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin-lte/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 @endpush
