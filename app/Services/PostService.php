@@ -47,7 +47,11 @@ class PostService
             'post_display_type' => request()->get('post_display_type')
         ];
 
-        $rtn = $this->repository->acquireAllByDisplayTypeAndCategory($data);
+        $expiry = 604800; // 1 week
+        $rtn = \Cache::remember('posts', $expiry, function () use ($data) {
+            return $this->repository->acquireAllByDisplayTypeAndCategory($data);
+        });
+
         return $rtn;
     }
 
@@ -86,7 +90,10 @@ class PostService
                     'tag_id' => $tag->id
                 ];
             }
-           $this->postTagRepository->addBulk($postTagData);
+
+            $this->postTagRepository->addBulk($postTagData);
+
+            \Cache::pull('posts');
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();

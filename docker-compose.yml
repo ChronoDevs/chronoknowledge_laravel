@@ -89,17 +89,16 @@ services:
     networks:
       - module
 
-   #setup artisan with php
-  # redis:
-  #   image: redis:5.0.5
-  #   ports:
-  #     - "6379:6379"
-  #   container_name: module_redis
-  #   volumes:
-  #     - .docker/redis:/var/www/html
-  #   working_dir: /var/www/html
-  #   networks:
-  #     - module
+  redis:
+    image: redis:5.0.5
+    ports:
+      - "6379:6379"
+    container_name: module_redis
+    volumes:
+      - ./docker/redis:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - module
 
 networks:
   module:
