@@ -184,3 +184,87 @@ body {
 ::-webkit-scrollbar-button:single-button:horizontal:increment:active {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(165, 168, 172, 0.7)0'><polygon points='0,0 0,100 50,50'/></svg>");
 }
+
+.ck .ck-toolbar__items {
+  font-size: 10px!important;
+}
+.ck-editor__editable {
+  min-height: 150px!important;
+  color: black;
+  word-break: break-all;
+}
+// .multiselect__element {
+//   height: $ui-input-height;
+//   .multiselect__option {
+//     line-height: 2;
+//   }
+// }
+
+.multiselect {
+  width: 200px;
+  min-height: unset;
+  background-color: white;
+  border-radius: $ui-default-border-radius;
+  .multiselect__select /*arrow styles*/ {
+    // if select got too much height chage those 
+    padding-top: 12px;
+    padding-bottom: 12px;
+    height: $ui-input-height;
+  }
+  .multiselect__tags /*input warpper*/ {
+    background: transparent;
+    width: 100%;
+    min-width: unset;
+    display: flex;
+    align-items: center;
+    // *
+    height: $ui-input-height;
+    min-height: unset;
+    padding-top: 0;
+    justify-content: flex-start;
+    // *
+    padding-left: 12px;
+    .multiselect__single,
+    .multiselect__placeholder,
+    .multiselect__input /*inside input, placeholder and search input */{
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      background-color: white!important;
+      border: none!important;
+      outline: none!important;
+      box-shadow: none!important;
+    }
+  }
+}
+.multiselect__option--highlight {
+  background-color: $brand-theme-color-secondary!important;
+}
+.multiselect__option--highlight:after {
+  background-color: $brand-bg-input!important;
+}
+.multiselect__loading-enter {
+  color: $brand-bg-input!important
+}
+.multiselect__spinner {
+  height: 95%!important;
+  &:before {
+    border-top-color: $brand-bg-input!important
+  }
+  &:after {
+    border-top-color: $brand-bg-input!important
+  }
+}
+.multiselect__tags-wrap {
+  display: flex!important;
+  flex-wrap: nowrap!important;
+}
+.multiselect__tag {
+  min-width: 70px!important;
+}
+.multiselect__strong {
+  line-height: 1!important;
+  width: 100px!important;
+  font-size: 10px!important;
+  margin-right: 8px;
+}

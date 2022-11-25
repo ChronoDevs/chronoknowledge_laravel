@@ -1,7 +1,6 @@
 <template>
   <div>
     <top-nav></top-nav>
-    <sidebar></sidebar>
     <main>
       <router-view></router-view>
     </main>
@@ -21,7 +20,7 @@
       {{ alert.message }}
     </ui-alert>
 
-    <loading v-show="loading"></loading>
+    <loading v-show="loading" :type="loader.type[1]" :withLoading="true"></loading>
   </div>
 </template>
 
@@ -31,17 +30,19 @@ import { getters, mutations, actions } from "../store";
 import TopNav from "../components/main/TopNav.vue";
 import Sidebar from "../components/main/Sidebar.vue"
 import ConfirmationModal from "../components/Confirmation.vue";
+import Multiselect from 'vue-multiselect'
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
 Vue.component("ErrorInput", require("../components/ErrorInput.vue").default);
 Vue.component("Loading", require("../components/Loading.vue").default);
 Vue.component("ClipLoader", require("vue-spinner/src/ClipLoader.vue").default);
+Vue.component('multiselect', Multiselect);
 
 export default {
   data() {
     return {
-      param_reset_token: '',
+      param_reset_token: ''
     };
   },
   components: { TopNav, ConfirmationModal },

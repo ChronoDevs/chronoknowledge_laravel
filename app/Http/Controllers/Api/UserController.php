@@ -23,7 +23,7 @@ class UserController extends Controller
      * @param Reqeust $request
      * @return JSON $rtn
      */
-    public function login(Request $request)
+    public function login()
     {
         $rtn = null;
         $rtn = $this->service->login();

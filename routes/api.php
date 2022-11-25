@@ -17,6 +17,9 @@ Route::group(['namespace' => 'Api' ], function () {
     Route::post('register', 'UserController@register')->name('register');
     Route::post('password/email', 'UserController@sendResetLinkEmail');
     Route::post('password/reset', 'UserController@reset');
+    Route::get('categories', 'CategoryController@index');
+    Route::get('tags', 'TagController@index');
+    Route::get('posts', 'PostController@index');
 
     Route::get('language', function () {
         return response()->json([
@@ -27,8 +30,17 @@ Route::group(['namespace' => 'Api' ], function () {
     });
 });
 
-Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
-    // Route::get('test', function() {
-    //     return response()->json(['1', '2', '3']);
-    // });
+Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
+    Route::post('posts', 'PostController@store');
+    Route::get('posts/{id}', 'PostController@show');
+
+    Route::post('likes', 'PostLikeController@store');
+    Route::put('likes', 'PostLikeController@update');
+    Route::delete('likes', 'PostLikeController@destroy');
+
+    Route::post('favorites', 'PostFavoriteController@store');
+    Route::put('favorites', 'PostFavoriteController@update');
+    Route::delete('favorites', 'PostFavoriteController@destroy');
+
+    Route::post('comments', 'PostCommentController@store');;
 });

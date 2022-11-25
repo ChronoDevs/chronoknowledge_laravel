@@ -29,13 +29,14 @@ class UserService
         $rtn = [];
 
         $data = request()->only('email', 'password');
-        $user = new User;
         // $user = $this->service->acquireByAttributes($data);
 
-        if (auth()->attempt($data)) {
+        if (\Auth::attempt($data)) {
+            $user = \Auth::user();
+
             $rtn = [
                 'token' => $user->createToken('chronoknowledge')->accessToken,
-                'user' => auth()->user()
+                'user' => $user
             ];
         } else {
             throw new \Exception("The given data was invalid.");

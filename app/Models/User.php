@@ -6,10 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Models\Post;
 
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -52,4 +55,14 @@ class User extends Authenticatable
         'email_verified_at',
         'deleted_at'
     ];
+
+    /**
+     * This method return mulitple user relation to post.
+     *
+     * @return collection
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

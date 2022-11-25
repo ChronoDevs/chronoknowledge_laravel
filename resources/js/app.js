@@ -5,13 +5,17 @@ import App from './pages/App'
 import lang from './config/lang.js'
 import axios from './config/axios.js'
 import router from './config/routes.js'
+import moment from 'moment'
+import CKEditor from '@ckeditor/ckeditor5-vue2'
 import vuelidate from 'vuelidate'
 
 import { getters, mutations, actions } from "./store";
 
 Vue.use(router)
 Vue.use(vuelidate)
+Vue.use(CKEditor);
 Vue.prototype.$http = axios
+Vue.prototype.moment = moment
 
 const app = new Vue({
     el: '#app',
@@ -50,7 +54,7 @@ const app = new Vue({
               if (this.user)
                 next()
               else
-                next({ name: 'Login' })
+                next({ name: 'login' })
 
             } else {
               let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);

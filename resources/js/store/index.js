@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const state = Vue.observable({
   user: null,
@@ -16,8 +17,23 @@ const state = Vue.observable({
     message: ''
   },
   loader: {
-    color: 'black',
-    size: '24px'
+    color: {
+      bLink: '#016EB5', // $brand-link
+      btPrimary: 'rgb(24, 25, 26)'
+    },
+    size: '24px',
+    type: [
+      'by-task', // 0
+      'by-page' // 1
+    ]
+  },
+  CKEditor: {
+    config: {
+    },
+    editor: ClassicEditor
+  },
+  select: {
+    height: '9.375' //px
   }
 });
 
@@ -29,7 +45,8 @@ export const getters = {
     _: () => _,
     loader: () => state.loader,
     user: () => state.user,
-    isLoggedIn: () => state.isLoggedIn
+    isLoggedIn: () => state.isLoggedIn,
+    CKEditor: () => state.CKEditor
 }
 
 export const mutations = {

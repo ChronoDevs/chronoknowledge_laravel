@@ -40,7 +40,7 @@
             :type="'create'"
             :size="'full'"
             :withLoading="loading"
-            :disabled="$v.form.$anyError || !$v.form.$anyDirty"
+            :disabled="anyError"
             class="text-white">
             <span>{{ lang.get('words.SendMeResetPasswordInstructions') }}</span>
           </ui-button>
@@ -81,7 +81,7 @@
             :type="'create'"
             :size="'full'"
             :withLoading="loading"
-            :disabled="$v.form.$anyError || !$v.form.$anyDirty"
+            :disabled="anyError"
             class="text-white font-bold">
             <span>{{ lang.get('words.Confirm') }}</span>
           </ui-button>
@@ -171,6 +171,7 @@ export default {
             mutations.setAlert(alertData);
           } else {
             // SUCCESS
+
             localStorage.setItem(
             "chronoknowledge.reset_password",
               JSON.stringify(response.data)
@@ -204,6 +205,7 @@ export default {
             mutations.setAlert(alertData);
           } else {
             // SUCCESS
+            this.resetForm();
             localStorage.removeItem('chronoknowledge.reset_password')
             this.reset_success = true;
             let alertData = {
@@ -221,6 +223,13 @@ export default {
         .finally(() => {
           mutations.setLoading(false);
         });
+    },
+    resetForm() {
+      this.form = {
+        email: '',
+        new_password: '',
+        password_confirmation: '',
+      }
     }
   },
   computed: {
@@ -233,6 +242,9 @@ export default {
     },
     inputPasswordC: function() {
       return this.$v.form.password_confirmation.$error;
+    },
+    anyError: function() {
+      return this.$v.form.$anyError || !this.$v.form.$anyDirty || this.form.new_password != this.form.password_confirmation
     }
   },
   watch: {

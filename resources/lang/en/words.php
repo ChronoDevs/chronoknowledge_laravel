@@ -19,7 +19,7 @@ return [
     'ContinueWithEmail' => 'Have a password? Continue with your email address',
     'CreateAccount' => 'Create Account',
     'Comments' => 'Comments',
-    'Categories' => 'Categories',
+    'Category' => 'Category',
     'CreateAnAccount' => 'Create an account.',
     'CreatePost' => 'Create Post',
     'Confirm' => 'Confirm',
@@ -27,6 +27,7 @@ return [
     'DateOfBirth' => 'Date of Birth',
     'Dashboard' => 'Dashboard',
     'DownloadOnThe' => 'Download on the',
+    'Discussions' => 'Discussions',
     // E
     'Email' => 'Email',
     'EnterYourRegisteredEmailAddressToThisAmazingCommunity' => 'Enter your registered email address to this amazing community.',
@@ -67,12 +68,15 @@ return [
     'Password' => 'Password',
     'PasswordConfirmation' => 'Password Confirmation',
     'PopularTags' => 'Popular Tags',
-    'PlaneDescription' => 'Plane Description',
+    'PlainDescription' => 'Plain Description',
+    'SelectACategory' => 'Select a category',
     // Q
 
     // R
     'RememberMe' => 'Remember Me?',
     'Relevant' => 'Relevant',
+    'Replies' => 'Replies',
+
     // S
     'SignIn' => 'Sign In',
     'SignUp' => 'Sign Up',
@@ -80,11 +84,13 @@ return [
     'Setting' => 'Setting',
     'SendMeResetPasswordInstructions' => 'Send me reset password instructions.',
     'SubmitTheFormToGetYourNewPassword' => 'Submit the form to get your new password.',
+    'Submit' => 'Submit',
     // T
     'Telephone' => 'Telephone',
     'Top' => 'Top',
     'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
     'Title' => 'Title',
+    'Tags' => 'Tags',
     // U
     'Username' => 'Username',
     // V

@@ -110,6 +110,7 @@ export default {
 
 .sidebarComponent {
   width: 300px;
-  margin: $base-comp-gap-y 0rem 0rem $base-comp-gap-x
+  margin: $base-comp-gap-y 0rem 0rem $base-comp-gap-x;
+  position: fixed;
 }
 </style>

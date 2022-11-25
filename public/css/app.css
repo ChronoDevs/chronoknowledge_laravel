@@ -32,7 +32,7 @@ body h3 {
 .horizontal-line {
   width: 100%;
   text-align: center;
-  border-bottom: 2px solid lightgray;
+  border-bottom: 2px solid rgb(168, 165, 172);
   line-height: 0em;
   margin: 10px 0 20px;
 }
@@ -157,4 +157,87 @@ body h3 {
 
 ::-webkit-scrollbar-button:single-button:horizontal:increment:active {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(165, 168, 172, 0.7)0'><polygon points='0,0 0,100 50,50'/></svg>");
+}
+
+.ck .ck-toolbar__items {
+  font-size: 10px !important;
+}
+
+.ck-editor__editable {
+  min-height: 150px !important;
+  color: black;
+  word-break: break-all;
+}
+
+.multiselect {
+  width: 200px;
+  min-height: unset;
+  background-color: white;
+  border-radius: 10px;
+}
+.multiselect .multiselect__select {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: 3.5rem;
+}
+.multiselect .multiselect__tags {
+  background: transparent;
+  width: 100%;
+  min-width: unset;
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  min-height: unset;
+  padding-top: 0;
+  justify-content: flex-start;
+  padding-left: 12px;
+}
+.multiselect .multiselect__tags .multiselect__single,
+.multiselect .multiselect__tags .multiselect__placeholder,
+.multiselect .multiselect__tags .multiselect__input {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  background-color: white !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.multiselect__option--highlight {
+  background-color: rgb(36, 37, 38) !important;
+}
+
+.multiselect__option--highlight:after {
+  background-color: rgb(58, 59, 60) !important;
+}
+
+.multiselect__loading-enter {
+  color: rgb(58, 59, 60) !important;
+}
+
+.multiselect__spinner {
+  height: 95% !important;
+}
+.multiselect__spinner:before {
+  border-top-color: rgb(58, 59, 60) !important;
+}
+.multiselect__spinner:after {
+  border-top-color: rgb(58, 59, 60) !important;
+}
+
+.multiselect__tags-wrap {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+.multiselect__tag {
+  min-width: 70px !important;
+}
+
+.multiselect__strong {
+  line-height: 1 !important;
+  width: 100px !important;
+  font-size: 10px !important;
+  margin-right: 8px;
 }

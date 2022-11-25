@@ -15,7 +15,14 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $models = array(
             'User',
-            'Admin'
+            'Admin',
+            'Post',
+            'Category',
+            'Tag',
+            'PostTag',
+            'PostLike',
+            'PostFavorite',
+            'PostComment'
         );
 
         foreach ($models as $index => $model) {

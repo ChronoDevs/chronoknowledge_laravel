@@ -10,11 +10,23 @@
     <div v-else>
         <div v-for="(condition, index) in validations" :key="index" class="error-text">
             <!-- custom additional messages -->
-            <span v-if="cond(condition) == 'same' && $parent.$v.form[name].$model != $parent.$v.form['password'].$model && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
-            <span v-else-if="cond(condition) == 'date' && !$parent.$v.form[name].required && !$parent.$v.form[name].checked && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
-            <span v-else-if="cond(condition) == 'accepted' && !$parent.$v.form[name].$model && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
+            <span v-if="cond(condition) == 'same'
+            && $parent.$v.form[name].$model != $parent.$v.form['password'].$model
+            && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
 
-            <span v-else-if="!$parent.$v[`form`][name][cond(condition)] && $parent.$v[`form`][name].$anyDirty && (cond(condition) != 'same' && cond(condition) != 'date')">{{ errorMessage(condition, name) }}</span>
+            <span v-else-if="cond(condition) == 'date'
+            && !$parent.$v.form[name].required
+            && !$parent.$v.form[name].checked
+            && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
+
+            <span v-else-if="cond(condition) == 'accepted'
+            && !$parent.$v.form[name].$model
+            && $parent.$v.form[name].$anyDirty" class="error-text">{{ errorMessage(condition, name) }}</span>
+
+            <span v-else-if="!$parent.$v[`form`][name][cond(condition)]
+            && anyDirty
+            && cond(condition) != 'same'
+            && cond(condition) != 'date'">{{ errorMessage(condition, name) }}</span>
         </div>
     </div>
   </div>
@@ -37,6 +49,7 @@ export default {
     },
     data() {
         return {
+            isDirty: false
         }
     },
     methods: {
@@ -44,6 +57,7 @@ export default {
             // laravel keyword to vuelidate
             let validationVal;
             let cond = condition.split('.')[0];
+            let capName = name.replace('_', ' ');
 
             if (cond == 'max') {
                 validationVal = this.$parent.$v.form[name].$params[`${cond}Length`].max;
@@ -59,7 +73,7 @@ export default {
             }
 
             return this.lang.get(`validation.${condition}`)
-            .replace(':attribute', name)
+            .replace(':attribute', name.replace('_', ' '))
             .replace(':value', validationVal)
             .replace(':max', validationVal)
             .replace(':min', validationVal)
@@ -70,7 +84,7 @@ export default {
         }
     },
     computed: {
-        ...getters
+        ...getters,
         // register() {
         //     console.log(this.$props);
         //     return {
@@ -86,6 +100,16 @@ export default {
         //         gender: this.gender
         //     }
         // }
+        anyDirty() {
+            let anyDirty = this.$parent.$v[`form`][this.name].$anyDirty;
+            if(this.name == 'plain_description' && anyDirty && !this.isDirty) {
+                this.isDirty = true // set to dirty on load
+                anyDirty = false
+            }
+            return anyDirty;
+        }
+    },
+    watch: {
     }
 }
 </script>

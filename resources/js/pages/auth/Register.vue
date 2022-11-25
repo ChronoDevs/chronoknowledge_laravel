@@ -142,8 +142,7 @@
               <error-input :name="'termsAndPrivacy'" :validations="['accepted']"></error-input>
             </div>
         </div>
-        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" :disabled="
-        $v.form.$anyError || !$v.form.$anyDirty || isInvalid" class="text-white">
+        <ui-button @click.prevent="submit" :type="'create'" :size="'full'" :withLoading="loading" :disabled="anyError" class="text-white">
           <span class="font-bold">{{ lang.get('words.Continue') }}</span>
         </ui-button>
       </div>
@@ -216,10 +215,10 @@ export default {
         minLength: minLength(4), maxLength: maxLength(20)
       },
       birth_date: {
-        required,
-        isDate: function(birth_date) {
-          return moment(birth_date).isValid()
-        }
+        required
+        // isDate: function(birth_date) {
+        //   return moment(birth_date).isValid()
+        // }
       },
       gender: {
         required
@@ -267,8 +266,11 @@ export default {
     },
     isInvalid: function() {
       return _.values(this.form).some((v) => {
-        return v === '' || v === false
+        return v === '' || v === false || this.form.password != this.form.password_confirmation
       });
+    },
+    anyError: function() {
+      return this.$v.form.$anyError || !this.$v.form.$anyDirty || this.isInvalid
     }
   },
   methods: {

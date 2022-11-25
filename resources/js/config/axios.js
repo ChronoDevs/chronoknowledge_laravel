@@ -9,9 +9,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json'
-  config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('module.jwt')
+  config.headers['Authorization'] = 'Bearer ' + (localStorage.getItem('chronoknowledge.jwt') ? JSON.parse(localStorage.getItem('chronoknowledge.jwt')) : '')
 
-  mutations.setLoading(true)
+  // mutations.setLoading(true)
   return config
 })
 
