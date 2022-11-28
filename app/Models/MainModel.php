@@ -32,4 +32,6 @@ class MainModel extends Model
     const UPDATED_AT = 'updated_at';
 
     const STATUS_DELETED = null;
+
+    const PAGINATE_COUNT = 10;
 }

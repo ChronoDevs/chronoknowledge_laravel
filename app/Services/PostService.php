@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\TagRepositoryInterface;
 use App\Interfaces\PostTagRepositoryInterface;
@@ -17,10 +18,12 @@ class PostService
      */
     public function __construct(
         PostRepositoryInterface $repository,
+        UserRepositoryInterface $userRepository,
         TagRepositoryInterface $tagRepository,
         PostTagRepositoryInterface $postTagRepository
     ) {
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
         $this->tagRepository = $tagRepository;
         $this->postTagRepository = $postTagRepository;
     }
@@ -47,7 +50,25 @@ class PostService
             'post_display_type' => request()->get('post_display_type')
         ];
 
-        $rtn = $this->repository->acquireAllByDisplayTypeAndCategory($data);
+        $expiry = 604800; // 1 week
+        // $rtn = \Cache::remember('posts', $expiry, function () use ($data) {
+
+            if (!empty(request()->get('favorites'))) {
+                $favorites = auth()->guard('api')->user()->favorites()->whereNull('deleted_at')->get();
+                $postIds = [];
+
+                foreach ($favorites as $favorite) {
+                    array_push($postIds, $favorite->post_id);
+                }
+
+                $posts = $this->repository->acquireByUserFavoritePosts($postIds);
+            } else {
+                $posts = $this->repository->acquireAllByDisplayTypeAndCategory($data);
+            }
+
+            return $posts;
+        // });
+
         return $rtn;
     }
 
