@@ -68,6 +68,33 @@ class UserEloquentRepository extends MainEloquentRepository implements UserRepos
     }
 
     /**
+     * acquire a list of records by user favorites
+     * call NTC (No Try Catch) method
+     *
+     * @param int $id
+     * @param Bool $returnCollection - either return by BuildQuery or Collection
+     * @return BuildQuery|Collection
+     */
+    public function acquireAllByUserFavorites(int $id, bool $returnCollection = true)
+    {
+        if ($returnCollection) {
+            $rtn = $this->arrayToCollection([]);
+        } else {
+            $rtn = $this->Model::query();
+        }
+
+        try {
+            $rtn = new $this->Model;
+            $user = $this->acquire($id);
+            $fav()->guard('api')->user()->favorites;
+        } catch (\Exception $e) {
+            Log::error('Exception: ' . $e->getMessage());
+        }
+
+        return $rtn;
+    }
+
+    /**
      * add a User record
      *
      * @param Array $attributes

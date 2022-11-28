@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Post;
 
 class PostFavorite extends MainModel
 {
@@ -51,6 +52,16 @@ class PostFavorite extends MainModel
     /*======================================================================
      * RELATIONSHIPS
      *======================================================================*/
+
+     /**
+     * This method return mulitple favorites relation to user.
+     *
+     * @return collection
+     */
+    public function posts()
+    {
+        return $this->belongsTo(Post::class);
+    }
     /*======================================================================
      * SCOPES
      *======================================================================*/

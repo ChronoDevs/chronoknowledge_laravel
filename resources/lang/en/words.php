@@ -7,6 +7,7 @@ return [
     'Address' => 'Address',
     'AboutHeader1' => 'is a community of all talented and passionate engineers from the Philippines and Japan',
     'AboutHeader2' => "We're a place where engineers share, stay up-to-date and grow their careers.",
+    'About' => 'About',
     // B
     'Birthdate' => 'Birthdate',
     'BackToLogin' => 'Back to login.',
@@ -23,6 +24,7 @@ return [
     'CreateAnAccount' => 'Create an account.',
     'CreatePost' => 'Create Post',
     'Confirm' => 'Confirm',
+    'CodeOfConduct' => 'Code of Conduct',
     // D
     'DateOfBirth' => 'Date of Birth',
     'Dashboard' => 'Dashboard',
@@ -35,11 +37,14 @@ return [
     'Female' => 'Female',
     'FirstName' => 'First Name',
     'Favorites' => 'Favorites',
+    'FAQs' => 'FAQs',
     // G
     'Gender' => 'Gender',
     'GetItOn' => 'Get it on',
+    'Guides' => 'Guides',
     // H
     'HaveAccount' => 'Already have an Account?',
+    'Home' => 'Home',
     // I
 
     // K
@@ -51,6 +56,8 @@ return [
     'LastName' => 'Last Name',
     'Latest' => 'Latest',
     'LandingPage' => 'Landing Page',
+    'Logout' => 'Logout',
+    'Listing' => 'Listing',
 
     // M
     'Male' => 'Male',
@@ -69,6 +76,7 @@ return [
     'PasswordConfirmation' => 'Password Confirmation',
     'PopularTags' => 'Popular Tags',
     'PlainDescription' => 'Plain Description',
+    'PrivacyPolicy' => 'Privacy Policy',
     'SelectACategory' => 'Select a category',
     // Q
 
@@ -91,6 +99,8 @@ return [
     'TermsAndPrivacy' => 'By signing up, I have read and agree to the Terms and Privacy Policy of Chronosteps Community.',
     'Title' => 'Title',
     'Tags' => 'Tags',
+    'Team' => 'Team',
+    'TermsOfUse' => 'Terms of Use',
     // U
     'Username' => 'Username',
     // V
