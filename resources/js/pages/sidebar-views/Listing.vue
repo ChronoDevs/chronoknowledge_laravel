@@ -1,5 +1,5 @@
 <template>
-  <div class="favorite">
+  <div class="listing">
     <div class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6 relative"
         >
       <div
@@ -78,9 +78,9 @@ import { required, minLength, maxLength, sameAs, email, helpers } from 'vuelidat
 export default {
     data() {
         return {
+            posts: null,
+            lazyLoadData: null,
             posts: [],
-            lazyLoadData: [],
-            isLazyLoaded: false,
             isLoadingPost: false,
             page: 1,
         };
@@ -112,7 +112,7 @@ export default {
           this.page++;
         }
 
-        let url = `api/posts?page=${this.page}&favorites=true`
+        let url = `api/posts?page=${this.page}`
         this.$http.get(url)
         .then( (response) => {
             if (_.has(response, "data.exception")) {
@@ -144,8 +144,7 @@ export default {
     getNextPost() {
 
       setTimeout(() => {
-        let tabscontent = $(".favorite div.tab-pane");
-        console.log(tabscontent);
+        let tabscontent = $(".listing div.tab-pane");
         tabscontent.scroll(() => {
             let bottomOfWindow = tabscontent.scrollTop() + window.innerHeight  > tabscontent.prop('scrollHeight');
             if (bottomOfWindow && !this.isLoadingPost) {
@@ -281,7 +280,7 @@ export default {
 <style scoped lang="scss">
 @import "../../../sass/imports";
 
-.favorite {
+.listing {
   margin-top: $base-comp-gap-y;
   margin-right: $base-comp-gap-x;
 }

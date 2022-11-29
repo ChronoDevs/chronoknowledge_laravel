@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Carbon\Carbon;
+use App\Helpers\Globals;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use App\Interfaces\PostRepositoryInterface;
@@ -88,6 +89,21 @@ class PostEloquentRepository extends MainEloquentRepository implements PostRepos
             }
 
             $rtn = $rtn->with(['user', 'category', 'tags', 'likes', 'favorites'])->paginate(10);
+        }
+
+        return $rtn;
+    }
+
+    public function acquireByUserFavoritePosts($ids)
+    {
+        $rtn = $this->arrayToCollection([]);
+
+        $implodedIds = implode(',', array_values($ids));
+        if (!empty($this->Model)) {
+            $rtn = $this->Model::whereIn('id', $ids)
+                ->orderByRaw(\DB::raw("FIELD(id, $implodedIds)"))
+                ->with(['user', 'category', 'tags', 'likes', 'favorites'])
+                ->paginate(Globals::mTag()::PAGINATE_COUNT);
         }
 
         return $rtn;

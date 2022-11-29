@@ -42,5 +42,5 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
     Route::put('favorites', 'PostFavoriteController@update');
     Route::delete('favorites', 'PostFavoriteController@destroy');
 
-    Route::post('comments', 'PostCommentController@store');;
+    Route::post('comments', 'PostCommentController@store');
 });
