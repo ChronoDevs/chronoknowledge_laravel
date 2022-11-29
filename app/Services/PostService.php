@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\TagRepositoryInterface;
 use App\Interfaces\PostTagRepositoryInterface;
@@ -17,10 +18,12 @@ class PostService
      */
     public function __construct(
         PostRepositoryInterface $repository,
+        UserRepositoryInterface $userRepository,
         TagRepositoryInterface $tagRepository,
         PostTagRepositoryInterface $postTagRepository
     ) {
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
         $this->tagRepository = $tagRepository;
         $this->postTagRepository = $postTagRepository;
     }
@@ -49,7 +52,21 @@ class PostService
 
         $expiry = 604800; // 1 week
         $rtn = \Cache::remember('posts', $expiry, function () use ($data) {
-            return $this->repository->acquireAllByDisplayTypeAndCategory($data);
+
+            if (!empty(request()->get('favorites'))) {
+                $favorites = auth()->guard('api')->user()->favorites()->whereNull('deleted_at')->get();
+                $postIds = [];
+
+                foreach ($favorites as $favorite) {
+                    array_push($postIds, $favorite->post_id);
+                }
+
+                $posts = $this->repository->acquireByUserFavoritePosts($postIds);
+            } else {
+                $posts = $this->repository->acquireAllByDisplayTypeAndCategory($data);
+            }
+
+            return $posts;
         });
 
         return $rtn;
@@ -90,10 +107,7 @@ class PostService
                     'tag_id' => $tag->id
                 ];
             }
-
-            $this->postTagRepository->addBulk($postTagData);
-
-            \Cache::pull('posts');
+           $this->postTagRepository->addBulk($postTagData);
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();
