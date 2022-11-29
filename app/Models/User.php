@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Models\PostFavorite;
 use App\Models\Post;
 
 class User extends Authenticatable
@@ -64,5 +65,15 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * This method return mulitple favorites relation to user.
+     *
+     * @return collection
+     */
+    public function favorites()
+    {
+        return $this->hasMany(PostFavorite::class);
     }
 }

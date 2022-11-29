@@ -108,6 +108,10 @@ class PostService
                 ];
             }
            $this->postTagRepository->addBulk($postTagData);
+
+            \Cache::pull('tagsByPopularity');
+            \Cache::pull('tags');
+            \Cache::pull('posts');
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();

@@ -30,14 +30,24 @@ class TagService
      */
     public function all()
     {
+        $rtn = [];
+
         $expiry = 604800; // 1 week
-        $rtn = \Cache::remember('tags', $expiry, function () {
 
-            $count = Globals::mTag()::POPULARITY_MAX_COUNT;
-            $postTags = $this->postTagRepository->acquireByPopularity($count)->toArray();
+        if (!empty(request()->get('acquireByPopularity'))) {
+            $rtn = \Cache::remember('tagsByPopularity', $expiry, function () {
+                $count = Globals::mTag()::POPULARITY_MAX_COUNT;
 
-            return $this->repository->acquireAllWithSort($postTags);
-        });
+                $postTags = $this->postTagRepository->acquireByPopularity($count)->toArray();
+                $tags = $this->repository->acquireAllWithSort($postTags);
+                return $tags;
+            });
+        } else {
+            $rtn = \Cache::remember('tags', $expiry, function () {
+                $tags = $this->repository->acquireAll();
+                return $tags;
+            });
+        }
 
         return $rtn;
     }

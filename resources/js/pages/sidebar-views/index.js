@@ -1,5 +1,5 @@
 import Home from '../../pages/sidebar-views/Home.vue'
-import Listings from '../../pages/sidebar-views/Listings.vue'
+import Listing from '../../pages/sidebar-views/Listing.vue'
 import Favorites from '../../pages/sidebar-views/Favorites.vue'
 import Team from '../../pages/sidebar-views/Team.vue'
 import FAQs from '../../pages/sidebar-views/FAQs.vue'
@@ -13,52 +13,62 @@ const sidebarRoutes = [
   {
     path: '/',
     component: Home,
-    name: 'home'
+    name: 'home',
+    icon: 'fa fa-home'
   },
   {
-    path: 'listings',
-    component: Listings,
-    name: 'listings'
+    path: 'listing',
+    component: Listing,
+    name: 'listing',
+    icon: 'fa-solid fa-list'
   },
   {
     path: 'favorites',
     component: Favorites,
-    name: 'favorites'
+    name: 'favorites',
+    icon: 'fa-solid fa-star'
   },
   {
     path: 'team',
     component: Team,
-    name: 'team'
+    name: 'team',
+    icon: 'fa-solid fa-people-group'
   },
   {
     path: 'faqs',
     component: FAQs,
-    name: 'faqs'
+    name: 'FAQs',
+    icon: 'fa-solid fa-circle-question'
   },
   {
     path: 'about',
     component: About,
-    name: 'about'
+    name: 'about',
+    icon: 'fa-solid fa-circle-info'
   },
   {
     path: 'guides',
     component: Guides,
-    name: 'guides'
+    name: 'guides',
+    icon: 'fa-regular fa-note-sticky'
   },
   {
     path: 'code-of-conduct',
     component: CodeOfConduct,
-    name: 'code-of-conduct'
+    name: 'CodeOfConduct',
+    icon: 'fa-solid fa-thumbs-up'
   },
   {
     path: 'privacy-policy',
     component: PrivacyPolicy,
-    name: 'privacy-policy'
+    name: 'PrivacyPolicy',
+    icon: 'fa-solid fa-shield-halved'
   },
   {
     path: 'terms-of-use',
     component: TermsOfUse,
-    name: 'terms'
+    name: 'TermsOfUse',
+    icon: 'fa-solid fa-handshake-simple'
   }
 ];
 export default sidebarRoutes

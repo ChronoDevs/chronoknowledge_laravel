@@ -4,4 +4,12 @@
 ./binlog.000004
 ./binlog.000005
 ./binlog.000006
+<<<<<<< HEAD
 ./binlog.000007
+=======
+<<<<<<< Updated upstream
+=======
+./binlog.000007
+./binlog.000008
+>>>>>>> Stashed changes
+>>>>>>> b03dd7aa6b66cba5db5cd3c089560c588bc53d88
