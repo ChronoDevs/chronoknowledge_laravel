@@ -95,7 +95,6 @@
         <PostForm
           v-show="showPostCreate"
           :categories="categories"
-          :tags="tags"
           @getPosts="getPosts()"
           @hidePostCreate="showPostCreate = !showPostCreate"
         ></PostForm>
@@ -470,7 +469,7 @@ export default {
 
       if (this._.isEmpty(this.tags))
         this.$http
-          .get("api/tags")
+          .get("api/tags?acquireByPopularity=true")
           .then((response) => {
             if (_.has(response, "data.exception")) {
               let alertData = {

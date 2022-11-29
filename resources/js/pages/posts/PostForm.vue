@@ -55,7 +55,7 @@
           deselectLabel="Remove"
           openDirection=""
           :preselectFirst="true"
-          :loading="_.isEmpty(tags)"
+          :loading="isLoadingTags"
           @tag="addTag">
             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ form.tags.length }} options selected</span></template>
             <template slot="option" slot-scope="props">{{ props.option.title }}</template>
@@ -90,10 +90,6 @@ export default {
     categories: {
       type: Array,
       default: []
-    },
-    tags: {
-      type: Array,
-      default: []
     }
   },
   data() {
@@ -104,10 +100,12 @@ export default {
         category_id: null,
         tags: []
       },
+      tags: [],
       tag_opt: [],
       errors: {},
       isDirty: false,
-      isLoadingCreatePost: false
+      isLoadingCreatePost: false,
+      isLoadingTags: false
     };
   },
   validations: {
@@ -124,6 +122,9 @@ export default {
       tags: {
       }
     }
+  },
+  created() {
+    this.initData()
   },
   computed: {
     ...getters,
@@ -148,6 +149,36 @@ export default {
   },
   methods: {
     ...mutations, ...actions,
+    initData() {
+      this.getTags()
+    },
+    getTags() {
+      this.isLoadingTags = true;
+
+      if (this._.isEmpty(this.tags))
+        this.$http
+          .get("api/tags")
+          .then((response) => {
+            if (_.has(response, "data.exception")) {
+              let alertData = {
+                showAlert: true,
+                type: "error",
+                message:
+                  "Sorry our server has problem at the moment. Please come back later. Thank you.",
+              };
+              mutations.setAlert(alertData);
+            } else {
+              // SUCCESS
+              this.tags = response.data;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .finally(() => {
+            this.isLoadingTags = false;
+          });
+    },
     submit() {
       this.isLoadingCreatePost = true;
       this.errors = null;
