@@ -95,7 +95,7 @@
         <PostForm
           v-show="showPostCreate"
           :categories="categories"
-          @getPosts="getPosts()"
+          @initData="initData()"
           @hidePostCreate="showPostCreate = !showPostCreate"
         ></PostForm>
       </div>
@@ -413,6 +413,7 @@ export default {
     ...mutations,
     ...actions,
     initData() {
+      console.log('initData');  
       this.getCategories();
       this.getTags();
       this.getPosts();
@@ -467,29 +468,28 @@ export default {
     getTags() {
       this.isLoadingTags = true;
 
-      if (this._.isEmpty(this.tags))
-        this.$http
-          .get("api/tags?acquireByPopularity=true")
-          .then((response) => {
-            if (_.has(response, "data.exception")) {
-              let alertData = {
-                showAlert: true,
-                type: "error",
-                message:
-                  "Sorry our server has problem at the moment. Please come back later. Thank you.",
-              };
-              mutations.setAlert(alertData);
-            } else {
-              // SUCCESS
-              this.tags = response.data;
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-          .finally(() => {
-            this.isLoadingTags = false;
-          });
+      this.$http
+        .get("api/tags?acquireByPopularity=true")
+        .then((response) => {
+          if (_.has(response, "data.exception")) {
+            let alertData = {
+              showAlert: true,
+              type: "error",
+              message:
+                "Sorry our server has problem at the moment. Please come back later. Thank you.",
+            };
+            mutations.setAlert(alertData);
+          } else {
+            // SUCCESS
+            this.tags = response.data;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoadingTags = false;
+        });
     },
     getPosts() {
       this.isLoadingPost = true
@@ -653,7 +653,6 @@ export default {
         // format number and add suffix
         return scaled.toFixed(1) + suffix;
     }
-
   },
   computed: {
     ...getters,

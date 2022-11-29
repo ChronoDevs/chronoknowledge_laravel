@@ -203,7 +203,7 @@ export default {
                 "Your post has been created.",
             };
             mutations.setAlert(alertData);
-            this.$emit('getPosts')
+            this.$emit('initData')
             this.$emit('hidePostCreate')
           }
        })
