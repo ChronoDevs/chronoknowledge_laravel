@@ -74,22 +74,6 @@ services:
     working_dir: /var/www/html
     entrypoint: ['npm']
 
-  #setup artisan with php
-  artisan:
-    build:
-      context: .
-      dockerfile: ./docker/php/php.dockerfile
-    container_name: module_artisan
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - mysql
-    working_dir: /var/www/html
-    entrypoint: ['php','/var/www/html/artisan']
-    networks:
-      - module
-
-   #setup artisan with php
   redis:
     image: redis:5.0.5
     ports:
