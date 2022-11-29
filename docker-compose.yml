@@ -33,8 +33,8 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes: 
-      - ./docker/mysql/data:/var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/mysql-custom.cnf
+      - mysql_master:/var/lib/mysql
+      - mysql_master:/etc/mysql/conf.d/mysql-custom.cnf
     networks:
       - module
 
@@ -90,16 +90,19 @@ services:
       - module
 
    #setup artisan with php
-  # redis:
-  #   image: redis:5.0.5
-  #   ports:
-  #     - "6379:6379"
-  #   container_name: module_redis
-  #   volumes:
-  #     - .docker/redis:/var/www/html
-  #   working_dir: /var/www/html
-  #   networks:
-  #     - module
+  redis:
+    image: redis:5.0.5
+    ports:
+      - "6379:6379"
+    container_name: module_redis
+    volumes:
+      - ./docker/redis:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - module
 
 networks:
   module:
+
+volumes:
+  mysql_master:
