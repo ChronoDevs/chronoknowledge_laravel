@@ -30,9 +30,15 @@ class TagService
      */
     public function all()
     {
+        $tags = [];
+
         $count = Globals::mTag()::POPULARITY_MAX_COUNT;
-        $postTags = $this->postTagRepository->acquireByPopularity($count)->toArray();
-        $tags = $this->repository->acquireAllWithSort($postTags);
+        if (!empty(request()->get('acquireByPopularity'))) {
+            $postTags = $this->postTagRepository->acquireByPopularity($count)->toArray();
+            $tags = $this->repository->acquireAllWithSort($postTags);
+        } else {
+            $tags = $this->repository->acquireAll();
+        }
         return $tags;
     }
 
