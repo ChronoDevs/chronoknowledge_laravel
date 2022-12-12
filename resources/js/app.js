@@ -33,8 +33,9 @@ const app = new Vue({
 
         this.$http.get('api/language')
         .then( response => {
+            console.log(response.data);
             let source = {
-                'en.words': response.data.words,
+                'en.words': response.data.messages,
                 'en.auth': response.data.auth,
                 'en.validation': response.data.validation
             }

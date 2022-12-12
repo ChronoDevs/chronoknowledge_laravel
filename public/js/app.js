@@ -3253,10 +3253,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     categories: {
       type: Array,
       "default": []
-    },
-    tags: {
-      type: Array,
-      "default": []
     }
   },
   data: function data() {
@@ -3267,10 +3263,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         category_id: null,
         tags: []
       },
+      tags: [],
       tag_opt: [],
       errors: {},
       isDirty: false,
-      isLoadingCreatePost: false
+      isLoadingCreatePost: false,
+      isLoadingTags: false
     };
   },
   validations: {
@@ -3288,6 +3286,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       tags: {}
     }
+  },
+  created: function created() {
+    this.initData();
   },
   computed: _objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.getters), {}, {
     inputTitle: function inputTitle() {
@@ -3320,14 +3321,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
-    submit: function submit() {
+    initData: function initData() {
+      this.getTags();
+    },
+    getTags: function getTags() {
       var _this = this;
+
+      this.isLoadingTags = true;
+      if (this._.isEmpty(this.tags)) this.$http.get("api/tags").then(function (response) {
+        if (_.has(response, "data.exception")) {
+          var alertData = {
+            showAlert: true,
+            type: "error",
+            message: "Sorry our server has problem at the moment. Please come back later. Thank you."
+          };
+          _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setAlert(alertData);
+        } else {
+          // SUCCESS
+          _this.tags = response.data;
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        _this.isLoadingTags = false;
+      });
+    },
+    submit: function submit() {
+      var _this2 = this;
 
       this.isLoadingCreatePost = true;
       this.errors = null;
       this.$http.post('api/posts', this.formData).then(function (response) {
         if (_.has(response, "data.errors")) {
-          _this.errors = response.data.errors;
+          _this2.errors = response.data.errors;
         } else if (_.has(response, "data.exception")) {
           var alertData = {
             showAlert: true,
@@ -3343,12 +3369,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           };
           _store__WEBPACK_IMPORTED_MODULE_0__.mutations.setAlert(_alertData);
 
-          _this.$emit('getPosts');
+          _this2.$emit('initData');
 
-          _this.$emit('hidePostCreate');
+          _this2.$emit('hidePostCreate');
         }
       })["finally"](function () {
-        _this.isLoadingCreatePost = false; //
+        _this2.isLoadingCreatePost = false; //
       });
     },
     categoryOption: function categoryOption(_ref2) {
@@ -3805,6 +3831,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread(_objectSpread({}, _store__WEBPACK_IMPORTED_MODULE_0__.mutations), _store__WEBPACK_IMPORTED_MODULE_0__.actions), {}, {
     initData: function initData() {
+      console.log('initData');
       this.getCategories();
       this.getTags();
       this.getPosts();
@@ -3850,7 +3877,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.isLoadingTags = true;
-      if (this._.isEmpty(this.tags)) this.$http.get("api/tags").then(function (response) {
+      this.$http.get("api/tags?acquireByPopularity=true").then(function (response) {
         if (_.has(response, "data.exception")) {
           var alertData = {
             showAlert: true,
@@ -6850,7 +6877,7 @@ var render = function render() {
       deselectLabel: "Remove",
       openDirection: "",
       preselectFirst: true,
-      loading: _vm._.isEmpty(_vm.tags)
+      loading: _vm.isLoadingTags
     },
     on: {
       tag: _vm.addTag
@@ -7318,12 +7345,11 @@ var render = function render() {
       expression: "showPostCreate"
     }],
     attrs: {
-      categories: _vm.categories,
-      tags: _vm.tags
+      categories: _vm.categories
     },
     on: {
-      getPosts: function getPosts($event) {
-        return _vm.getPosts();
+      initData: function initData($event) {
+        return _vm.initData();
       },
       hidePostCreate: function hidePostCreate($event) {
         _vm.showPostCreate = !_vm.showPostCreate;
@@ -7922,8 +7948,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_7__["default"]({
     }
 
     this.$http.get('api/language').then(function (response) {
+      console.log(response.data);
       var source = {
-        'en.words': response.data.words,
+        'en.words': response.data.messages,
         'en.auth': response.data.auth,
         'en.validation': response.data.validation
       };

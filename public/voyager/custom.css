@@ -1,0 +1,5 @@
+#voyager-loader img {
+  width: auto;
+  height: 100px;
+  animation: 1s linear infinite
+}

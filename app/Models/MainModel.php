@@ -34,4 +34,7 @@ class MainModel extends Model
     const STATUS_DELETED = null;
 
     const PAGINATE_COUNT = 10;
+
+    const ADMIN_USER = 1;
+    const NORMAL_USER = 2;
 }

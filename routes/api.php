@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Api' ], function () {
     Route::get('language', function () {
         return response()->json([
             'auth' => \Lang::get('auth'),
-            'words' => \Lang::get('words'),
+            'messages' => \Lang::get('messages'),
             'validation' => \Lang::get('validation')
         ], 200);
     });

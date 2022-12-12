@@ -17,6 +17,7 @@ return [
     'Continue' => 'Continue',
     'Chronostep' => 'Chronostep',
     'Community' => 'Community',
+    'ChronostepCommunity' => 'Chronostep Community',
     'ContinueWithEmail' => 'Have a password? Continue with your email address',
     'CreateAccount' => 'Create Account',
     'Comments' => 'Comments',
