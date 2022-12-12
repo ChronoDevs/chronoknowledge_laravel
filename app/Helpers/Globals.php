@@ -58,8 +58,8 @@ class Globals
     }
 
     /**
-     * Globals::mContentPlan()
-     * return a model class (ContentPlan)
+     * Globals::mTag()
+     * return a model class (Tag)
      *
      * @return Tag
      */

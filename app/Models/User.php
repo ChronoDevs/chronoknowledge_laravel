@@ -9,7 +9,7 @@ use Laravel\Passport\HasApiTokens;
 use App\Models\PostFavorite;
 use App\Models\Post;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use Notifiable, HasApiTokens;
 
@@ -21,6 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'role_id',
         'email',
         'username',
         'password',
@@ -37,6 +38,13 @@ class User extends Authenticatable
         'updated_at',
         'deleted_at'
     ];
+
+    /*======================================================================
+     * CONSTANTS
+     *======================================================================*/
+
+    const ADMIN_USER = 1;
+    const NORMAL_USER = 2;
 
     /**
      * The attributes that should be hidden for arrays.

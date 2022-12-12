@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('module');
 });
+
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Voyager::routes();
+    // Route::get('/categories','CategoryController@category');
+    // Route::get('/tags','TagController@tag');
+});
