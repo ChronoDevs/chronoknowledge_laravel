@@ -30,6 +30,8 @@ class PostFavoriteService
         ];
 
         $favorite = $this->repository->add($data);
+        \Cache::pull('posts');
+
         return $favorite;
     }
 
@@ -45,6 +47,8 @@ class PostFavoriteService
         ];
 
         $favorite = $this->repository->adjust($id, $data);
+        \Cache::pull('posts');
+
         return $favorite;
     }
 
@@ -57,6 +61,8 @@ class PostFavoriteService
         $id = request()->get('id');
 
         $favorite = $this->repository->annul($id);
+        \Cache::pull('posts');
+
         return $favorite;
     }
 }
