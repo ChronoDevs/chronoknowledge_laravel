@@ -30,6 +30,8 @@ class PostLikeService
         ];
 
         $like = $this->repository->add($data);
+        \Cache::pull('posts');
+
         return $like;
     }
 
@@ -45,6 +47,8 @@ class PostLikeService
         ];
 
         $like = $this->repository->adjust($id, $data);
+        \Cache::pull('posts');
+
         return $like;
     }
 
@@ -57,6 +61,7 @@ class PostLikeService
         $id = request()->get('id');
 
         $like = $this->repository->annul($id);
+        \Cache::pull('posts');
         return $like;
     }
 }
