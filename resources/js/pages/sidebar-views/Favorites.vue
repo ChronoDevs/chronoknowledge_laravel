@@ -108,7 +108,7 @@ export default {
         this.isLoadingPost = true;
         this.params = this.$route.params;
 
-        if (this.lazyLoadData != []) {
+        if (!this._.isEmpty(this.lazyLoadData)){
           this.page++;
         }
 
