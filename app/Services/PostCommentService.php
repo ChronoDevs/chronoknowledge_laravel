@@ -31,6 +31,7 @@ class PostCommentService
         ];
 
         $comment = $this->repository->add($data);
+        \Cache::pull('posts');
         return $comment;
     }
 
